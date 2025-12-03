@@ -1,0 +1,122 @@
+# Implementation Plan
+
+- [x] 1. Refactor GhostCursor component with new implementation
+  - Replace the existing GhostCursor.tsx file with the new implementation
+  - Include the SpookyGhostIcon SVG component with all paths (body, eyes, mouth, hand, tail)
+  - Add the cn utility function for className merging
+  - Implement global style injection for cursor hiding
+  - Set up motion values (cursorX, cursorY) and spring physics (damping: 25, stiffness: 300, mass: 0.5)
+  - Add state management for isHovering, isClicking, effects array, and effectIdRef
+  - Implement mousemove handler with hover detection for buttons, links, and pointer-cursor elements
+  - Implement mousedown handler with click effect spawning
+  - Add useEffect for event listener registration and cleanup
+  - Configure cursor container with motion.div using spring values and -20% transform offset
+  - Add ghost animation states (scale and rotate based on isHovering and isClicking)
+  - Implement glow aura effect with purple color, blur, and pulse animation
+  - Add CSS keyframes for eye blinking animation (4s infinite, scaleY transformation)
+  - Implement AnimatePresence for click effects with opacity, scale, and y-offset animations
+  - Add random rotation to click effects between -15 and 15 degrees
+  - Set click effect timeout to 1000ms for cleanup
+  - Set clicking state reset timeout to 150ms
+  - _Requirements: 1.1, 1.2, 2.1, 2.2, 2.3, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 4.1, 4.2, 4.3, 4.4, 4.5, 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 5.7, 5.8, 6.1, 6.2, 7.1, 7.2, 7.3, 7.4, 7.5, 7.6, 8.1, 8.2, 8.3, 9.1, 9.2, 9.3, 9.4, 9.5_
+
+- [ ]* 1.1 Write unit tests for GhostCursor component
+  - Test component mounting adds ghost-cursor-active class to body
+  - Test component unmounting removes ghost-cursor-active class from body
+  - Test event listeners are registered on mount (mousemove and mousedown)
+  - Test event listeners are removed on unmount
+  - Test hover state detection for button elements
+  - Test hover state detection for anchor elements
+  - Test hover state detection for elements with pointer cursor style
+  - Test hover state sets scale to 1.2 and rotation to 10
+  - Test non-hover state sets scale to 1 and rotation to 0
+  - Test click state sets scale to 0.8 and rotation to -15
+  - Test clicking state resets to false after 150ms
+  - Test click effects are created with correct structure (id, x, y, text)
+  - Test click effects are removed after 1000ms
+  - Test spring configuration values (damping: 25, stiffness: 300, mass: 0.5)
+  - Test animation transition configuration (stiffness: 400, damping: 20)
+  - Test ghost container has -20% transform offset
+  - Test SVG viewBox is "0 0 174.57 164.28"
+  - Test SVG includes all required paths (body, eyes, mouth, hand, tail)
+  - Test glow element has correct classes (bg-purple-500/30, blur-xl, scale-150, animate-pulse)
+  - Test ghost container dimensions are w-12 h-12
+  - Test component renders without props
+  - Test nested clickable elements are detected correctly
+  - Test mouse outside viewport uses last known coordinates
+  - Test component doesn't error during unmount with pending timeouts
+  - _Requirements: 1.1, 1.2, 2.2, 2.3, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 4.1, 4.2, 4.3, 4.4, 4.5, 5.4, 5.5, 5.6, 5.7, 6.1, 7.1, 7.2, 7.3, 7.4, 7.5, 7.6, 8.1, 8.2, 8.3, 8.4, 9.1, 9.2, 9.3, 9.4, 9.5, 10.3, 12.1, 12.5_
+
+- [ ]* 1.2 Write property test for mouse movement updates
+  - **Property 1: Mouse movement updates motion values**
+  - **Validates: Requirements 2.1**
+  - Generate random mouse coordinates (clientX, clientY)
+  - Simulate mousemove events with generated coordinates
+  - Verify motion values are updated to match event coordinates
+  - Run 100+ iterations
+
+- [ ]* 1.3 Write property test for unique effect IDs
+  - **Property 2: Click effects have unique IDs**
+  - **Validates: Requirements 5.3**
+  - Generate sequences of multiple clicks (1-20 clicks)
+  - Simulate click events and collect all effect IDs
+  - Verify all IDs are unique with no duplicates
+  - Verify IDs increment sequentially
+  - Run 100+ iterations
+
+- [ ]* 1.4 Write property test for valid effect text
+  - **Property 3: Click effect text is valid**
+  - **Validates: Requirements 5.2**
+  - Generate multiple click events
+  - Collect all effect text values
+  - Verify each text is either "BOO!" or "POOF!"
+  - Verify no other text values appear
+  - Run 100+ iterations
+
+- [ ]* 1.5 Write property test for effect rotation range
+  - **Property 4: Click effect rotation is within range**
+  - **Validates: Requirements 5.8**
+  - Generate multiple click events
+  - Extract rotation values from rendered effects
+  - Verify all rotations are between -15 and 15 degrees inclusive
+  - Run 100+ iterations
+
+- [ ]* 1.6 Write property test for multiple clicks create multiple effects
+  - **Property 5: Multiple clicks create multiple effects**
+  - **Validates: Requirements 12.2**
+  - Generate rapid click sequences of varying lengths
+  - Simulate all clicks in quick succession
+  - Verify effect count matches click count
+  - Run 100+ iterations
+
+- [ ]* 1.7 Write property test for click coordinate accuracy
+  - **Property 6: All clicks spawn effects at correct coordinates**
+  - **Validates: Requirements 5.1**
+  - Generate random click coordinates
+  - Simulate click events at generated coordinates
+  - Verify each effect is positioned at exact click coordinates
+  - Run 100+ iterations
+
+- [x] 2. Update component exports
+  - Verify GhostCursor is exported from packages/ghostui/src/components/index.ts
+  - Ensure export includes the component (already exists, verify it's correct)
+  - _Requirements: 10.1, 10.2_
+
+- [x] 3. Update documentation page for GhostCursor
+  - Update page at apps/docs/app/docs/components/ghost-cursor/page.tsx to reflect new implementation
+  - Remove outdated props documentation (color, size, trailLength - component now has no props)
+  - Update interactive preview to show new ghost character with blinking eyes
+  - Update code examples to show component takes no props
+  - Add explanation of hover behavior (scale 1.2, rotate 10 degrees on clickable elements)
+  - Add explanation of click behavior (scale 0.8, rotate -15 degrees, spawn "BOO!" or "POOF!" effects)
+  - Document that component hides system cursor globally with CSS injection
+  - Add warning about using exclusively (no other cursor components simultaneously)
+  - Provide guidance on when to use (Halloween themes, gaming, playful sites)
+  - Provide guidance on when NOT to use (professional apps, mobile, accessibility-critical)
+  - Include interactive demo with buttons and links to test hover/click states
+  - Remove custom color and size variation sections (no longer applicable)
+  - Update implementation notes to reflect new architecture
+  - _Requirements: 11.1, 11.2, 11.3, 11.4, 11.5, 11.6, 11.7_
+
+- [ ] 4. Checkpoint - Ensure all tests pass
+  - Ensure all tests pass, ask the user if questions arise.

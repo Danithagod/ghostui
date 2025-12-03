@@ -29,13 +29,7 @@ module.exports = {
 
 ## 🧩 Components
 
-### Core Components
-
-- **GooeyButton**: A button with liquid hover distortion effects.
-- **MoonlightSwitch**: A toggle switch with moon phase animations.
-- **CoffinCard**: A hexagonal card container with clip-path styling.
-- **SpiritInput**: An input field with smoky underline animations.
-- **BatDivider**: A divider with drifting bat animations.
+GhostUI provides a collection of atmospheric, animated React components perfect for creating spooky, cinematic user experiences. Components include buttons, cards, inputs, loaders, modals, tooltips, cursor effects, page transitions, and more.
 
 ## 🏗️ Development
 

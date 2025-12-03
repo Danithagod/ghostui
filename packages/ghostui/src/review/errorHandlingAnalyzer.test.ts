@@ -22,16 +22,16 @@ describe('ErrorHandlingAnalyzer', () => {
     it('should identify components with numeric props lacking validation', () => {
       const components: ComponentFile[] = [
         {
-          path: path.join(__dirname, '../components/SpookyProgressBar.tsx'),
-          name: 'SpookyProgressBar',
+          path: path.join(__dirname, '../components/GooeyProgressBar.tsx'),
+          name: 'GooeyProgressBar',
           hasTest: true,
-          exports: ['SpookyProgressBar']
+          exports: ['GooeyProgressBar']
         }
       ];
 
       const issues = analyzer.checkPropValidation(components);
       
-      // SpookyProgressBar has progress prop (0-100) with validation
+      // GooeyProgressBar has progress prop (0-100) with validation
       // So it should not have issues
       expect(issues.length).toBe(0);
     });
@@ -59,10 +59,10 @@ describe('ErrorHandlingAnalyzer', () => {
     it('should identify components with complex state', () => {
       const components: ComponentFile[] = [
         {
-          path: path.join(__dirname, '../components/HauntedSidebar.tsx'),
-          name: 'HauntedSidebar',
+          path: path.join(__dirname, '../components/GooeySidebar.tsx'),
+          name: 'GooeySidebar',
           hasTest: true,
-          exports: ['HauntedSidebar']
+          exports: ['GooeySidebar']
         }
       ];
 
@@ -95,10 +95,10 @@ describe('ErrorHandlingAnalyzer', () => {
     it('should run all error handling analyses', () => {
       const components: ComponentFile[] = [
         {
-          path: path.join(__dirname, '../components/SpookyProgressBar.tsx'),
-          name: 'SpookyProgressBar',
+          path: path.join(__dirname, '../components/GooeyProgressBar.tsx'),
+          name: 'GooeyProgressBar',
           hasTest: true,
-          exports: ['SpookyProgressBar']
+          exports: ['GooeyProgressBar']
         }
       ];
 

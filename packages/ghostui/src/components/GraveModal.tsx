@@ -49,7 +49,8 @@ export const GraveModal: React.FC<GraveModalProps> = ({
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={onClose}
-                        className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+                        className="absolute inset-0 backdrop-blur-sm"
+                        style={{ backgroundColor: 'rgba(var(--ghost-accent-rgb), 0.1)', backdropFilter: 'blur(4px)' }}
                         aria-hidden="true"
                     />
 
@@ -60,36 +61,76 @@ export const GraveModal: React.FC<GraveModalProps> = ({
                         exit={{ opacity: 0, y: 100, scale: 0.95 }}
                         transition={{ type: "spring", damping: 20, stiffness: 300 }}
                         className={cn(
-                            "relative w-full max-w-lg overflow-hidden rounded-xl border-2 border-ghost-gray/30 bg-ghost-dark shadow-2xl",
+                            "relative w-full max-w-lg overflow-hidden rounded-xl border-2 shadow-2xl",
                             "before:absolute before:inset-0 before:z-0 before:bg-[url('https://www.transparenttextures.com/patterns/concrete-wall.png')] before:opacity-10 before:mix-blend-overlay",
                             className
                         )}
+                        style={{
+                            backgroundColor: 'var(--ghost-bg)',
+                            borderColor: 'var(--ghost-accent)',
+                            boxShadow: `
+                                0 0 20px rgba(var(--ghost-accent-rgb), 0.4),
+                                0 0 40px rgba(var(--ghost-accent-rgb), 0.2),
+                                0 0 60px rgba(var(--ghost-accent-rgb), 0.1),
+                                inset 0 0 30px rgba(var(--ghost-accent-rgb), 0.05)
+                            `,
+                        }}
                         role="dialog"
                         aria-modal="true"
                     >
                         {/* Header */}
-                        <div className="relative z-10 flex items-center justify-between border-b border-ghost-gray/20 px-6 py-4 bg-ghost-gray/5">
+                        <div 
+                            className="relative z-10 flex items-center justify-between px-6 py-4"
+                            style={{ 
+                                borderBottom: '1px solid var(--ghost-border)',
+                                backgroundColor: 'var(--ghost-bg-secondary)',
+                            }}
+                        >
                             {title && (
-                                <h2 className="text-xl font-display tracking-wide text-ghost-white">
+                                <h2 
+                                    className="text-xl font-display tracking-wide"
+                                    style={{ color: 'var(--ghost-text)' }}
+                                >
                                     {title}
                                 </h2>
                             )}
                             <button
                                 onClick={onClose}
-                                className="rounded-full p-1 text-ghost-white/50 transition-colors hover:bg-ghost-white/10 hover:text-ghost-white focus:outline-none focus:ring-2 focus:ring-ghost-purple/50"
+                                className="grave-modal-close rounded-full p-2 transition-all duration-200 focus:outline-none"
                                 aria-label="Close modal"
                             >
                                 <X className="h-5 w-5" />
+                                <style>{`
+                                    .grave-modal-close {
+                                        color: var(--ghost-text-secondary);
+                                        background: transparent;
+                                    }
+                                    .grave-modal-close:hover {
+                                        color: var(--ghost-accent);
+                                        background: rgba(var(--ghost-accent-rgb), 0.15);
+                                    }
+                                    .grave-modal-close:focus {
+                                        box-shadow: 0 0 0 2px rgba(var(--ghost-accent-rgb), 0.5);
+                                    }
+                                `}</style>
                             </button>
                         </div>
 
                         {/* Body */}
-                        <div className="relative z-10 p-6 text-ghost-white/80">
+                        <div 
+                            className="relative z-10 p-6"
+                            style={{ color: 'var(--ghost-text-secondary)' }}
+                        >
                             {children}
                         </div>
 
                         {/* Footer/Glow effect */}
-                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-ghost-purple/50 to-transparent opacity-50" />
+                        <div 
+                            className="absolute bottom-0 left-0 right-0 h-1 opacity-70"
+                            style={{ 
+                                background: 'linear-gradient(to right, transparent, var(--ghost-accent), transparent)',
+                            }}
+                        />
                     </motion.div>
                 </div>
             )}

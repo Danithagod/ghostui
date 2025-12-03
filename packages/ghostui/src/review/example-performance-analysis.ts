@@ -66,9 +66,8 @@ console.log('\n✅ Performance analysis complete!\n');
 console.log('\n🎯 Detailed Analysis of Specific Components:\n');
 
 const targetComponents = components.filter(c => 
-  c.name === 'SpookyProgressBar' || 
-  c.name === 'GooeyButton' ||
-  c.name === 'BatToggle'
+  c.name === 'GooeyProgressBar' || 
+  c.name === 'GooeyButton'
 );
 
 for (const component of targetComponents) {

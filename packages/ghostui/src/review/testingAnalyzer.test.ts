@@ -73,16 +73,16 @@ describe('TestingAnalyzer', () => {
     it('should detect components with existing tests', () => {
       const components: ComponentFile[] = [
         {
-          path: path.join(rootPath, 'src/components/SpookyProgressBar.tsx'),
-          name: 'SpookyProgressBar',
+          path: path.join(rootPath, 'src/components/GooeyProgressBar.tsx'),
+          name: 'GooeyProgressBar',
           hasTest: true,
-          exports: ['SpookyProgressBar']
+          exports: ['GooeyProgressBar']
         }
       ];
 
       const result = analyzer.analyzeTestCompleteness(components);
 
-      // SpookyProgressBar has a test file, so it should be analyzed
+      // GooeyProgressBar has a test file, so it should be analyzed
       expect(result.issues.length).toBeGreaterThanOrEqual(0);
     });
 
@@ -147,10 +147,10 @@ describe('TestingAnalyzer', () => {
           exports: ['ComponentA']
         },
         {
-          path: path.join(rootPath, 'src/components/SpookyProgressBar.tsx'),
-          name: 'SpookyProgressBar',
+          path: path.join(rootPath, 'src/components/GooeyProgressBar.tsx'),
+          name: 'GooeyProgressBar',
           hasTest: true,
-          exports: ['SpookyProgressBar']
+          exports: ['GooeyProgressBar']
         }
       ];
 

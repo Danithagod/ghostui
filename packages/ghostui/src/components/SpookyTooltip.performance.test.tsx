@@ -157,17 +157,17 @@ describe('SpookyTooltip - Performance and DOM Behavior', () => {
       expect(container.textContent).not.toContain('Switch tooltip');
     });
 
-    it('should not render tooltip DOM when not visible on CoffinCard', () => {
+    it('should render CoffinCard without tooltip DOM', () => {
       const { container } = render(
-        <CoffinCard tooltip="Card info">
+        <CoffinCard>
           Card Content
         </CoffinCard>
       );
 
-      // Initially, tooltip should not be in the DOM
+      // CoffinCard should not have tooltip functionality
       expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
       
-      // Verify no tooltip content is rendered beyond the card content
+      // Verify only card content is rendered
       expect(screen.getByText('Card Content')).toBeInTheDocument();
       expect(container.textContent).not.toContain('Card info');
     });
@@ -288,10 +288,10 @@ describe('SpookyTooltip - Performance and DOM Behavior', () => {
       // Blur the button
       button.blur();
 
-      // Tooltip should be removed from the DOM
+      // Tooltip should be removed from the DOM (allow time for exit animation)
       await waitFor(() => {
         expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
-      });
+      }, { timeout: 1000 });
     });
 
     it('should render tooltip DOM only when focused on MoonlightSwitch', async () => {

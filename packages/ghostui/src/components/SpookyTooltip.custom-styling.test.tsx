@@ -209,53 +209,29 @@ describe('SpookyTooltip - Custom Styling', () => {
     });
   });
 
-  describe('CoffinCard with tooltipClassName', () => {
-    it('should apply tooltipClassName to CoffinCard tooltip', async () => {
-      const user = userEvent.setup();
-      const customClass = 'coffin-custom-tooltip';
-
+  describe('CoffinCard styling', () => {
+    it('should render CoffinCard without tooltip', () => {
       render(
-        <CoffinCard
-          tooltip="Card info"
-          tooltipClassName={customClass}
-        >
+        <CoffinCard>
           Card Content
         </CoffinCard>
       );
 
-      const card = screen.getByText('Card Content').parentElement;
-      if (card) {
-        await user.hover(card);
-      }
-
-      await waitFor(() => {
-        const tooltip = screen.getByRole('tooltip');
-        expect(tooltip).toHaveClass(customClass);
-      });
+      expect(screen.getByText('Card Content')).toBeInTheDocument();
+      expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
     });
 
-    it('should apply custom padding and text size classes', async () => {
-      const user = userEvent.setup();
-      const customClass = 'px-6 py-4 text-lg';
+    it('should apply custom className to CoffinCard', () => {
+      const customClass = 'custom-coffin-card';
 
       render(
-        <CoffinCard
-          tooltip="Large tooltip"
-          tooltipClassName={customClass}
-        >
+        <CoffinCard className={customClass}>
           Card Content
         </CoffinCard>
       );
 
-      const card = screen.getByText('Card Content').parentElement;
-      if (card) {
-        await user.hover(card);
-      }
-
-      await waitFor(() => {
-        const tooltip = screen.getByRole('tooltip');
-        expect(tooltip).toHaveClass('px-6', 'py-4', 'text-lg');
-      });
+      const card = screen.getByText('Card Content').closest('.relative.group');
+      expect(card).toHaveClass(customClass);
     });
   });
 

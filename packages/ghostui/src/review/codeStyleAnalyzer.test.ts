@@ -21,18 +21,18 @@ describe('CodeStyleAnalyzer', () => {
   describe('verifyFileStructureConsistency', () => {
     it('should pass for files with correct structure order', () => {
       const mockComponent: ComponentFile = {
-        path: path.join(__dirname, '../components/BatToggle.tsx'),
-        name: 'BatToggle',
+        path: path.join(__dirname, '../components/GooeyButton.tsx'),
+        name: 'GooeyButton',
         hasTest: true,
-        exports: ['BatToggle']
+        exports: ['GooeyButton']
       };
 
       const issues = analyzer.verifyFileStructureConsistency([mockComponent]);
       
-      // BatToggle should have proper structure
+      // GooeyButton should have proper structure
       const structureIssues = issues.filter(i => i.title.includes('structure'));
       
-      // BatToggle has a valid structure: 'use client' directive, imports, interface, component
+      // GooeyButton has a valid structure: 'use client' directive, imports, interface, component
       // The analyzer should not flag this as an issue
       if (structureIssues.length > 0) {
         console.log('Structure issues found:', structureIssues.map(i => i.description));
@@ -64,10 +64,10 @@ export const TestComponent = () => {
   describe('checkNamingConventionAdherence', () => {
     it('should validate PascalCase for components', () => {
       const mockComponent: ComponentFile = {
-        path: path.join(__dirname, '../components/BatToggle.tsx'),
-        name: 'BatToggle',
+        path: path.join(__dirname, '../components/GooeyButton.tsx'),
+        name: 'GooeyButton',
         hasTest: true,
-        exports: ['BatToggle']
+        exports: ['GooeyButton']
       };
 
       const issues = analyzer.checkNamingConventionAdherence([mockComponent]);
@@ -77,17 +77,17 @@ export const TestComponent = () => {
         i.title.includes('Component') && i.title.includes('PascalCase')
       );
       
-      // BatToggle follows PascalCase, so should have no issues
+      // GooeyButton follows PascalCase, so should have no issues
       expect(componentNamingIssues.length).toBe(0);
     });
 
     it('should check multiple components', () => {
       const components: ComponentFile[] = [
         {
-          path: path.join(__dirname, '../components/BatToggle.tsx'),
-          name: 'BatToggle',
+          path: path.join(__dirname, '../components/GooeyButton.tsx'),
+          name: 'GooeyButton',
           hasTest: true,
-          exports: ['BatToggle']
+          exports: ['GooeyButton']
         },
         {
           path: path.join(__dirname, '../components/GhostCursor.tsx'),
@@ -109,17 +109,17 @@ export const TestComponent = () => {
     it('should correctly identify PascalCase', () => {
       // Test through the public API by checking actual components
       const mockComponent: ComponentFile = {
-        path: path.join(__dirname, '../components/BatToggle.tsx'),
-        name: 'BatToggle',
+        path: path.join(__dirname, '../components/GooeyButton.tsx'),
+        name: 'GooeyButton',
         hasTest: true,
-        exports: ['BatToggle']
+        exports: ['GooeyButton']
       };
 
       const issues = analyzer.checkNamingConventionAdherence([mockComponent]);
       
       // Valid PascalCase names should not generate issues
       const pascalCaseIssues = issues.filter(i => 
-        i.description.includes('BatToggle') && i.title.includes('PascalCase')
+        i.description.includes('GooeyButton') && i.title.includes('PascalCase')
       );
       expect(pascalCaseIssues.length).toBe(0);
     });

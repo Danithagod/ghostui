@@ -42,7 +42,6 @@ Checks if interactive components use `React.forwardRef` to expose DOM refs.
 - Reports components missing ref forwarding
 
 **Example issues found:**
-- `BatToggle` renders a button but doesn't use forwardRef
 - `GhostToast` has interactive elements but doesn't expose refs
 - `GraveModal` should forward refs for focus management
 

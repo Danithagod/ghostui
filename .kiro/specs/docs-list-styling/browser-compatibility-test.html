@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Styling Browser Compatibility Test</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #1a0b2e;
+            color: #e9d5ff;
+        }
+        
+        h1 {
+            color: #FF6F00;
+            border-bottom: 2px solid #FF6F00;
+            padding-bottom: 10px;
+        }
+        
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 111, 0, 0.3);
+        }
+        
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        
+        .pass {
+            background: rgba(16, 185, 129, 0.2);
+            border-left: 4px solid #10b981;
+        }
+        
+        .fail {
+            background: rgba(239, 68, 68, 0.2);
+            border-left: 4px solid #ef4444;
+        }
+        
+        .info {
+            background: rgba(168, 85, 247, 0.2);
+            border-left: 4px solid #a855f7;
+        }
+        
+        /* Import the actual list styles from globals.css */
+        ul, ol {
+            margin-bottom: 1.5rem;
+            color: rgba(233, 213, 255, 0.8);
+            font-size: 1rem;
+            line-height: 1.625;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        li {
+            margin-bottom: 0;
+            padding-left: 1.5rem;
+            position: relative;
+            margin-top: 0.75rem;
+        }
+
+        li:first-child {
+            margin-top: 0;
+        }
+
+        li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #FF6F00;
+            font-weight: bold;
+            font-size: 1.125rem;
+        }
+
+        li strong {
+            color: #FF6F00;
+            font-weight: 600;
+        }
+
+        /* Nested lists */
+        li ul {
+            margin-top: 0.75rem;
+            margin-bottom: 0;
+        }
+
+        li ul li::before {
+            content: "◦";
+            color: rgba(255, 111, 0, 0.7);
+        }
+        
+        .browser-info {
+            background: rgba(255, 111, 0, 0.1);
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            background: #FF6F00;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        
+        button:hover {
+            background: #e66300;
+        }
+        
+        .visual-test {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎃 List Styling Browser Compatibility Test</h1>
+    
+    <div class="browser-info" id="browserInfo">
+        <strong>Browser Information:</strong>
+        <div id="browserDetails"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Automated CSS Tests</h2>
+        <button onclick="runTests()">Run All Tests</button>
+        <button onclick="copyResults()">Copy Results</button>
+        <div id="testResults"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Visual Test: Basic List</h2>
+        <div class="visual-test">
+            <p>This list should have orange bullets and orange strong tags:</p>
+            <ul id="testList">
+                <li><strong>slime</strong> - Lime green with toxic glow effect</li>
+                <li><strong>blood</strong> - Deep red with crimson glow</li>
+                <li><strong>ectoplasm</strong> - Violet purple with spectral glow (default)</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Visual Test: Nested List</h2>
+        <div class="visual-test">
+            <p>Nested lists should have hollow bullets:</p>
+            <ul>
+                <li><strong>Parent Item 1</strong> - Should have solid bullet
+                    <ul>
+                        <li>Nested item 1 - Should have hollow bullet</li>
+                        <li>Nested item 2 - Should have hollow bullet</li>
+                    </ul>
+                </li>
+                <li><strong>Parent Item 2</strong> - Should have solid bullet</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Visual Test: Long Content</h2>
+        <div class="visual-test">
+            <ul>
+                <li><strong>Long text wrapping</strong> - This is a very long list item that should wrap to multiple lines. The wrapped text should align with the first line of text, not with the bullet point. This ensures proper readability and visual hierarchy.</li>
+                <li><strong>Another long item</strong> - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Display browser information
+        function displayBrowserInfo() {
+            const info = {
+                userAgent: navigator.userAgent,
+                platform: navigator.platform,
+                language: navigator.language,
+                viewport: `${window.innerWidth}x${window.innerHeight}`,
+                devicePixelRatio: window.devicePixelRatio
+            };
+            
+            document.getElementById('browserDetails').innerHTML = `
+                <div><strong>User Agent:</strong> ${info.userAgent}</div>
+                <div><strong>Platform:</strong> ${info.platform}</div>
+                <div><strong>Language:</strong> ${info.language}</div>
+                <div><strong>Viewport:</strong> ${info.viewport}</div>
+                <div><strong>Device Pixel Ratio:</strong> ${info.devicePixelRatio}</div>
+            `;
+        }
+        
+        // Test results storage
+        let testResults = [];
+        
+        function addTestResult(name, passed, expected, actual, notes = '') {
+            testResults.push({ name, passed, expected, actual, notes });
+        }
+        
+        function displayResults() {
+            const container = document.getElementById('testResults');
+            container.innerHTML = testResults.map(result => {
+                const className = result.passed ? 'pass' : 'fail';
+                const icon = result.passed ? '✅' : '❌';
+                return `
+                    <div class="test-result ${className}">
+                        ${icon} <strong>${result.name}</strong><br>
+                        Expected: ${result.expected}<br>
+                        Actual: ${result.actual}
+                        ${result.notes ? `<br>Notes: ${result.notes}` : ''}
+                    </div>
+                `;
+            }).join('');
+            
+            // Add summary
+            const passed = testResults.filter(r => r.passed).length;
+            const total = testResults.length;
+            const summary = `
+                <div class="test-result info">
+                    <strong>Summary:</strong> ${passed}/${total} tests passed (${Math.round(passed/total*100)}%)
+                </div>
+            `;
+            container.innerHTML = summary + container.innerHTML;
+        }
+        
+        function runTests() {
+            testResults = [];
+            
+            const listItem = document.querySelector('#testList li');
+            const computedStyle = window.getComputedStyle(listItem);
+            const beforeStyle = window.getComputedStyle(listItem, '::before');
+            const strongTag = document.querySelector('#testList li strong');
+            const strongStyle = window.getComputedStyle(strongTag);
+            const list = document.querySelector('#testList');
+            const listStyle = window.getComputedStyle(list);
+            
+            // Test 1: List item text color (should be ghost-white at 80% opacity)
+            const textColor = computedStyle.color;
+            const isTextColorCorrect = textColor.includes('233') || textColor.includes('e9'); // rgba(233, 213, 255, 0.8)
+            addTestResult(
+                'List Item Text Color',
+                isTextColorCorrect,
+                'rgba(233, 213, 255, 0.8) or similar',
+                textColor,
+                'Should be light purple/white at 80% opacity'
+            );
+            
+            // Test 2: Bullet point color (should be ghost-orange)
+            const bulletColor = beforeStyle.color;
+            const isBulletColorCorrect = bulletColor.includes('255, 111, 0') || bulletColor.includes('ff6f00');
+            addTestResult(
+                'Bullet Point Color',
+                isBulletColorCorrect,
+                'rgb(255, 111, 0) - ghost-orange',
+                bulletColor,
+                'Should be orange'
+            );
+            
+            // Test 3: Bullet content
+            const bulletContent = beforeStyle.content;
+            const isBulletContentCorrect = bulletContent.includes('•') || bulletContent.includes('\\2022');
+            addTestResult(
+                'Bullet Point Content',
+                isBulletContentCorrect,
+                '"•" (bullet character)',
+                bulletContent,
+                'Should be a solid bullet'
+            );
+            
+            // Test 4: Strong tag color
+            const strongColor = strongStyle.color;
+            const isStrongColorCorrect = strongColor.includes('255, 111, 0') || strongColor.includes('ff6f00');
+            addTestResult(
+                'Strong Tag Color',
+                isStrongColorCorrect,
+                'rgb(255, 111, 0) - ghost-orange',
+                strongColor,
+                'Should match bullet color'
+            );
+            
+            // Test 5: List item padding-left
+            const paddingLeft = computedStyle.paddingLeft;
+            const isPaddingCorrect = paddingLeft === '24px' || paddingLeft === '1.5rem';
+            addTestResult(
+                'List Item Padding Left',
+                isPaddingCorrect,
+                '24px (1.5rem)',
+                paddingLeft,
+                'Space for bullet point'
+            );
+            
+            // Test 6: Bullet position
+            const bulletPosition = beforeStyle.position;
+            const isPositionCorrect = bulletPosition === 'absolute';
+            addTestResult(
+                'Bullet Position',
+                isPositionCorrect,
+                'absolute',
+                bulletPosition,
+                'Should be absolutely positioned'
+            );
+            
+            // Test 7: List bottom margin
+            const listMarginBottom = listStyle.marginBottom;
+            const isMarginCorrect = listMarginBottom === '24px' || listMarginBottom === '1.5rem';
+            addTestResult(
+                'List Bottom Margin',
+                isMarginCorrect,
+                '24px (1.5rem)',
+                listMarginBottom,
+                'Spacing after list'
+            );
+            
+            // Test 8: List style type
+            const listStyleType = listStyle.listStyleType;
+            const isListStyleCorrect = listStyleType === 'none';
+            addTestResult(
+                'List Style Type',
+                isListStyleCorrect,
+                'none',
+                listStyleType,
+                'Default bullets should be hidden'
+            );
+            
+            // Test 9: Font size
+            const fontSize = computedStyle.fontSize;
+            const isFontSizeCorrect = fontSize === '16px' || fontSize === '1rem';
+            addTestResult(
+                'Font Size',
+                isFontSizeCorrect,
+                '16px (1rem)',
+                fontSize,
+                'Base text size'
+            );
+            
+            // Test 10: Bullet font weight
+            const bulletWeight = beforeStyle.fontWeight;
+            const isWeightCorrect = bulletWeight === 'bold' || bulletWeight === '700' || parseInt(bulletWeight) >= 700;
+            addTestResult(
+                'Bullet Font Weight',
+                isWeightCorrect,
+                'bold (700)',
+                bulletWeight,
+                'Bullets should be bold'
+            );
+            
+            displayResults();
+        }
+        
+        function copyResults() {
+            const summary = testResults.map(r => 
+                `${r.passed ? '✅' : '❌'} ${r.name}: ${r.passed ? 'PASS' : 'FAIL'}\n   Expected: ${r.expected}\n   Actual: ${r.actual}`
+            ).join('\n\n');
+            
+            const browserInfo = document.getElementById('browserDetails').innerText;
+            const fullReport = `Browser Compatibility Test Results\n${'='.repeat(50)}\n\n${browserInfo}\n\n${'='.repeat(50)}\n\n${summary}`;
+            
+            navigator.clipboard.writeText(fullReport).then(() => {
+                alert('Test results copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                alert('Failed to copy results. Check console.');
+            });
+        }
+        
+        // Run on load
+        displayBrowserInfo();
+        
+        // Update viewport info on resize
+        window.addEventListener('resize', displayBrowserInfo);
+    </script>
+</body>
+</html>

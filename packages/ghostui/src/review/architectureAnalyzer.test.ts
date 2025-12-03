@@ -46,16 +46,16 @@ describe('ArchitectureAnalyzer', () => {
     it('should not flag simple components', () => {
       const components: ComponentFile[] = [
         {
-          path: path.join(__dirname, '../components/BatDivider.tsx'),
-          name: 'BatDivider',
+          path: path.join(__dirname, '../components/BatIcon.tsx'),
+          name: 'BatIcon',
           hasTest: false,
-          exports: ['BatDivider']
+          exports: ['BatIcon']
         }
       ];
 
       const issues = analyzer.checkComponentComplexity(components);
       
-      // BatDivider is a simple component
+      // BatIcon is a simple component
       expect(issues.length).toBe(0);
     });
   });
@@ -64,16 +64,16 @@ describe('ArchitectureAnalyzer', () => {
     it('should identify components with side effects', () => {
       const components: ComponentFile[] = [
         {
-          path: path.join(__dirname, '../components/CursedPointer.tsx'),
-          name: 'CursedPointer',
+          path: path.join(__dirname, '../components/GhostCursor.tsx'),
+          name: 'GhostCursor',
           hasTest: false,
-          exports: ['CursedPointer']
+          exports: ['GhostCursor']
         }
       ];
 
       const issues = analyzer.verifySideEffectEncapsulation(components);
       
-      // CursedPointer uses event listeners and should have proper encapsulation
+      // GhostCursor uses event listeners and should have proper encapsulation
       // This test verifies the analyzer can detect side effects
       expect(Array.isArray(issues)).toBe(true);
     });
@@ -81,16 +81,16 @@ describe('ArchitectureAnalyzer', () => {
     it('should handle components without side effects', () => {
       const components: ComponentFile[] = [
         {
-          path: path.join(__dirname, '../components/BatDivider.tsx'),
-          name: 'BatDivider',
+          path: path.join(__dirname, '../components/BatIcon.tsx'),
+          name: 'BatIcon',
           hasTest: false,
-          exports: ['BatDivider']
+          exports: ['BatIcon']
         }
       ];
 
       const issues = analyzer.verifySideEffectEncapsulation(components);
       
-      // BatDivider has no side effects
+      // BatIcon has no side effects
       expect(issues.length).toBe(0);
     });
   });

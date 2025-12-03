@@ -23,14 +23,12 @@ describe('TypeScriptAnalyzer', () => {
       const components = fileScanner.scanComponents();
       const issues = analyzer.scanForInterfaceDefinitions(components);
 
-      // SpookyProgressBar, GooeyButton, and BatToggle should have Props interfaces
-      const spookyProgressBarIssues = issues.filter(i => i.location.includes('SpookyProgressBar'));
+      // GooeyProgressBar and GooeyButton should have Props interfaces
+      const gooeyProgressBarIssues = issues.filter(i => i.location.includes('GooeyProgressBar'));
       const gooeyButtonIssues = issues.filter(i => i.location.includes('GooeyButton'));
-      const batToggleIssues = issues.filter(i => i.location.includes('BatToggle'));
 
-      expect(spookyProgressBarIssues.length).toBe(0);
+      expect(gooeyProgressBarIssues.length).toBe(0);
       expect(gooeyButtonIssues.length).toBe(0);
-      expect(batToggleIssues.length).toBe(0);
     });
 
     it('should report components missing Props interfaces', () => {

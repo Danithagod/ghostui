@@ -6,18 +6,21 @@ import { Moon, Sun } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { WithTooltipProps } from '../types/tooltip';
 import { SpookyTooltip } from './SpookyTooltip';
+import { useThemeOptional } from './ThemeProvider';
 
 export interface MoonlightSwitchProps extends WithTooltipProps {
-    checked: boolean;
-    onChange: (checked: boolean) => void;
+    /** Controlled checked state - if omitted, uses ThemeProvider context */
+    checked?: boolean;
+    /** Change handler - if omitted, uses ThemeProvider context */
+    onChange?: (checked: boolean) => void;
     disabled?: boolean;
     className?: string;
     variant?: 'spectral-blood' | 'day-night';
 }
 
 export function MoonlightSwitch({
-    checked,
-    onChange,
+    checked: checkedProp,
+    onChange: onChangeProp,
     disabled = false,
     className,
     variant = 'spectral-blood',
@@ -25,6 +28,23 @@ export function MoonlightSwitch({
     tooltipPosition,
     tooltipClassName,
 }: MoonlightSwitchProps) {
+    // Connect to ThemeProvider context if available
+    const themeContext = useThemeOptional();
+    
+    // Determine if we're in controlled or uncontrolled mode
+    // checked=true maps to spectral theme, checked=false maps to blood theme
+    const isControlled = checkedProp !== undefined;
+    const checked = isControlled 
+        ? checkedProp 
+        : themeContext?.theme === 'spectral';
+    
+    const onChange = (newChecked: boolean) => {
+        if (isControlled && onChangeProp) {
+            onChangeProp(newChecked);
+        } else if (themeContext) {
+            themeContext.setTheme(newChecked ? 'spectral' : 'blood');
+        }
+    };
     const spectralBloodSwitch = variant === 'spectral-blood' ? (
             <motion.button
                 type="button"
@@ -35,14 +55,14 @@ export function MoonlightSwitch({
                 className={cn(
                     "relative w-24 h-12 rounded-full cursor-pointer p-1 transition-all duration-700 overflow-hidden outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
                     checked
-                        ? "bg-[#2e0202] focus-visible:ring-purple-500"
+                        ? "bg-[#2e0202] focus-visible:ring-orange-500"
                         : "bg-[#1a0505] focus-visible:ring-red-600",
                     disabled && "opacity-50 cursor-not-allowed grayscale",
                     className
                 )}
                 animate={{
                     backgroundColor: checked ? "#3b0764" : "#450a0a",
-                    borderColor: checked ? "#7e22ce" : "#991b1b"
+                    borderColor: checked ? "#FF6F00" : "#991b1b"
                 }}
                 style={{ borderWidth: '1px', borderStyle: 'solid' }}
             >
@@ -89,9 +109,9 @@ export function MoonlightSwitch({
                         }}
                         className="w-10 h-10 rounded-full shadow-md relative z-10 flex items-center justify-center"
                         animate={{
-                            backgroundColor: checked ? "#f3e8ff" : "#b91c1c",
+                            backgroundColor: checked ? "#FBBF24" : "#b91c1c",
                             boxShadow: checked
-                                ? "0 0 20px 2px rgba(168, 85, 247, 0.6)"
+                                ? "0 0 20px 2px rgba(255, 111, 0, 0.6)"
                                 : "0 0 20px 2px rgba(220, 38, 38, 0.5)"
                         }}
                     >

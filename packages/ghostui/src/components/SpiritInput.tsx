@@ -18,14 +18,14 @@ export const SpiritInput = React.forwardRef<HTMLInputElement, SpiritInputProps>(
     const inputId = id || React.useId();
 
     return (
-      <div className="relative mb-8 w-full max-w-md">
+      <div className={cn("relative w-full max-w-md", error ? "mb-10" : "mb-6")}>
         {/* Label */}
         {label && (
           <label
             htmlFor={inputId}
             className={cn(
-              "block mb-2 text-sm font-medium tracking-wide transition-colors duration-300",
-              error ? "text-red-500" : isFocused ? "text-[#A855F7]" : "text-gray-400"
+              "block mb-1.5 text-sm font-medium tracking-wide transition-colors duration-500",
+              error ? "text-red-500" : isFocused ? "text-[var(--ghost-accent)]" : "text-gray-400"
             )}
           >
             {label}
@@ -33,19 +33,22 @@ export const SpiritInput = React.forwardRef<HTMLInputElement, SpiritInputProps>(
         )}
 
         <motion.div
-          className="relative"
+          className="relative flex items-center"
           animate={error ? { x: [-5, 5, -5, 5, 0] } : { x: 0 }}
-          transition={{ duration: 0.4, ease: "easeInOut" }}
+          transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
         >
           {/* Optional Icon */}
           {ghostIcon && (
             <div
               className={cn(
-                "absolute left-0 top-1/2 -translate-y-1/2 transition-colors duration-300",
-                error ? "text-red-500" : isFocused ? "text-[#A855F7]" : "text-gray-600"
+                "absolute left-0 flex items-center justify-center w-8 h-full transition-all duration-500",
+                error ? "text-red-500" : isFocused ? "text-[var(--ghost-accent)]" : "text-gray-600"
               )}
+              style={isFocused && !error ? {
+                filter: 'drop-shadow(0 0 8px var(--ghost-accent))'
+              } : undefined}
             >
-              <Ghost size={20} />
+              <Ghost size={18} />
             </div>
           )}
 
@@ -54,8 +57,9 @@ export const SpiritInput = React.forwardRef<HTMLInputElement, SpiritInputProps>(
             ref={ref}
             id={inputId}
             className={cn(
-              "w-full bg-transparent border-none py-2 text-gray-100 outline-none transition-colors placeholder:text-gray-700",
-              ghostIcon ? "pl-8" : "px-1",
+              "w-full bg-transparent border-none h-9 text-gray-100 outline-none transition-colors duration-500 placeholder:text-gray-700",
+              ghostIcon ? "pl-8" : "pl-0.5",
+              "pr-0.5",
               className
             )}
             onFocus={(e) => {
@@ -72,59 +76,81 @@ export const SpiritInput = React.forwardRef<HTMLInputElement, SpiritInputProps>(
           {/* Base Border (Static) */}
           <div
             className={cn(
-              "absolute bottom-0 left-0 w-full h-[1px] transition-colors duration-300",
+              "absolute bottom-0 left-0 w-full h-[1px] transition-colors duration-500",
               error ? "bg-red-900/50" : "bg-gray-700"
             )}
           />
 
-          {/* Animated Underline (Expands from center) */}
+          {/* Animated Underline (Expands from center) - Theme-aware with enhanced glow */}
           <motion.div
-            className={cn(
-              "absolute bottom-0 left-0 h-[2px] w-full origin-center",
-              error
-                ? "bg-red-500 shadow-[0_0_12px_rgba(239,68,68,0.8)]"
-                : "bg-[#A855F7] shadow-[0_0_10px_rgba(168,85,247,0.6)]"
-            )}
+            className="absolute bottom-0 left-0 h-[2px] w-full origin-center"
+            style={{
+              backgroundColor: error ? '#ef4444' : 'var(--ghost-accent)',
+              boxShadow: error 
+                ? '0 0 20px rgba(239,68,68,0.9), 0 0 40px rgba(239,68,68,0.6), 0 0 60px rgba(239,68,68,0.3)'
+                : '0 0 20px rgba(var(--ghost-accent-rgb),0.9), 0 0 40px rgba(var(--ghost-accent-rgb),0.6), 0 0 60px rgba(var(--ghost-accent-rgb),0.3)'
+            }}
             initial={{ scaleX: 0, opacity: 0 }}
             animate={{
               scaleX: isFocused || error ? 1 : 0,
               opacity: isFocused || error ? 1 : 0
             }}
             transition={{ 
-              duration: 0.4, 
-              ease: isFocused || error ? "easeOut" : "easeIn"
+              duration: 0.6, 
+              ease: [0.4, 0, 0.2, 1]
             }}
           />
 
-          {/* Spectral Smoke Effect (Drifts up on focus) */}
+          {/* Spectral Smoke Effect (Drifts up on focus) - Theme-aware with enhanced glow */}
           <motion.div
-            className={cn(
-              "absolute bottom-0 left-0 w-full h-8 pointer-events-none -z-10",
-              error ? "bg-red-500/10" : "bg-[#A855F7]/10"
-            )}
-            style={{ filter: 'blur(8px)' }}
+            className="absolute bottom-0 left-0 w-full h-12 pointer-events-none -z-10"
+            style={{ 
+              filter: 'blur(12px)',
+              backgroundColor: error ? 'rgba(239,68,68,0.15)' : 'rgba(var(--ghost-accent-rgb),0.15)'
+            }}
             initial={{ opacity: 0, y: 10, scaleY: 0 }}
             animate={{
-              opacity: isFocused && !error ? 0.6 : 0,
-              y: isFocused ? -10 : 10,
-              scaleY: isFocused ? 1.5 : 0
+              opacity: isFocused && !error ? 0.8 : 0,
+              y: isFocused ? -15 : 10,
+              scaleY: isFocused ? 2 : 0
             }}
             transition={{ 
-              duration: 0.8, 
-              ease: isFocused ? "easeOut" : "easeIn"
+              duration: 1.2, 
+              ease: [0.4, 0, 0.2, 1]
+            }}
+          />
+
+          {/* Additional ambient glow layer */}
+          <motion.div
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-16 pointer-events-none -z-20 rounded-full"
+            style={{ 
+              filter: 'blur(20px)',
+              backgroundColor: error ? 'rgba(239,68,68,0.2)' : 'rgba(var(--ghost-accent-rgb),0.2)'
+            }}
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{
+              opacity: isFocused && !error ? 0.6 : 0,
+              scale: isFocused ? 1.2 : 0.5
+            }}
+            transition={{ 
+              duration: 1, 
+              ease: [0.4, 0, 0.2, 1]
             }}
           />
         </motion.div>
 
-        {/* Error Message */}
+        {/* Error Message - positioned outside the motion container */}
         <AnimatePresence>
           {error && (
             <motion.p
-              initial={{ opacity: 0, y: -5 }}
+              initial={{ opacity: 0, y: -3 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -5 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="absolute -bottom-6 left-0 text-xs text-red-500 font-mono flex items-center gap-1"
+              exit={{ opacity: 0, y: -3 }}
+              transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+              className={cn(
+                "mt-2 text-xs text-red-500 font-mono flex items-center gap-1",
+                ghostIcon ? "pl-8" : "pl-0.5"
+              )}
             >
               <span>†</span> {error}
             </motion.p>

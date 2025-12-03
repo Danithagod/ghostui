@@ -1,116 +1,330 @@
 import { default as default_2 } from 'react';
 import { JSX as JSX_2 } from 'react/jsx-runtime';
+import { ReactNode } from 'react';
+
+/**
+ * AnimatedBat component - displays an individual bat with physics-based cursor repulsion
+ *
+ * This component uses spring animations to create smooth, realistic bat movements
+ * that respond dynamically to cursor position. Bats are repelled when the cursor
+ * comes within 300px of their home position.
+ */
+export declare const AnimatedBat: default_2.FC<AnimatedBatProps>;
+
+export declare interface AnimatedBatProps {
+    id: number;
+    size: number;
+    homeX: number;
+    homeY: number;
+    opacity: number;
+    blur?: string;
+    isHovered: boolean;
+    mousePos: {
+        x: number;
+        y: number;
+    };
+    windowSize: {
+        width: number;
+        height: number;
+    };
+}
 
 export declare const BatBurst: default_2.FC<BatBurstProps>;
 
 export declare interface BatBurstProps {
-    isActive: boolean;
+    className?: string;
     onComplete?: () => void;
-    batCount?: number;
-    duration?: number;
 }
 
-export declare function BatDivider({ className, color, ...props }: BatDividerProps): JSX_2.Element;
+export declare const BatIcon: default_2.FC<BatIconProps>;
 
-export declare namespace BatDivider {
-    var displayName: string;
-}
-
-export declare interface BatDividerProps extends default_2.HTMLAttributes<HTMLDivElement> {
-    color?: string;
-}
-
-export declare const BatToggle: default_2.FC<BatToggleProps>;
-
-export declare interface BatToggleProps extends WithTooltipProps {
-    checked?: boolean;
-    onChange?: (checked: boolean) => void;
-    disabled?: boolean;
+export declare interface BatIconProps {
     className?: string;
 }
 
+/**
+ * BloodSmear - A dramatic full-screen page transition component
+ * that creates a viscous blood-dripping animation effect with organic flow
+ */
 export declare const BloodSmear: default_2.FC<BloodSmearProps>;
 
 export declare interface BloodSmearProps {
+    /** Controls whether the transition is active */
     isNavigating: boolean;
+    /** Callback invoked when the transition animation completes */
     onComplete?: () => void;
+    /** Optional custom classes for the overlay container */
     className?: string;
 }
 
-export declare const CauldronLoader: default_2.FC<CauldronLoaderProps>;
-
-export declare interface CauldronLoaderProps {
-    size?: 'sm' | 'md' | 'lg';
-    className?: string;
-}
-
-export declare function CoffinCard({ className, children, tooltip, tooltipPosition, tooltipClassName, ...props }: CoffinCardProps): JSX_2.Element;
+export declare function CoffinCard({ className, children, title, index, animated, intensity, showGlow, }: CoffinCardProps): JSX_2.Element;
 
 export declare namespace CoffinCard {
     var displayName: string;
 }
 
-export declare interface CoffinCardProps extends default_2.HTMLAttributes<HTMLDivElement>, WithTooltipProps {
+export declare interface CoffinCardProps {
+    children: default_2.ReactNode;
+    /** Optional title displayed at the top of the card */
+    title?: string;
+    /** Animation delay index for staggered animations */
+    index?: number;
+    /** Enable/disable animations */
+    animated?: boolean;
+    /** Animation intensity level */
+    intensity?: 'subtle' | 'medium' | 'intense';
+    /** Show the glow shadow effect on hover */
+    showGlow?: boolean;
+    /** Additional class names */
+    className?: string;
+}
+
+/**
+ * Color zone configuration
+ */
+export declare interface ColorZone {
+    type: 'vertical' | 'horizontal' | 'radial';
+    zones: Array<{
+        threshold: number;
+        theme: CursorTheme;
+    }>;
+}
+
+/**
+ * Context value interface for cursor effects
+ */
+export declare interface CursorContextValue {
+    state: CursorState;
+    registerElement: (id: string, ref: default_2.RefObject<HTMLElement>, options: CursorEffectOptions) => void;
+    unregisterElement: (id: string) => void;
+    config: Required<CursorEffectConfig>;
+}
+
+/**
+ * Configuration for the cursor effect system
+ */
+export declare interface CursorEffectConfig {
+    theme?: 'spooky' | 'minimal' | 'intense' | CursorTheme;
+    intensity?: number;
+    effects?: {
+        glow?: boolean;
+        distortion?: boolean;
+        waves?: boolean;
+        attraction?: boolean;
+        particles?: boolean;
+    };
+    disableOnMobile?: boolean;
+    proximityRadius?: number;
+    maxWaves?: number;
+    colorTransitionZones?: 'vertical' | 'horizontal' | 'radial';
+}
+
+/**
+ * Options for individual elements using cursor effects
+ */
+export declare interface CursorEffectOptions {
+    type?: 'button' | 'card' | 'draggable' | 'link' | 'custom';
+    intensity?: number;
+    proximityRadius?: number;
+    attraction?: 'attract' | 'repel' | 'none';
+    attractionStrength?: number;
+    distortion?: boolean;
+    onProximityEnter?: () => void;
+    onProximityExit?: () => void;
+    onHover?: () => void;
+}
+
+/**
+ * CursorEffectProvider component
+ *
+ * Provides global cursor effect system through React context.
+ *
+ * Features:
+ * - React context for cursor state management
+ * - Configuration props for theme, intensity, and enabled effects
+ * - Device detection (touch vs mouse)
+ * - disableOnMobile logic
+ * - Initializes cursor tracking on mount
+ * - Element registration system
+ *
+ * Requirements: 7.1, 7.2, 7.3, 7.4, 10.1, 10.2, 10.3
+ */
+export declare function CursorEffectProvider({ config, children }: CursorEffectProviderProps): JSX_2.Element;
+
+/**
+ * Props for CursorEffectProvider
+ */
+export declare interface CursorEffectProviderProps {
+    config?: CursorEffectConfig;
     children: default_2.ReactNode;
 }
 
-export declare const CrackTransition: default_2.FC<CrackTransitionProps>;
-
-export declare interface CrackTransitionProps {
-    isActive: boolean;
-    onComplete?: () => void;
-    duration?: number;
+/**
+ * Cursor position with timestamp
+ */
+export declare interface CursorPosition {
+    x: number;
+    y: number;
+    timestamp: number;
 }
 
-export declare const CursedPointer: default_2.FC<CursedPointerProps>;
-
-export declare interface CursedPointerProps {
-    variant?: 'claw' | 'orb' | 'finger';
-    color?: string;
+/**
+ * Current state of the cursor
+ */
+export declare interface CursorState {
+    position: {
+        x: number;
+        y: number;
+    };
+    velocity: {
+        x: number;
+        y: number;
+        magnitude: number;
+    };
+    isMoving: boolean;
+    isClicking: boolean;
+    currentTheme: CursorTheme;
+    activeElements: Map<string, RegisteredElement>;
 }
 
-export declare function FogBackground({ className, intensity }: FogBackgroundProps): JSX_2.Element;
-
-export declare interface FogBackgroundProps {
-    className?: string;
-    intensity?: 'low' | 'medium' | 'high' | 'block';
+/**
+ * Color theme configuration for cursor effects
+ */
+export declare interface CursorTheme {
+    colors: {
+        primary: string;
+        secondary: string;
+        tertiary: string;
+    };
+    glowSize: number;
+    glowOpacity: number;
+    distortionIntensity: number;
 }
 
-export declare const GhostCursor: default_2.FC<GhostCursorProps>;
+/**
+ * CursorTracker component that tracks global cursor position and state
+ *
+ * Features:
+ * - Global mousemove listener for position tracking
+ * - Velocity calculation from position history
+ * - Throttling to limit updates to 60fps (16.67ms)
+ * - Tracks cursor state (position, velocity, isMoving, isClicking)
+ */
+export declare function CursorTracker({ onStateChange, throttleMs }: CursorTrackerProps): null;
 
-export declare interface GhostCursorProps {
-    color?: string;
-    size?: number;
-    trailLength?: number;
+/**
+ * Props for CursorTracker component
+ */
+export declare interface CursorTrackerProps {
+    onStateChange: (state: CursorTrackerState) => void;
+    throttleMs?: number;
 }
 
-export declare const GhostFloatLoader: default_2.FC<GhostFloatLoaderProps>;
-
-export declare interface GhostFloatLoaderProps {
-    size?: 'sm' | 'md' | 'lg';
-    className?: string;
+/**
+ * Cursor state that includes position, velocity, and interaction flags
+ */
+export declare interface CursorTrackerState {
+    position: {
+        x: number;
+        y: number;
+    };
+    velocity: CursorVelocity;
+    isMoving: boolean;
+    isClicking: boolean;
 }
 
-export declare const GhostToast: default_2.FC<GhostToastProps>;
-
-export declare interface GhostToastProps {
-    message: string;
-    type?: ToastType;
-    onClose?: () => void;
-    className?: string;
+/**
+ * Cursor velocity data
+ */
+export declare interface CursorVelocity {
+    x: number;
+    y: number;
+    magnitude: number;
 }
 
-export declare const GhostToastProvider: default_2.FC<{
+/**
+ * Default cursor effect configuration
+ */
+export declare const DEFAULT_CURSOR_CONFIG: Required<CursorEffectConfig>;
+
+/**
+ * DistortionField effect component
+ *
+ * Renders visual distortion effects on hovered elements using SVG filters.
+ * Features:
+ * - SVG filters for distortion, wave, and goo effects
+ * - Distortion overlays on hovered elements
+ * - Distortion follows cursor with delay
+ * - Fade-out animation on exit (300-500ms)
+ * - Configurable intensity per element type
+ *
+ * Requirements: 3.1, 3.2, 3.3, 3.4, 3.5
+ */
+export declare function DistortionField({ cursorState, config }: DistortionFieldProps): JSX_2.Element | null;
+
+/**
+ * Props for DistortionField component
+ */
+export declare interface DistortionFieldProps {
+    cursorState: CursorState;
+    config: Required<CursorEffectConfig>;
+}
+
+/**
+ * EffectRenderer component
+ *
+ * Renders all cursor effects in a React portal to document.body.
+ *
+ * Features:
+ * - Renders all effects in React portal to document.body
+ * - Conditionally renders based on enabled effects configuration
+ * - Applies high z-index for proper layering
+ * - Sets pointer-events: none to prevent interaction blocking
+ * - Composes GlowAura, DistortionField, WaveGenerator
+ * - Applies attraction transforms to registered elements
+ * - Type-specific attraction strength (intensified for buttons)
+ *
+ * Requirements: 7.5, 6.1, 6.2
+ */
+export declare function EffectRenderer({ cursorState, config }: EffectRendererProps): default_2.ReactPortal | null;
+
+/**
+ * Props for EffectRenderer component
+ */
+export declare interface EffectRendererProps {
+    cursorState: CursorState;
+    config: Required<CursorEffectConfig>;
+}
+
+export declare const GhostCursor: () => JSX_2.Element;
+
+export declare const GhostToastProvider: ({ children, }: {
     children: default_2.ReactNode;
-}>;
+}) => JSX_2.Element;
 
-export declare const GlitchText: default_2.FC<GlitchTextProps>;
+/**
+ * GlowAura effect component
+ *
+ * Renders a circular glow element that follows the cursor with smooth spring physics.
+ * Features:
+ * - Follows cursor position with spring animation
+ * - Uses current theme colors based on vertical position
+ * - Pulsing animation when cursor is stationary
+ * - Trailing effect for high velocity movement
+ * - Ethereal appearance using mix-blend-mode: screen
+ * - Intensified glow for button elements
+ * - Subtle glow for card elements
+ *
+ * Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 6.1, 6.3
+ */
+export declare function GlowAura({ cursorState, config }: GlowAuraProps): JSX_2.Element;
 
-export declare interface GlitchTextProps extends default_2.HTMLAttributes<HTMLHeadingElement> {
-    text: string;
-    as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span';
-    intensity?: 'low' | 'medium' | 'high';
-    className?: string;
+/**
+ * Props for GlowAura component
+ */
+export declare interface GlowAuraProps {
+    cursorState: CursorState;
+    config: Required<CursorEffectConfig>;
 }
 
 export declare const GooeyButton: default_2.ForwardRefExoticComponent<GooeyButtonProps & default_2.RefAttributes<HTMLButtonElement>>;
@@ -130,6 +344,32 @@ export declare interface GooeyCardProps {
     gooColor?: string;
 }
 
+export declare const GooeyProgressBar: default_2.FC<GooeyProgressBarProps>;
+
+export declare interface GooeyProgressBarProps {
+    value: number;
+    variant?: 'blood' | 'candle' | 'soul';
+    className?: string;
+}
+
+export declare const GooeySidebar: default_2.ForwardRefExoticComponent<GooeySidebarProps & default_2.RefAttributes<HTMLDivElement>>;
+
+export declare const GooeySidebarDemo: default_2.FC<GooeySidebarDemoProps>;
+
+export declare interface GooeySidebarDemoProps {
+    /** Initial active menu item ID @default 'home' */
+    initialActiveId?: string;
+    /** Additional CSS classes for the container */
+    className?: string;
+}
+
+export declare interface GooeySidebarProps {
+    menuItems: MenuItem[];
+    activeId?: string;
+    onActiveChange?: (id: string) => void;
+    className?: string;
+}
+
 export declare const GraveModal: default_2.FC<GraveModalProps>;
 
 export declare interface GraveModalProps {
@@ -140,23 +380,72 @@ export declare interface GraveModalProps {
     className?: string;
 }
 
-export declare const HauntedSidebar: default_2.FC<HauntedSidebarProps>;
+/**
+ * Grid cell data
+ */
+export declare interface GridCell {
+    x: number;
+    y: number;
+    elements: Set<string>;
+}
 
-export declare interface HauntedSidebarProps {
-    menuItems?: MenuItem[];
-    activeId?: string;
-    onActiveChange?: (id: string) => void;
+export declare const HauntedCard: default_2.FC<HauntedCardProps>;
+
+export declare interface HauntedCardProps {
+    /** Content to wrap with the ghost effect */
+    children: default_2.ReactNode;
+    /** Additional CSS classes for the wrapper */
     className?: string;
-    title?: string;
-    subtitle?: string;
+    /** Delay before ghost appears (ms) @default 250 */
+    peekDelay?: number;
+    /** Whether ghost effect is enabled @default true */
+    ghostEnabled?: boolean;
+    /** Size of the ghost in pixels @default 112 */
+    ghostSize?: number;
+    /** Whether to show the "BOO!" text @default true */
+    showBoo?: boolean;
+    /** Custom content wrapper classes (for the solid background layer) */
+    contentClassName?: string;
 }
 
 export declare const HauntedVignette: default_2.FC<HauntedVignetteProps>;
 
-export declare interface HauntedVignetteProps {
-    intensity?: 'light' | 'medium' | 'heavy';
+export declare const HauntedVignetteDemo: default_2.FC<HauntedVignetteDemoProps>;
+
+export declare interface HauntedVignetteDemoProps {
+    /** Initial flashlight state @default true */
+    initialFlashlightOn?: boolean;
+    /** Show toggle button @default true */
+    showToggle?: boolean;
+    /** Additional CSS classes for the container */
     className?: string;
 }
+
+export declare interface HauntedVignetteProps {
+    /** Size of the flashlight circle in pixels @default 350 */
+    radius?: number;
+    /** Darkness of the overlay (0-1) @default 0.9 */
+    darkness?: number;
+    /** Backdrop blur amount in pixels @default 2 */
+    blur?: number;
+    /** Whether the vignette is enabled @default true */
+    enabled?: boolean;
+    /** Spring damping for cursor following @default 25 */
+    springDamping?: number;
+    /** Spring stiffness for cursor following @default 150 */
+    springStiffness?: number;
+    /** Additional CSS classes */
+    className?: string;
+}
+
+/**
+ * JumpscareBat component - displays a dramatic jumpscare effect with a large bat
+ * that scales up rapidly and then exits upward.
+ *
+ * This component is used as part of the BatBurst effect during the initial
+ * activation phase (first 1.5 seconds).
+ */
+export declare const JumpscareBat: default_2.FC;
 
 export declare interface MenuItem {
     id: string;
@@ -164,25 +453,60 @@ export declare interface MenuItem {
     icon?: default_2.ReactNode;
 }
 
-export declare function MoonBackdrop({ className, phase }: MoonBackdropProps): JSX_2.Element;
-
-declare interface MoonBackdropProps {
-    className?: string;
-    phase?: 'full' | 'waning' | 'new' | 'waxing';
-}
-
-export declare function MoonlightSwitch({ checked, onChange, disabled, className, variant, tooltip, tooltipPosition, tooltipClassName, }: MoonlightSwitchProps): JSX_2.Element | null;
+export declare function MoonlightSwitch({ checked: checkedProp, onChange: onChangeProp, disabled, className, variant, tooltip, tooltipPosition, tooltipClassName, }: MoonlightSwitchProps): JSX_2.Element | null;
 
 export declare namespace MoonlightSwitch {
     var displayName: string;
 }
 
 export declare interface MoonlightSwitchProps extends WithTooltipProps {
-    checked: boolean;
-    onChange: (checked: boolean) => void;
+    /** Controlled checked state - if omitted, uses ThemeProvider context */
+    checked?: boolean;
+    /** Change handler - if omitted, uses ThemeProvider context */
+    onChange?: (checked: boolean) => void;
     disabled?: boolean;
     className?: string;
     variant?: 'spectral-blood' | 'day-night';
+}
+
+/**
+ * ParticleSystem effect component
+ *
+ * Generates particle trails for link elements when hovered.
+ * Features:
+ * - Generates particles along cursor trail
+ * - Particles fade out over time
+ * - Particles move with initial velocity
+ * - Uses current theme color
+ *
+ * Requirements: 6.4
+ */
+export declare function ParticleSystem({ cursorState, config }: ParticleSystemProps): JSX_2.Element;
+
+/**
+ * Props for ParticleSystem component
+ */
+export declare interface ParticleSystemProps {
+    cursorState: CursorState;
+    config: Required<CursorEffectConfig>;
+}
+
+/**
+ * Preset theme constants
+ */
+export declare const PRESET_THEMES: Record<'spooky' | 'minimal' | 'intense', CursorTheme>;
+
+/**
+ * Registered element that responds to cursor effects
+ */
+export declare interface RegisteredElement {
+    id: string;
+    ref: default_2.RefObject<HTMLElement>;
+    options: CursorEffectOptions;
+    bounds: DOMRect;
+    distance: number;
+    isInProximity: boolean;
+    isHovered: boolean;
 }
 
 export declare const ShadowCrawl: default_2.FC<ShadowCrawlProps>;
@@ -196,15 +520,32 @@ export declare interface ShadowCrawlProps {
 export declare const SkeletonBlock: default_2.FC<SkeletonBlockProps>;
 
 export declare interface SkeletonBlockProps {
-    variant: 'sweep' | 'scan' | 'flicker' | 'fog';
+    variant: SkeletonVariant;
     className?: string;
+    theme?: Theme;
 }
 
-export declare function SkullLoader({ className, size }: SkullLoaderProps): JSX_2.Element;
+export declare type SkeletonVariant = 'sweep' | 'scan' | 'flicker' | 'fog';
 
-declare interface SkullLoaderProps {
-    className?: string;
-    size?: 'sm' | 'md' | 'lg';
+/**
+ * Spatial grid for performance optimization
+ */
+export declare interface SpatialGrid {
+    cellSize: number;
+    cells: Map<string, Set<string>>;
+}
+
+/**
+ * SpectralRiver - A dramatic full-screen page transition component
+ * that creates a liquid slime/goo animation effect with animated purple drips
+ */
+export declare const SpectralRiver: default_2.FC<SpectralRiverProps>;
+
+export declare interface SpectralRiverProps {
+    /** Controls whether the transition is active */
+    isActive: boolean;
+    /** Callback invoked when the transition animation completes */
+    onComplete?: () => void;
 }
 
 export declare const SpectralTabs: default_2.FC<SpectralTabsProps>;
@@ -214,15 +555,8 @@ export declare interface SpectralTabsProps {
     defaultTab?: string;
     onTabChange?: (tabId: string) => void;
     className?: string;
-}
-
-export declare const SpiderWeb: default_2.FC<SpiderWebProps>;
-
-export declare interface SpiderWebProps {
-    position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
-    size?: 'sm' | 'md' | 'lg';
-    color?: string;
-    className?: string;
+    /** Theme variant - defaults to ThemeProvider context or 'spectral' */
+    variant?: Theme;
 }
 
 export declare const SpiritInput: default_2.ForwardRefExoticComponent<SpiritInputProps & default_2.RefAttributes<HTMLInputElement>>;
@@ -233,18 +567,25 @@ export declare interface SpiritInputProps extends default_2.InputHTMLAttributes<
     ghostIcon?: boolean;
 }
 
-export declare const SpookyProgressBar: default_2.FC<SpookyProgressBarProps>;
+export declare const SpookyGhostIcon: ({ className }: {
+    className?: string;
+}) => JSX_2.Element;
 
-export declare interface SpookyProgressBarProps {
-    value: number;
-    variant?: 'blood' | 'candle' | 'soul';
+export declare const SpookyScrollbar: default_2.FC<SpookyScrollbarProps>;
+
+export declare interface SpookyScrollbarProps {
+    children: default_2.ReactNode;
     className?: string;
 }
 
 export declare const SpookySkeleton: default_2.FC<SpookySkeletonProps>;
 
 export declare interface SpookySkeletonProps {
-    variant: 'sweep' | 'scan' | 'flicker' | 'fog';
+    /** Animation variant */
+    variant: SkeletonVariant;
+    /** Pass the component layout to skeletonize */
+    children?: ReactNode;
+    /** Additional CSS classes */
     className?: string;
 }
 
@@ -264,20 +605,135 @@ export declare interface TabItem extends WithTooltipProps {
     icon?: default_2.ReactNode;
 }
 
-declare interface ToastContextType {
-    showToast: (message: string, type?: ToastType, duration?: number) => void;
+export declare type Theme = 'spectral' | 'blood';
+
+export declare interface ThemeContextValue {
+    theme: Theme;
+    setTheme: (theme: Theme) => void;
+    toggleTheme: () => void;
 }
 
-declare type ToastType = 'success' | 'error' | 'warning' | 'info';
+export declare function ThemeProvider({ children, defaultTheme, storageKey }: ThemeProviderProps): JSX.Element;
 
-export declare const useToast: () => ToastContextType;
+export declare namespace ThemeProvider {
+    var displayName: string;
+}
 
-export declare const VeilFade: default_2.FC<VeilFadeProps>;
-
-export declare interface VeilFadeProps {
-    isVisible: boolean;
+export declare interface ThemeProviderProps {
     children: default_2.ReactNode;
-    duration?: number;
+    defaultTheme?: Theme;
+    storageKey?: string;
+}
+
+declare type ToastContextType = {
+    addToast: (msg: string, type?: 'info' | 'curse') => void;
+};
+
+declare type ToastSide = 'left' | 'right';
+
+export declare type ToastType = {
+    id: string;
+    message: string;
+    type: 'info' | 'curse';
+    side: ToastSide;
+    scale: number;
+    rotation: number;
+    offsetX: number;
+};
+
+/**
+ * Hook to access cursor effect context
+ */
+export declare function useCursorContext(): CursorContextValue;
+
+/**
+ * Hook for components to opt-in to cursor effects
+ *
+ * This hook provides a ref that components can attach to their DOM elements
+ * to register for cursor interactions. The element is automatically registered
+ * when the ref is attached and unregistered when the component unmounts.
+ *
+ * Features:
+ * - Returns ref object for DOM attachment
+ * - Accepts configuration options for effect type, intensity, and proximity radius
+ * - Automatic registration when ref is attached
+ * - Automatic cleanup on component unmount
+ *
+ * Requirements: 8.1, 8.2, 8.3, 8.4
+ *
+ * @param options - Configuration options for cursor effects
+ * @returns React ref object to attach to DOM element
+ *
+ * @example
+ * ```tsx
+ * function MyButton() {
+ *   const ref = useCursorEffect({
+ *     type: 'button',
+ *     intensity: 0.8,
+ *     attraction: 'attract'
+ *   });
+ *
+ *   return <button ref={ref}>Click me</button>;
+ * }
+ * ```
+ */
+export declare function useCursorEffect<T extends HTMLElement = HTMLElement>(options?: CursorEffectOptions): React.RefObject<T>;
+
+export declare const useGhostToast: () => ToastContextType;
+
+export declare function useTheme(): ThemeContextValue;
+
+export declare function useThemeOptional(): ThemeContextValue | undefined;
+
+/**
+ * Wave effect data model
+ */
+export declare interface Wave {
+    id: string;
+    origin: {
+        x: number;
+        y: number;
+    };
+    radius: number;
+    maxRadius: number;
+    opacity: number;
+    timestamp: number;
+    color: string;
+}
+
+/**
+ * Wave configuration
+ */
+export declare interface WaveConfig {
+    speed: number;
+    maxRadius: number;
+    opacity: number;
+    color: string;
+    affectsElements: boolean;
+}
+
+/**
+ * WaveGenerator component
+ *
+ * Generates and animates wave effects that emanate from cursor position.
+ *
+ * Features:
+ * - Generates waves on click events
+ * - Implements wave expansion animation using RAF
+ * - Automatic wave cleanup when faded or max radius reached
+ * - Limits simultaneous waves to configured maximum (default 5)
+ * - Renders wave rings with current theme color
+ *
+ * Requirements: 5.1, 5.2, 5.4, 11.5
+ */
+export declare const WaveGenerator: default_2.FC<WaveGeneratorProps>;
+
+/**
+ * Props for WaveGenerator component
+ */
+export declare interface WaveGeneratorProps {
+    cursorState: CursorState;
+    config: Required<CursorEffectConfig>;
 }
 
 export declare const WhisperBox: default_2.ForwardRefExoticComponent<WhisperBoxProps & default_2.RefAttributes<HTMLTextAreaElement>>;

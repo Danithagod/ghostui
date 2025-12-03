@@ -22,16 +22,16 @@ describe('AccessibilityAnalyzer', () => {
     it('should detect missing keyboard handlers in custom interactive elements', () => {
       const components: ComponentFile[] = [
         {
-          path: path.join(__dirname, '../components/BatToggle.tsx'),
-          name: 'BatToggle',
+          path: path.join(__dirname, '../components/GooeyButton.tsx'),
+          name: 'GooeyButton',
           hasTest: true,
-          exports: ['BatToggle']
+          exports: ['GooeyButton']
         }
       ];
 
       const issues = analyzer.checkKeyboardNavigationSupport(components);
       
-      // BatToggle uses a button element which has built-in keyboard support
+      // GooeyButton uses a button element which has built-in keyboard support
       // So it should not have issues
       expect(issues.length).toBe(0);
     });
@@ -57,16 +57,16 @@ describe('AccessibilityAnalyzer', () => {
     it('should detect components with interactive elements', () => {
       const components: ComponentFile[] = [
         {
-          path: path.join(__dirname, '../components/BatToggle.tsx'),
-          name: 'BatToggle',
+          path: path.join(__dirname, '../components/GooeyButton.tsx'),
+          name: 'GooeyButton',
           hasTest: true,
-          exports: ['BatToggle']
+          exports: ['GooeyButton']
         }
       ];
 
       const issues = analyzer.verifyARIAAttributes(components);
       
-      // BatToggle should have proper ARIA attributes
+      // GooeyButton should have proper ARIA attributes
       expect(Array.isArray(issues)).toBe(true);
     });
   });
@@ -111,10 +111,10 @@ describe('AccessibilityAnalyzer', () => {
     it('should run all accessibility analyses', () => {
       const components: ComponentFile[] = [
         {
-          path: path.join(__dirname, '../components/BatToggle.tsx'),
-          name: 'BatToggle',
+          path: path.join(__dirname, '../components/GooeyButton.tsx'),
+          name: 'GooeyButton',
           hasTest: true,
-          exports: ['BatToggle']
+          exports: ['GooeyButton']
         }
       ];
 
@@ -131,10 +131,10 @@ describe('AccessibilityAnalyzer', () => {
     it('should combine all issues from different analyses', () => {
       const components: ComponentFile[] = [
         {
-          path: path.join(__dirname, '../components/BatToggle.tsx'),
-          name: 'BatToggle',
+          path: path.join(__dirname, '../components/GooeyButton.tsx'),
+          name: 'GooeyButton',
           hasTest: true,
-          exports: ['BatToggle']
+          exports: ['GooeyButton']
         }
       ];
 

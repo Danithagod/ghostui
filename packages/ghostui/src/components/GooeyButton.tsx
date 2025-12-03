@@ -20,22 +20,22 @@ interface ThemeConfig {
 
 const themes: Record<'slime' | 'blood' | 'ectoplasm', ThemeConfig> = {
   slime: {
-    bg: 'bg-lime-500',
-    glow: 'shadow-[0_0_20px_rgba(132,204,22,0.6)]',
+    bg: 'bg-[#32CD32]',
+    glow: 'shadow-[0_0_20px_rgba(50,205,50,0.7)]',
     text: 'text-lime-950',
-    drip: 'bg-lime-500',
+    drip: 'bg-[#32CD32]',
   },
   blood: {
-    bg: 'bg-red-600',
-    glow: 'shadow-[0_0_20px_rgba(220,38,38,0.6)]',
+    bg: 'bg-[#DC143C]',
+    glow: 'shadow-[0_0_20px_rgba(220,20,60,0.7)]',
     text: 'text-red-100',
-    drip: 'bg-red-600',
+    drip: 'bg-[#DC143C]',
   },
   ectoplasm: {
-    bg: 'bg-[#7c3aed]',
-    glow: 'shadow-[0_0_25px_rgba(124,58,237,0.6)]',
+    bg: 'bg-[#9400D3]',
+    glow: 'shadow-[0_0_25px_rgba(148,0,211,0.7)]',
     text: 'text-purple-100',
-    drip: 'bg-[#7c3aed]',
+    drip: 'bg-[#9400D3]',
   },
 };
 

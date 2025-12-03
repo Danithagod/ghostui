@@ -21,15 +21,15 @@ describe('PerformanceAnalyzer', () => {
   describe('analyzeAnimationPropertyUsage', () => {
     it('should detect layout-triggering properties in Framer Motion animations', () => {
       const testComponent: ComponentFile = {
-        path: path.join(__dirname, '../components/SpookyProgressBar.tsx'),
-        name: 'SpookyProgressBar',
+        path: path.join(__dirname, '../components/GooeyProgressBar.tsx'),
+        name: 'GooeyProgressBar',
         hasTest: true,
-        exports: ['SpookyProgressBar']
+        exports: ['GooeyProgressBar']
       };
 
       const issues = analyzer.analyzeAnimationPropertyUsage([testComponent]);
       
-      // SpookyProgressBar uses height in animations which is a layout property
+      // GooeyProgressBar uses height in animations which is a layout property
       const layoutIssues = issues.filter(i => 
         i.title.includes('Layout-triggering') || 
         i.description.includes('layout-triggering')
@@ -121,10 +121,10 @@ describe('PerformanceAnalyzer', () => {
           exports: ['GooeyButton']
         },
         {
-          path: path.join(__dirname, '../components/SpookyProgressBar.tsx'),
-          name: 'SpookyProgressBar',
+          path: path.join(__dirname, '../components/GooeyProgressBar.tsx'),
+          name: 'GooeyProgressBar',
           hasTest: true,
-          exports: ['SpookyProgressBar']
+          exports: ['GooeyProgressBar']
         }
       ];
 
