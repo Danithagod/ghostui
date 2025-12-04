@@ -2,13 +2,8 @@
 
 import React, { useState, createContext, useContext, forwardRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
 import { X } from 'lucide-react';
-
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+import { cn } from '../lib/utils';
 
 // --- Custom Ghost SVG (Animated) ---
 const SpookyGhostIcon = ({ className }: { className?: string }) => (
@@ -62,7 +57,7 @@ type ToastSide = 'left' | 'right';
 type ToastType = {
   id: string;
   message: string;
-  type: 'info' | 'curse';
+  type: 'info' | 'curse' | 'success';
   side: ToastSide;
   scale: number;
   rotation: number;
@@ -70,7 +65,7 @@ type ToastType = {
 };
 
 type ToastContextType = {
-  addToast: (msg: string, type?: 'info' | 'curse') => void;
+  addToast: (msg: string, type?: 'info' | 'curse' | 'success') => void;
 };
 
 const ToastContext = createContext<ToastContextType | null>(null);
@@ -86,6 +81,8 @@ const GhostToastItem = forwardRef<
     <motion.div
       ref={ref}
       layout
+      role="status"
+      aria-atomic="true"
       // Start completely off-screen with initial rotation
       initial={{
         x: isRight ? '150%' : '-150%',
@@ -137,6 +134,8 @@ const GhostToastItem = forwardRef<
           "relative z-10 p-4 rounded-xl border backdrop-blur-md shadow-2xl max-w-xs",
           toast.type === 'curse'
             ? "bg-[#2a0a0a]/95 border-red-900/50 text-red-100"
+            : toast.type === 'success'
+            ? "bg-[#0a1f0a]/95 border-green-900/50 text-green-100"
             : "bg-[#0f0a1f]/95 border-purple-900/50 text-purple-100",
           isRight ? "mr-4 rounded-tr-none" : "ml-4 rounded-tl-none"
         )}
@@ -147,6 +146,8 @@ const GhostToastItem = forwardRef<
             "absolute top-6 w-3 h-3 rotate-45 border-l border-t",
             toast.type === 'curse'
               ? "bg-[#2a0a0a] border-red-900/50"
+              : toast.type === 'success'
+              ? "bg-[#0a1f0a] border-green-900/50"
               : "bg-[#0f0a1f] border-purple-900/50",
             isRight
               ? "-right-1.5 border-r border-t-0 border-l-0"
@@ -181,7 +182,11 @@ const GhostToastContainer = ({
   removeToast: (id: string) => void;
 }) => {
   return (
-    <div className="fixed inset-y-0 left-0 right-0 pointer-events-none flex flex-col justify-end p-6 z-[9999] overflow-hidden">
+    <div 
+      className="fixed inset-y-0 left-0 right-0 pointer-events-none flex flex-col justify-end p-6 z-[9999] overflow-hidden"
+      aria-live="polite"
+      aria-label="Notifications"
+    >
       <style>{`
         @keyframes blink {
           0%, 96%, 100% { transform: scaleY(1); }
@@ -209,7 +214,7 @@ export const GhostToastProvider = ({
 }) => {
   const [toasts, setToasts] = useState<ToastType[]>([]);
 
-  const addToast = (message: string, type: 'info' | 'curse' = 'info') => {
+  const addToast = (message: string, type: 'info' | 'curse' | 'success' = 'info') => {
     const id = Math.random().toString(36).substr(2, 9);
 
     // Randomize side (50/50)
@@ -243,6 +248,8 @@ export const GhostToastProvider = ({
     </ToastContext.Provider>
   );
 };
+
+GhostToastProvider.displayName = 'GhostToastProvider';
 
 export const useGhostToast = () => {
   const context = useContext(ToastContext);

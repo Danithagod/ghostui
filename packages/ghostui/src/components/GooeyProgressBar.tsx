@@ -17,7 +17,6 @@ interface VariantConfig {
   container: string;
   fill: string;
   glow: string;
-  filterId: string;
   dripColor: string;
   icon: React.ReactNode;
 }
@@ -27,7 +26,6 @@ const variantConfigs: Record<'blood' | 'candle' | 'soul', VariantConfig> = {
     container: 'bg-red-950/30 border-red-900/50',
     fill: 'bg-[#8a1c1c]',
     glow: 'shadow-[0_0_15px_rgba(220,38,38,0.4)]',
-    filterId: 'goo-3d-blood',
     dripColor: 'bg-[#8a1c1c]',
     icon: <Skull size={16} className="text-red-400" />,
   },
@@ -35,7 +33,6 @@ const variantConfigs: Record<'blood' | 'candle' | 'soul', VariantConfig> = {
     container: 'bg-orange-950/30 border-orange-900/30',
     fill: 'bg-[#ffedd5]',
     glow: 'shadow-[0_0_15px_rgba(251,146,60,0.4)]',
-    filterId: 'goo-3d-candle',
     dripColor: 'bg-[#ffedd5]',
     icon: <Flame size={16} className="text-orange-400" />,
   },
@@ -43,17 +40,16 @@ const variantConfigs: Record<'blood' | 'candle' | 'soul', VariantConfig> = {
     container: 'bg-indigo-950/40 border-indigo-500/30',
     fill: 'bg-indigo-600',
     glow: 'shadow-[0_0_20px_rgba(99,102,241,0.6)]',
-    filterId: 'none',
     dripColor: 'bg-transparent',
     icon: <Ghost size={16} className="text-indigo-300" />,
   },
 };
 
 // Memoized SVG Filter component to prevent re-renders
-const GooFilter = React.memo(({ filterId }: { filterId: string }) => (
+const GooFilter = React.memo(({ filterId, variant }: { filterId: string; variant: string }) => (
   <svg className="absolute w-0 h-0" aria-hidden="true">
     <defs>
-      <filter id={filterId} colorInterpolationFilters="sRGB">
+      <filter id={`goo-3d-${variant}-${filterId}`} colorInterpolationFilters="sRGB">
         <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
         <feColorMatrix
           in="blur"
@@ -132,11 +128,9 @@ const SoulEffects = React.memo(() => (
 ));
 SoulEffects.displayName = 'SoulEffects';
 
-export const GooeyProgressBar: React.FC<GooeyProgressBarProps> = ({
-  value,
-  variant = 'blood',
-  className,
-}) => {
+export const GooeyProgressBar = React.forwardRef<HTMLDivElement, GooeyProgressBarProps>(
+  ({ value, variant = 'blood', className }, ref) => {
+  const filterId = React.useId();
   // Value clamping logic
   const progress = Math.min(100, Math.max(0, value));
   const isComplete = progress === 100;
@@ -145,8 +139,8 @@ export const GooeyProgressBar: React.FC<GooeyProgressBarProps> = ({
 
   // Memoize filter style to prevent object recreation
   const filterStyle = useMemo(
-    () => (useGoo ? { filter: `url(#${theme.filterId})` } : undefined),
-    [useGoo, theme.filterId]
+    () => (useGoo ? { filter: `url(#goo-3d-${variant}-${filterId})` } : undefined),
+    [useGoo, variant, filterId]
   );
 
   // Memoize spring transition config
@@ -156,7 +150,7 @@ export const GooeyProgressBar: React.FC<GooeyProgressBarProps> = ({
   );
 
   return (
-    <div className={cn('w-full max-w-md', className)}>
+    <div ref={ref} className={cn('w-full max-w-md', className)}>
       {/* Label / Icon Header */}
       <div className="flex justify-between items-center mb-2 px-1">
         <div className="flex items-center gap-2 uppercase tracking-widest text-xs font-bold text-gray-500">
@@ -167,10 +161,17 @@ export const GooeyProgressBar: React.FC<GooeyProgressBarProps> = ({
       </div>
 
       {/* SVG Filter - only render once per variant */}
-      {useGoo && <GooFilter filterId={theme.filterId} />}
+      {useGoo && <GooFilter filterId={filterId} variant={variant} />}
 
       {/* The Bar Container */}
-      <div className="relative h-6 w-full">
+      <div 
+        className="relative h-6 w-full"
+        role="progressbar"
+        aria-valuenow={Math.round(progress)}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-label={`${variant} progress: ${Math.round(progress)}%`}
+      >
         {/* Background Track */}
         <div className={cn('absolute inset-0 rounded-full border', theme.container)} />
 
@@ -214,6 +215,7 @@ export const GooeyProgressBar: React.FC<GooeyProgressBarProps> = ({
       `}</style>
     </div>
   );
-};
+  }
+);
 
 GooeyProgressBar.displayName = 'GooeyProgressBar';

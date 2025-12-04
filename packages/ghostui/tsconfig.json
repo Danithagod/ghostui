@@ -28,6 +28,8 @@
     "exclude": [
         "node_modules",
         "dist",
-        "src/review"
+        "src/review",
+        "**/*.test.ts",
+        "**/*.test.tsx"
     ]
 }

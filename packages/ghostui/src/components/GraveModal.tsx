@@ -14,13 +14,8 @@ export interface GraveModalProps {
     className?: string;
 }
 
-export const GraveModal: React.FC<GraveModalProps> = ({
-    isOpen,
-    onClose,
-    title,
-    children,
-    className,
-}) => {
+export const GraveModal = React.forwardRef<HTMLDivElement, GraveModalProps>(
+  ({ isOpen, onClose, title, children, className }, ref) => {
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -56,6 +51,7 @@ export const GraveModal: React.FC<GraveModalProps> = ({
 
                     {/* Modal Content */}
                     <motion.div
+                        ref={ref}
                         initial={{ opacity: 0, y: 100, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 100, scale: 0.95 }}
@@ -137,4 +133,7 @@ export const GraveModal: React.FC<GraveModalProps> = ({
         </AnimatePresence>,
         document.body
     );
-};
+  }
+);
+
+GraveModal.displayName = 'GraveModal';

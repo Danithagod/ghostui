@@ -3,6 +3,36 @@
 import React, { useState, useId, cloneElement, isValidElement } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../lib/utils';
+import { useThemeOptional, type Theme } from './ThemeProvider';
+
+// Theme color configuration for SpookyTooltip
+const themeColors = {
+    spectral: {
+        border: 'border-purple-500/40',
+        arrowColor: 'purple-500',
+        glowBg: 'bg-purple-500/10',
+    },
+    blood: {
+        border: 'border-red-500/40',
+        arrowColor: 'red-500',
+        glowBg: 'bg-red-500/10',
+    },
+} as const;
+
+// Arrow styles per theme
+const getArrowStyles = (theme: Theme) => {
+    const color = theme === 'blood' ? 'border-t-red-500' : 'border-t-purple-500';
+    const colorBottom = theme === 'blood' ? 'border-b-red-500' : 'border-b-purple-500';
+    const colorLeft = theme === 'blood' ? 'border-l-red-500' : 'border-l-purple-500';
+    const colorRight = theme === 'blood' ? 'border-r-red-500' : 'border-r-purple-500';
+    
+    return {
+        top: `top-full left-1/2 -translate-x-1/2 ${color} border-l-transparent border-r-transparent border-b-transparent`,
+        bottom: `bottom-full left-1/2 -translate-x-1/2 ${colorBottom} border-l-transparent border-r-transparent border-t-transparent`,
+        left: `left-full top-1/2 -translate-y-1/2 ${colorLeft} border-t-transparent border-b-transparent border-r-transparent`,
+        right: `right-full top-1/2 -translate-y-1/2 ${colorRight} border-t-transparent border-b-transparent border-l-transparent`,
+    };
+};
 
 export interface SpookyTooltipProps {
     content: React.ReactNode;
@@ -11,27 +41,22 @@ export interface SpookyTooltipProps {
     className?: string;
 }
 
-export const SpookyTooltip: React.FC<SpookyTooltipProps> = ({
-    content,
-    children,
-    position = 'top',
-    className,
-}) => {
+export const SpookyTooltip = React.forwardRef<HTMLDivElement, SpookyTooltipProps>(
+  ({ content, children, position = 'top', className }, ref) => {
     const [isVisible, setIsVisible] = useState(false);
     const tooltipId = useId();
+    
+    // Connect to ThemeProvider context if available
+    const themeContext = useThemeOptional();
+    const theme: Theme = themeContext?.theme ?? 'spectral';
+    const colors = themeColors[theme];
+    const arrowStyles = getArrowStyles(theme);
 
     const positionStyles = {
         top: 'bottom-full left-1/2 -translate-x-1/2 mb-2',
         bottom: 'top-full left-1/2 -translate-x-1/2 mt-2',
         left: 'right-full top-1/2 -translate-y-1/2 mr-2',
         right: 'left-full top-1/2 -translate-y-1/2 ml-2',
-    };
-
-    const arrowStyles = {
-        top: 'top-full left-1/2 -translate-x-1/2 border-t-ghost-purple border-l-transparent border-r-transparent border-b-transparent',
-        bottom: 'bottom-full left-1/2 -translate-x-1/2 border-b-ghost-purple border-l-transparent border-r-transparent border-t-transparent',
-        left: 'left-full top-1/2 -translate-y-1/2 border-l-ghost-purple border-t-transparent border-b-transparent border-r-transparent',
-        right: 'right-full top-1/2 -translate-y-1/2 border-r-ghost-purple border-t-transparent border-b-transparent border-l-transparent',
     };
 
     // Clone the child element to add aria-describedby attribute
@@ -59,6 +84,7 @@ export const SpookyTooltip: React.FC<SpookyTooltipProps> = ({
 
     return (
         <div
+            ref={ref}
             className="relative inline-block"
             onMouseEnter={() => setIsVisible(true)}
             onMouseLeave={() => setIsVisible(false)}
@@ -88,7 +114,8 @@ export const SpookyTooltip: React.FC<SpookyTooltipProps> = ({
                             x: { repeat: Infinity, duration: 3, ease: "easeInOut" }
                         }}
                         className={cn(
-                            "absolute z-50 px-3 py-2 text-sm text-ghost-white bg-ghost-dark border border-ghost-purple/40 rounded-md shadow-lg whitespace-nowrap",
+                            "absolute z-50 px-3 py-2 text-sm text-ghost-white bg-ghost-dark rounded-md shadow-lg whitespace-nowrap border",
+                            colors.border,
                             positionStyles[position],
                             className
                         )}
@@ -104,11 +131,14 @@ export const SpookyTooltip: React.FC<SpookyTooltipProps> = ({
                             )}
                         />
 
-                        {/* Spectral glow */}
-                        <div className="absolute inset-0 bg-ghost-purple/10 rounded-md blur-sm -z-10" />
+                        {/* Theme-aware glow */}
+                        <div className={cn("absolute inset-0 rounded-md blur-sm -z-10", colors.glowBg)} />
                     </motion.div>
                 )}
             </AnimatePresence>
         </div>
     );
-};
+  }
+);
+
+SpookyTooltip.displayName = 'SpookyTooltip';

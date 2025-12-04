@@ -2,13 +2,20 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { cn } from '../lib/utils';
+import { useThemeOptional, type Theme } from './ThemeProvider';
 
-// --- Utility ---
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+// Theme color configuration for GhostCursor
+const themeColors = {
+    spectral: {
+        glowBg: 'bg-purple-500/30',
+        textShadow: '0 0 10px rgba(168, 85, 247, 0.8)',
+    },
+    blood: {
+        glowBg: 'bg-red-500/30',
+        textShadow: '0 0 10px rgba(239, 68, 68, 0.8)',
+    },
+} as const;
 
 // --- Styles ---
 const styles = `
@@ -88,7 +95,12 @@ type ClickEffect = {
 };
 
 // --- Main Ghost Cursor Component ---
-export const GhostCursor = () => {
+const GhostCursorComponent = () => {
+  // Connect to ThemeProvider context if available
+  const themeContext = useThemeOptional();
+  const theme: Theme = themeContext?.theme ?? 'spectral';
+  const colors = themeColors[theme];
+
   // Motion values for smooth mouse tracking
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
@@ -181,7 +193,7 @@ export const GhostCursor = () => {
           className="relative w-12 h-12"
         >
           {/* Glow behind ghost */}
-          <div className="absolute inset-0 bg-purple-500/30 blur-xl rounded-full scale-150 animate-pulse" />
+          <div className={cn("absolute inset-0 blur-xl rounded-full scale-150 animate-pulse", colors.glowBg)} />
           
           {/* The Ghost SVG */}
           <SpookyGhostIcon className="w-full h-full drop-shadow-lg" />
@@ -201,7 +213,7 @@ export const GhostCursor = () => {
             style={{ 
               left: effect.x, 
               top: effect.y,
-              textShadow: '0 0 10px rgba(168, 85, 247, 0.8)',
+              textShadow: colors.textShadow,
               // Random rotation for variety
               rotate: Math.random() * 30 - 15
             }}
@@ -213,3 +225,7 @@ export const GhostCursor = () => {
     </>
   );
 };
+
+GhostCursorComponent.displayName = 'GhostCursor';
+
+export const GhostCursor = GhostCursorComponent;

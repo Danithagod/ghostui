@@ -261,7 +261,7 @@ export const SkeletonBlock: React.FC<SkeletonBlockProps> = ({ variant, className
   );
 };
 
-export const SpookySkeleton: React.FC<SpookySkeletonProps> = ({ variant, children, className }) => {
+const SpookySkeletonComponent: React.FC<SpookySkeletonProps> = ({ variant, children, className }) => {
   const themeContext = useThemeOptional();
   const theme = themeContext?.theme ?? 'spectral';
   const colors = themeColors[theme];
@@ -294,7 +294,7 @@ export const SpookySkeleton: React.FC<SpookySkeletonProps> = ({ variant, childre
         .${scopeId} .skeleton-sweep {
           background: linear-gradient(90deg, ${colors.secondary} 0%, ${colors.primary} 25%, ${colors.accent} 50%, ${colors.primary} 75%, ${colors.secondary} 100%);
           background-size: 200% 100%;
-          animation: skeleton-sweep-anim 3s linear infinite;
+          animation: skeleton-sweep-anim 4.5s ease-in-out infinite;
           box-shadow: 0 0 8px ${colors.accent}40, inset 0 0 4px ${colors.accent}20;
         }
 
@@ -317,7 +317,7 @@ export const SpookySkeleton: React.FC<SpookySkeletonProps> = ({ variant, childre
           background: ${colors.glow};
           box-shadow: 0 0 12px ${colors.glow}, 0 0 24px ${colors.glow}, 0 0 36px ${colors.glow}80;
           opacity: 0.7;
-          animation: skeleton-scan-anim 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+          animation: skeleton-scan-anim 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
           z-index: 10;
         }
 
@@ -329,7 +329,7 @@ export const SpookySkeleton: React.FC<SpookySkeletonProps> = ({ variant, childre
         }
 
         .${scopeId} .skeleton-flicker {
-          animation: skeleton-flicker-anim 3s steps(10, start) infinite;
+          animation: skeleton-flicker-anim 4.5s steps(10, start) infinite;
           box-shadow: 0 0 10px ${colors.accent}50, 0 0 20px ${colors.accent}25;
         }
 
@@ -346,7 +346,7 @@ export const SpookySkeleton: React.FC<SpookySkeletonProps> = ({ variant, childre
         .${scopeId} .skeleton-fog-overlay {
           background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
           filter: blur(20px);
-          animation: skeleton-fog-anim 6s ease-in-out infinite alternate;
+          animation: skeleton-fog-anim 8s ease-in-out infinite alternate;
         }
 
         @keyframes skeleton-fog-anim {
@@ -384,3 +384,7 @@ export const SpookySkeleton: React.FC<SpookySkeletonProps> = ({ variant, childre
     </>
   );
 };
+
+SpookySkeletonComponent.displayName = 'SpookySkeleton';
+
+export const SpookySkeleton = SpookySkeletonComponent;

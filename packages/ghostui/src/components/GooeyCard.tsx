@@ -3,18 +3,33 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '../lib/utils';
+import { useThemeOptional, type Theme } from './ThemeProvider';
 
 export interface GooeyCardProps {
   children: React.ReactNode;
   className?: string;
   gooColor?: string;
+  /** Theme variant - defaults to ThemeProvider context or 'spectral' */
+  variant?: Theme;
 }
 
-export const GooeyCard: React.FC<GooeyCardProps> = ({
-  children,
-  className,
-  gooColor = 'bg-[#5b21b6]',
-}) => {
+// Theme color configuration for GooeyCard
+const themeColors: Record<Theme, string> = {
+  spectral: 'bg-[#5b21b6]', // Purple
+  blood: 'bg-[#dc2626]',     // Red
+};
+
+export const GooeyCard = React.forwardRef<HTMLDivElement, GooeyCardProps>(
+  ({ children, className, gooColor, variant }, ref) => {
+  // Connect to ThemeProvider context if available
+  const themeContext = useThemeOptional();
+  const theme: Theme = variant ?? themeContext?.theme ?? 'spectral';
+  
+  // Use gooColor if provided, otherwise use theme color
+  const effectiveGooColor = gooColor ?? themeColors[theme];
+  
+  const filterId = React.useId();
+  
   // Drip configurations - 5 drips positioned on the right side
   const dripConfigs = [
     {
@@ -67,11 +82,11 @@ export const GooeyCard: React.FC<GooeyCardProps> = ({
   ];
 
   return (
-    <div className="relative inline-block min-w-[320px] min-h-[200px]">
+    <div ref={ref} className="relative inline-block min-w-[320px] min-h-[200px]">
       {/* SVG Filter Definition */}
       <svg className="absolute w-0 h-0 pointer-events-none" aria-hidden="true">
         <defs>
-          <filter id="card-goo">
+          <filter id={`card-goo-${filterId}`}>
             {/* Stage 1: Gaussian Blur */}
             <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur" />
             
@@ -110,10 +125,10 @@ export const GooeyCard: React.FC<GooeyCardProps> = ({
       {/* Liquid Layer (filtered) - z-10 */}
       <div
         className="absolute inset-0"
-        style={{ filter: 'url(#card-goo)' }}
+        style={{ filter: `url(#card-goo-${filterId})` }}
       >
         {/* Background Shape */}
-        <div className={cn('absolute inset-0 rounded-3xl', gooColor)} />
+        <div className={cn('absolute inset-0 rounded-3xl', effectiveGooColor)} />
 
         {/* Animated Drips */}
         {dripConfigs.map((drip, index) => (
@@ -123,7 +138,7 @@ export const GooeyCard: React.FC<GooeyCardProps> = ({
               'absolute rounded-full motion-reduce:hidden',
               drip.width,
               drip.position,
-              gooColor
+              effectiveGooColor
             )}
             style={{
               top: drip.top,
@@ -152,7 +167,7 @@ export const GooeyCard: React.FC<GooeyCardProps> = ({
               pool.height,
               pool.position,
               pool.bottom,
-              gooColor
+              effectiveGooColor
             )}
           />
         ))}
@@ -168,6 +183,7 @@ export const GooeyCard: React.FC<GooeyCardProps> = ({
       <div className="absolute inset-0 rounded-3xl border-2 border-black/5 pointer-events-none z-30" />
     </div>
   );
-};
+  }
+);
 
 GooeyCard.displayName = 'GooeyCard';

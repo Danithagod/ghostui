@@ -159,7 +159,8 @@ export interface SpookyScrollbarProps {
   className?: string;
 }
 
-export const SpookyScrollbar: React.FC<SpookyScrollbarProps> = ({ children, className }) => {
+export const SpookyScrollbar = React.forwardRef<HTMLDivElement, SpookyScrollbarProps>(
+  ({ children, className }, ref) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const [thumbHeight, setThumbHeight] = useState(20);
@@ -167,6 +168,8 @@ export const SpookyScrollbar: React.FC<SpookyScrollbarProps> = ({ children, clas
   const [isHovering, setIsHovering] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [showJumpScare, setShowJumpScare] = useState(false);
+  const [scrollPercentage, setScrollPercentage] = useState(0);
+  const contentId = React.useId();
 
   // Update thumb size and position based on content
   const handleScroll = useCallback(() => {
@@ -188,6 +191,7 @@ export const SpookyScrollbar: React.FC<SpookyScrollbarProps> = ({ children, clas
 
     setThumbHeight(newThumbHeight);
     setScrollTop(thumbTop);
+    setScrollPercentage(Math.round(scrollRatio * 100));
 
     // --- Jump Scare Trigger Logic ---
     // Trigger if we are within 10px of the bottom
@@ -253,6 +257,7 @@ export const SpookyScrollbar: React.FC<SpookyScrollbarProps> = ({ children, clas
 
   return (
     <div 
+      ref={ref}
       className={cn("relative w-full h-full overflow-hidden rounded-lg transition-all duration-300", className)}
       style={{
         borderWidth: '2px',
@@ -267,6 +272,7 @@ export const SpookyScrollbar: React.FC<SpookyScrollbarProps> = ({ children, clas
       {/* 1. The Scrollable Content Area */}
       <div 
         ref={contentRef}
+        id={contentId}
         className="w-full h-full overflow-y-auto hide-native-scrollbar pr-4 relative z-10"
       >
         {children}
@@ -287,6 +293,13 @@ export const SpookyScrollbar: React.FC<SpookyScrollbarProps> = ({ children, clas
       >
         {/* 3. The Draggable Thumb */}
         <div
+          role="scrollbar"
+          aria-controls={contentId}
+          aria-valuenow={scrollPercentage}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-label="Scroll position"
+          tabIndex={0}
           className="absolute w-full rounded-full cursor-pointer transition-all duration-200"
           style={{ 
             height: thumbHeight, 
@@ -308,7 +321,11 @@ export const SpookyScrollbar: React.FC<SpookyScrollbarProps> = ({ children, clas
                 animate={{ opacity: 1, x: -60, scale: 1, rotate: -10 }}
                 exit={{ opacity: 0, x: 10, scale: 0.5, rotate: 0 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="absolute top-1/2 -translate-y-1/2 w-16 h-16 pointer-events-none"
+                className="absolute top-1/2 -translate-y-1/2 pointer-events-none"
+                style={{
+                  width: Math.max(thumbHeight * 0.8, 40),
+                  height: Math.max(thumbHeight * 0.8, 40),
+                }}
               >
                 <PeekingGhost />
                 <motion.div
@@ -354,15 +371,21 @@ export const SpookyScrollbar: React.FC<SpookyScrollbarProps> = ({ children, clas
                 animate={{ y: "10%", scale: 1.5 }}
                 exit={{ y: "100%", scale: 0, opacity: 0 }}
                 transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                className="w-64 h-64 relative"
+                className="relative"
+                style={{
+                  width: contentRef.current ? Math.min(contentRef.current.clientWidth * 0.4, 256) : 256,
+                  height: contentRef.current ? Math.min(contentRef.current.clientHeight * 0.4, 256) : 256,
+                }}
               >
                 <JumpScareGhost />
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 }}
-                  className="absolute -top-10 left-1/2 -translate-x-1/2 text-white font-black text-2xl uppercase tracking-widest"
+                  className="absolute left-1/2 -translate-x-1/2 text-white font-black uppercase tracking-widest whitespace-nowrap"
                   style={{
+                    top: contentRef.current ? -Math.min(contentRef.current.clientHeight * 0.05, 40) : -40,
+                    fontSize: contentRef.current ? Math.min(contentRef.current.clientWidth * 0.04, 24) : 24,
                     filter: `drop-shadow(0 0 10px var(--ghost-accent)) drop-shadow(0 0 20px var(--ghost-accent))`,
                   }}
                 >
@@ -375,4 +398,7 @@ export const SpookyScrollbar: React.FC<SpookyScrollbarProps> = ({ children, clas
       </AnimatePresence>
     </div>
   );
-};
+  }
+);
+
+SpookyScrollbar.displayName = 'SpookyScrollbar';

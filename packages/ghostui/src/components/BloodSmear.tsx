@@ -1,84 +1,133 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useId } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../lib/utils';
+
+// --- Types & Themes ---
+type FluidVariant = 'blood' | 'goo' | 'ectoplasm';
+
+interface FluidTheme {
+  name: string;
+  primary: string;   // The main liquid color (dips/background)
+  secondary: string; // Darker shade for depth
+  highlight: string; // Specular highlight color (light reflection)
+  shine: string;     // Secondary sheen color
+}
+
+const THEMES: Record<FluidVariant, FluidTheme> = {
+  blood: {
+    name: 'Coagulated Blood',
+    primary: '#7f1d1d', // red-900
+    secondary: '#450a0a', // red-950
+    highlight: '#ffcccc', // Pinkish white
+    shine: '#cc0000', // Deep red shine
+  },
+  goo: {
+    name: 'Radioactive Slime',
+    primary: '#4d7c0f', // lime-700
+    secondary: '#365314', // lime-950
+    highlight: '#ecfccb', // lime-100
+    shine: '#84cc16', // lime-500
+  },
+  ectoplasm: {
+    name: 'Spectral Residue',
+    primary: '#581c87', // purple-900
+    secondary: '#3b0764', // purple-950
+    highlight: '#e9d5ff', // purple-200
+    shine: '#a855f7', // purple-500
+  },
+};
+
+interface DripConfig {
+  id: number;
+  width: string;
+  left: string;
+  duration: number;
+  delay: number;
+  isGlob: boolean;
+  borderRadius: string;
+}
 
 // --- Configuration ---
 const NUM_DRIPS = 65;
 
-// --- Sub-Component: Blood Drip Column ---
-interface BloodDripProps {
-  index: number;
-  total: number;
-}
-
-const BloodDrip: React.FC<BloodDripProps> = ({ index, total }) => {
-  // ORGANIC VARIABILITY LOGIC:
-  const isGlob = Math.random() > 0.7;
-  const widthVal = isGlob 
-    ? 4 + Math.random() * 11
-    : 0.5 + Math.random() * 2;
-  const width = `${widthVal}vw`;
-  
-  const gridPos = (index / total) * 100;
-  const jitter = (Math.random() - 0.5) * (isGlob ? 10 : 18);
-  const left = `${Math.max(-15, Math.min(115, gridPos + jitter))}%`;
-  
-  // More organic timing with smoother easing
-  const duration = (isGlob ? 2.8 : 2.2) + Math.random() * 1.6;
-  const delay = Math.random() * 1.0; // Increased delay range for more organic staggering
-
+// --- Sub-Component: Fluid Drip Column ---
+const FluidDrip = ({ config, color }: { config: DripConfig; color: string }) => {
   return (
     <motion.div
       className="absolute top-0"
       style={{
-        width: width,
-        left: left,
+        width: config.width,
+        left: config.left,
         height: '170vh',
-        backgroundColor: '#8B0000',
+        backgroundColor: color,
         transformOrigin: 'top',
-        opacity: 0.88,
-        borderRadius: isGlob ? '50%' : '45% 55% 45% 55%',
+        borderRadius: config.borderRadius,
       }}
       initial={{ y: '-170vh' }}
-      animate={{ y: '110vh' }}
+      animate={{ y: '100vh' }}
       transition={{
-        duration: duration,
-        ease: [0.45, 0.05, 0.55, 0.95], // Smoother, more organic easing
-        delay: delay,
+        duration: config.duration,
+        ease: [0.45, 0.05, 0.55, 0.95],
+        delay: config.delay,
       }}
     />
   );
 };
 
-// --- Main Component: Blood Smear Transition ---
-export interface BloodSmearProps {
-  /** Controls whether the transition is active */
+// --- Main Component: Viscous Transition ---
+interface ViscousTransitionProps {
   isNavigating: boolean;
-  /** Callback invoked when the transition animation completes */
+  variant?: FluidVariant;
   onComplete?: () => void;
-  /** Optional custom classes for the overlay container */
   className?: string;
 }
 
-/**
- * BloodSmear - A dramatic full-screen page transition component
- * that creates a viscous blood-dripping animation effect with organic flow
- */
-export const BloodSmear: React.FC<BloodSmearProps> = ({ 
-  isNavigating, 
+const ViscousTransition: React.FC<ViscousTransitionProps> = ({
+  isNavigating,
+  variant = 'blood',
   onComplete,
-  className 
+  className
 }) => {
+  const filterId = useId();
+  const cleanFilterId = `viscous-goo-${filterId.replace(/:/g, '')}`;
+  const theme = THEMES[variant];
+
+  // 1. Memoize Drip Configuration
+  const drips = useMemo(() => {
+    return Array.from({ length: NUM_DRIPS }).map((_, index) => {
+      const isGlob = Math.random() > 0.7;
+      const widthVal = isGlob
+        ? 4 + Math.random() * 11
+        : 0.5 + Math.random() * 2;
+      const gridPos = (index / NUM_DRIPS) * 100;
+      const jitter = (Math.random() - 0.5) * (isGlob ? 10 : 18);
+
+      return {
+        id: index,
+        width: `${widthVal}vw`,
+        left: `${Math.max(-15, Math.min(115, gridPos + jitter))}%`,
+        duration: (isGlob ? 2.8 : 2.2) + Math.random() * 1.6,
+        delay: Math.random() * 0.4,
+        isGlob,
+        borderRadius: isGlob ? '50%' : '45% 55% 45% 55%',
+      };
+    });
+  }, []);
+
+  // 2. Scroll Locking & Timer
   useEffect(() => {
     if (isNavigating) {
       document.body.style.overflow = 'hidden';
       const timer = setTimeout(() => {
         onComplete?.();
         document.body.style.overflow = '';
-      }, 3500);
-      return () => clearTimeout(timer);
+      }, 3800);
+      return () => {
+        clearTimeout(timer);
+        document.body.style.overflow = '';
+      };
     }
   }, [isNavigating, onComplete]);
 
@@ -93,14 +142,13 @@ export const BloodSmear: React.FC<BloodSmearProps> = ({
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
-          data-testid="blood-smear-overlay"
+          aria-hidden="true"
         >
-          {/* SVG Filter Definition - Ultra Smooth Organic Blood Effect */}
+          {/* SVG Filter Definition */}
           <svg className="absolute w-0 h-0">
             <defs>
-              {/* Main blood gooey filter with smooth merging */}
-              <filter id="blood-goo" colorInterpolationFilters="sRGB" x="-50%" y="-50%" width="200%" height="200%">
-                {/* Step 1: Subtle organic texture (reduced for smoothness) */}
+              <filter id={cleanFilterId} colorInterpolationFilters="sRGB">
+                {/* A. Texture Generation */}
                 <feTurbulence
                   type="fractalNoise"
                   baseFrequency="0.01 0.03"
@@ -111,134 +159,143 @@ export const BloodSmear: React.FC<BloodSmearProps> = ({
                 <feDisplacementMap
                   in="SourceGraphic"
                   in2="noise"
-                  scale="8"
+                  scale="12"
                   xChannelSelector="R"
                   yChannelSelector="G"
-                  result="organic"
+                  result="textured"
                 />
-                
-                {/* Step 2: Large initial blur for smooth merging */}
-                <feGaussianBlur in="organic" stdDeviation="22" result="blur" />
-                
-                {/* Step 3: Moderate contrast for smooth edges (reduced from 28 -11) */}
+
+                {/* B. Gooey Effect (Blur + Contrast) */}
+                <feGaussianBlur in="textured" stdDeviation="12" result="blur" />
                 <feColorMatrix
                   in="blur"
                   mode="matrix"
-                  values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9"
+                  // This matrix boosts alpha contrast while preserving original RGB colors
+                  values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
                   result="goo"
                 />
-                
-                {/* Step 4: Additional smoothing blur */}
-                <feGaussianBlur in="goo" stdDeviation="3" result="smoothGoo" />
-                
-                {/* Step 5: Another pass for ultra-smooth edges */}
-                <feGaussianBlur in="smoothGoo" stdDeviation="1" result="ultraSmooth" />
-                
-                {/* Step 6: Color adjustment for deep blood red */}
-                <feColorMatrix
-                  in="ultraSmooth"
-                  type="matrix"
-                  values="0.85 0 0 0 0
-                          0 0.08 0 0 0
-                          0 0 0.08 0 0
-                          0 0 0 1 0"
-                  result="bloodColor"
-                />
-                
-                {/* Step 7: Smooth highlight preparation */}
-                <feGaussianBlur in="bloodColor" stdDeviation="4" result="highlightBlur" />
-                
-                {/* Step 8: White highlights for visual pop */}
+
+                {/* C. Primary Specular Lighting (White/Bright Highlight) */}
+                <feGaussianBlur in="goo" stdDeviation="4" result="gooBlur" />
                 <feSpecularLighting
-                  in="highlightBlur"
-                  surfaceScale="6"
-                  specularConstant="1.0"
-                  specularExponent="20"
-                  lightingColor="#ffffff"
-                  result="whiteHighlight"
+                  in="gooBlur"
+                  surfaceScale="8"
+                  specularConstant="1.8"
+                  specularExponent="16"
+                  lightingColor={theme.highlight}
+                  result="specular"
                 >
-                  <fePointLight x="200" y="80" z="250" />
+                  <fePointLight x="-500" y="-1000" z="600" />
                 </feSpecularLighting>
-                
-                {/* Step 9: Composite white highlight smoothly */}
-                <feComposite in="whiteHighlight" in2="bloodColor" operator="in" result="highlightInBlood" />
-                <feComposite 
-                  in="bloodColor" 
-                  in2="highlightInBlood" 
-                  operator="arithmetic"
-                  k1="0"
-                  k2="1"
-                  k3="0.3"
-                  k4="0"
-                  result="withHighlight"
-                />
-                
-                {/* Step 10: Subtle red shine for depth */}
+
+                {/* D. Secondary Shine (Thematic Color Shine) */}
                 <feSpecularLighting
-                  in="highlightBlur"
-                  surfaceScale="3"
-                  specularConstant="0.5"
-                  specularExponent="12"
-                  lightingColor="#cc0000"
-                  result="redShine"
+                  in="gooBlur"
+                  surfaceScale="4"
+                  specularConstant="0.8"
+                  specularExponent="10"
+                  lightingColor={theme.shine}
+                  result="shine"
                 >
-                  <fePointLight x="100" y="150" z="180" />
+                  <fePointLight x="500" y="1000" z="400" />
                 </feSpecularLighting>
-                
-                {/* Step 11: Final smooth composite */}
-                <feComposite in="redShine" in2="withHighlight" operator="in" result="shineInBlood" />
-                <feComposite 
-                  in="withHighlight" 
-                  in2="shineInBlood" 
-                  operator="arithmetic"
-                  k1="0"
-                  k2="1"
-                  k3="0.12"
-                  k4="0"
-                  result="final"
-                />
-                
-                {/* Step 12: Final smoothing pass to eliminate any jaggedness */}
-                <feGaussianBlur in="final" stdDeviation="0.5" result="finalSmooth" />
+
+                {/* E. Composition */}
+                <feComposite in="specular" in2="goo" operator="in" result="specularInGoo" />
+                <feComposite in="shine" in2="goo" operator="in" result="shineInGoo" />
+
+                {/* Add Highlights to Base */}
+                <feComposite in="specularInGoo" in2="goo" operator="over" result="withHighlight" />
+                <feComposite in="shineInGoo" in2="withHighlight" operator="over" result="final" />
+
+                {/* F. Anti-aliasing */}
+                <feGaussianBlur in="final" stdDeviation="0.5" />
               </filter>
             </defs>
           </svg>
 
-          {/* The Blood Container with Ultra-Smooth Gooey Filter */}
+          {/* The Liquid Container */}
           <div
             className="absolute inset-0 w-full h-full"
-            style={{ filter: "url(#blood-goo)" }}
+            style={{ filter: `url(#${cleanFilterId})` }}
           >
-            {/* Dynamic blood drips with organic timing */}
-            {Array.from({ length: NUM_DRIPS }).map((_, i) => (
-              <BloodDrip key={i} index={i} total={NUM_DRIPS} />
+            {drips.map((drip) => (
+              <FluidDrip key={drip.id} config={drip} color={theme.primary} />
             ))}
-            
-            {/* Main Blood Backing Layer with smooth animation */}
+
+            {/* Main Backing Layer */}
             <motion.div
               className="absolute top-0 left-0 right-0 h-[200vh]"
-              style={{
-                backgroundColor: '#8B0000',
-              }}
+              style={{ backgroundColor: theme.primary }}
               initial={{ y: '-200%' }}
               animate={{ y: '100%' }}
-              transition={{ 
-                duration: 3.4, 
-                ease: [0.45, 0.05, 0.55, 0.95], // Matching smooth easing
-                delay: 0.25 
+              transition={{
+                duration: 3.5,
+                ease: [0.45, 0.05, 0.55, 0.95],
+                delay: 0.1
               }}
             />
           </div>
 
-          {/* Subtle dark overlay for depth */}
+          {/* Vignette Overlay */}
           <motion.div
-            className="absolute inset-0 bg-gradient-to-b from-black/12 via-transparent to-black/8"
+            className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/30"
             initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 0.4, 0] }}
-            transition={{ duration: 3.0, times: [0, 0.5, 1] }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
           />
         </motion.div>
       )}
     </AnimatePresence>
+  );
+};
+
+// --- Demo Component with Default Button ---
+export interface BloodSmearProps {
+  /** Optional variant for the fluid effect */
+  variant?: FluidVariant;
+  /** Optional custom classes for the trigger button */
+  className?: string;
+  /** Optional button text */
+  buttonText?: string;
+}
+
+/**
+ * BloodSmear - A dramatic full-screen page transition component
+ * with a default trigger button
+ */
+export const BloodSmear: React.FC<BloodSmearProps> = ({
+  variant = 'blood',
+  className,
+  buttonText = 'Trigger Blood Smear'
+}) => {
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  const handleTrigger = () => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+  };
+
+  return (
+    <>
+      <ViscousTransition
+        isNavigating={isTransitioning}
+        variant={variant}
+        onComplete={() => setIsTransitioning(false)}
+      />
+      
+      <button
+        onClick={handleTrigger}
+        disabled={isTransitioning}
+        className={cn(
+          "px-6 py-3 rounded-lg font-semibold transition-all",
+          "bg-red-900 text-white hover:bg-red-800",
+          "disabled:opacity-50 disabled:cursor-not-allowed",
+          className
+        )}
+      >
+        {buttonText}
+      </button>
+    </>
   );
 };

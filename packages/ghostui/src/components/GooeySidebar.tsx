@@ -2,14 +2,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useSpring, useTransform, useMotionValue } from 'framer-motion';
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
 import { useThemeOptional, type Theme } from './ThemeProvider';
-
-// --- Utility: cn ---
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+import { cn } from '../lib/utils';
 
 // --- TypeScript Interfaces ---
 export interface MenuItem {
@@ -64,7 +58,7 @@ interface GooFilterProps {
 const GooFilter: React.FC<GooFilterProps> = ({ theme }) => {
   const colors = themeColors[theme];
   return (
-    <svg className="absolute w-0 h-0">
+    <svg className="absolute w-0 h-0" aria-hidden="true">
       <defs>
         <filter id={`sidebar-goo-3d-${theme}`} colorInterpolationFilters="sRGB">
           <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />

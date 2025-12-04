@@ -2,40 +2,6 @@ import { default as default_2 } from 'react';
 import { JSX as JSX_2 } from 'react/jsx-runtime';
 import { ReactNode } from 'react';
 
-/**
- * AnimatedBat component - displays an individual bat with physics-based cursor repulsion
- *
- * This component uses spring animations to create smooth, realistic bat movements
- * that respond dynamically to cursor position. Bats are repelled when the cursor
- * comes within 300px of their home position.
- */
-export declare const AnimatedBat: default_2.FC<AnimatedBatProps>;
-
-export declare interface AnimatedBatProps {
-    id: number;
-    size: number;
-    homeX: number;
-    homeY: number;
-    opacity: number;
-    blur?: string;
-    isHovered: boolean;
-    mousePos: {
-        x: number;
-        y: number;
-    };
-    windowSize: {
-        width: number;
-        height: number;
-    };
-}
-
-export declare const BatBurst: default_2.FC<BatBurstProps>;
-
-export declare interface BatBurstProps {
-    className?: string;
-    onComplete?: () => void;
-}
-
 export declare const BatIcon: default_2.FC<BatIconProps>;
 
 export declare interface BatIconProps {
@@ -44,17 +10,17 @@ export declare interface BatIconProps {
 
 /**
  * BloodSmear - A dramatic full-screen page transition component
- * that creates a viscous blood-dripping animation effect with organic flow
+ * with a default trigger button
  */
 export declare const BloodSmear: default_2.FC<BloodSmearProps>;
 
 export declare interface BloodSmearProps {
-    /** Controls whether the transition is active */
-    isNavigating: boolean;
-    /** Callback invoked when the transition animation completes */
-    onComplete?: () => void;
-    /** Optional custom classes for the overlay container */
+    /** Optional variant for the fluid effect */
+    variant?: FluidVariant;
+    /** Optional custom classes for the trigger button */
     className?: string;
+    /** Optional button text */
+    buttonText?: string;
 }
 
 export declare function CoffinCard({ className, children, title, index, animated, intensity, showGlow, }: CoffinCardProps): JSX_2.Element;
@@ -296,11 +262,19 @@ export declare interface EffectRendererProps {
     config: Required<CursorEffectConfig>;
 }
 
-export declare const GhostCursor: () => JSX_2.Element;
+declare type FluidVariant = 'blood' | 'goo' | 'ectoplasm';
 
-export declare const GhostToastProvider: ({ children, }: {
-    children: default_2.ReactNode;
-}) => JSX_2.Element;
+export declare const GhostCursor: {
+    (): JSX_2.Element;
+    displayName: string;
+};
+
+export declare const GhostToastProvider: {
+    ({ children, }: {
+        children: default_2.ReactNode;
+    }): JSX_2.Element;
+    displayName: string;
+};
 
 /**
  * GlowAura effect component
@@ -336,15 +310,46 @@ export declare interface GooeyButtonProps extends default_2.ButtonHTMLAttributes
     className?: string;
 }
 
-export declare const GooeyCard: default_2.FC<GooeyCardProps>;
+export declare const GooeyCard: default_2.ForwardRefExoticComponent<GooeyCardProps & default_2.RefAttributes<HTMLDivElement>>;
 
 export declare interface GooeyCardProps {
     children: default_2.ReactNode;
     className?: string;
     gooColor?: string;
+    /** Theme variant - defaults to ThemeProvider context or 'spectral' */
+    variant?: Theme;
 }
 
-export declare const GooeyProgressBar: default_2.FC<GooeyProgressBarProps>;
+/**
+ * GooeyDrawer - An animated overlay component with liquid dripping effects
+ *
+ * Features:
+ * - Slides in from any screen edge (top, right, bottom, left)
+ * - Animated liquid drips with SVG filter effects
+ * - Specular lighting for 3D appearance
+ * - Backdrop with click-to-close
+ * - Keyboard support (Escape to close)
+ * - Scrollable content area
+ */
+export declare const GooeyDrawer: default_2.FC<GooeyDrawerProps>;
+
+/**
+ * Props for the GooeyDrawer component
+ */
+export declare interface GooeyDrawerProps {
+    /** Controls drawer visibility */
+    isOpen: boolean;
+    /** Callback invoked when drawer should close */
+    onClose: () => void;
+    /** Screen edge placement */
+    placement?: Placement;
+    /** Content to render inside drawer */
+    children: default_2.ReactNode;
+    /** Additional CSS classes for customization */
+    className?: string;
+}
+
+export declare const GooeyProgressBar: default_2.ForwardRefExoticComponent<GooeyProgressBarProps & default_2.RefAttributes<HTMLDivElement>>;
 
 export declare interface GooeyProgressBarProps {
     value: number;
@@ -370,7 +375,7 @@ export declare interface GooeySidebarProps {
     className?: string;
 }
 
-export declare const GraveModal: default_2.FC<GraveModalProps>;
+export declare const GraveModal: default_2.ForwardRefExoticComponent<GraveModalProps & default_2.RefAttributes<HTMLDivElement>>;
 
 export declare interface GraveModalProps {
     isOpen: boolean;
@@ -438,15 +443,6 @@ export declare interface HauntedVignetteProps {
     className?: string;
 }
 
-/**
- * JumpscareBat component - displays a dramatic jumpscare effect with a large bat
- * that scales up rapidly and then exits upward.
- *
- * This component is used as part of the BatBurst effect during the initial
- * activation phase (first 1.5 seconds).
- */
-export declare const JumpscareBat: default_2.FC;
-
 export declare interface MenuItem {
     id: string;
     label: string;
@@ -492,6 +488,11 @@ export declare interface ParticleSystemProps {
 }
 
 /**
+ * Placement options for the drawer
+ */
+declare type Placement = 'right' | 'left' | 'bottom' | 'top';
+
+/**
  * Preset theme constants
  */
 export declare const PRESET_THEMES: Record<'spooky' | 'minimal' | 'intense', CursorTheme>;
@@ -535,10 +536,6 @@ export declare interface SpatialGrid {
     cells: Map<string, Set<string>>;
 }
 
-/**
- * SpectralRiver - A dramatic full-screen page transition component
- * that creates a liquid slime/goo animation effect with animated purple drips
- */
 export declare const SpectralRiver: default_2.FC<SpectralRiverProps>;
 
 export declare interface SpectralRiverProps {
@@ -548,7 +545,7 @@ export declare interface SpectralRiverProps {
     onComplete?: () => void;
 }
 
-export declare const SpectralTabs: default_2.FC<SpectralTabsProps>;
+export declare const SpectralTabs: default_2.ForwardRefExoticComponent<SpectralTabsProps & default_2.RefAttributes<HTMLDivElement>>;
 
 export declare interface SpectralTabsProps {
     tabs: TabItem[];
@@ -571,7 +568,7 @@ export declare const SpookyGhostIcon: ({ className }: {
     className?: string;
 }) => JSX_2.Element;
 
-export declare const SpookyScrollbar: default_2.FC<SpookyScrollbarProps>;
+export declare const SpookyScrollbar: default_2.ForwardRefExoticComponent<SpookyScrollbarProps & default_2.RefAttributes<HTMLDivElement>>;
 
 export declare interface SpookyScrollbarProps {
     children: default_2.ReactNode;
@@ -589,7 +586,7 @@ export declare interface SpookySkeletonProps {
     className?: string;
 }
 
-export declare const SpookyTooltip: default_2.FC<SpookyTooltipProps>;
+export declare const SpookyTooltip: default_2.ForwardRefExoticComponent<SpookyTooltipProps & default_2.RefAttributes<HTMLDivElement>>;
 
 export declare interface SpookyTooltipProps {
     content: default_2.ReactNode;
@@ -626,7 +623,7 @@ export declare interface ThemeProviderProps {
 }
 
 declare type ToastContextType = {
-    addToast: (msg: string, type?: 'info' | 'curse') => void;
+    addToast: (msg: string, type?: 'info' | 'curse' | 'success') => void;
 };
 
 declare type ToastSide = 'left' | 'right';
@@ -634,7 +631,7 @@ declare type ToastSide = 'left' | 'right';
 export declare type ToastType = {
     id: string;
     message: string;
-    type: 'info' | 'curse';
+    type: 'info' | 'curse' | 'success';
     side: ToastSide;
     scale: number;
     rotation: number;

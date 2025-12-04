@@ -66,7 +66,8 @@ export interface SpectralRiverProps {
  * SpectralRiver - A dramatic full-screen page transition component
  * that creates a liquid slime/goo animation effect with animated purple drips
  */
-export const SpectralRiver: React.FC<SpectralRiverProps> = ({ isActive, onComplete }) => {
+const SpectralRiverComponent: React.FC<SpectralRiverProps> = ({ isActive, onComplete }) => {
+  const filterId = React.useId();
   useEffect(() => {
     if (isActive) {
       document.body.style.overflow = 'hidden';
@@ -87,12 +88,13 @@ export const SpectralRiver: React.FC<SpectralRiverProps> = ({ isActive, onComple
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
           data-testid="spectral-river-overlay"
+          aria-hidden="true"
         >
           {/* 1. SVG Filter Definition */}
           {/* colorInterpolationFilters="sRGB" prevents dark fringing on the blur */}
-          <svg className="absolute w-0 h-0">
+          <svg className="absolute w-0 h-0" aria-hidden="true">
             <defs>
-              <filter id="spectral-goo" colorInterpolationFilters="sRGB">
+              <filter id={`spectral-goo-${filterId}`} colorInterpolationFilters="sRGB">
                 {/* 1. Blur: Reduced deviation slightly for sharper, less messy edges */}
                 <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
                 {/* 2. Contrast: Smoother Alpha Threshold (18 -7 instead of 21 -9) */}
@@ -124,7 +126,7 @@ export const SpectralRiver: React.FC<SpectralRiverProps> = ({ isActive, onComple
           {/* 2. The Liquid Container */}
           <div
             className="absolute inset-0 w-full h-full"
-            style={{ filter: "url(#spectral-goo)" }}
+            style={{ filter: `url(#spectral-goo-${filterId})` }}
           >
             {/* The drips falling down */}
             {Array.from({ length: NUM_DRIPS }).map((_, i) => (
@@ -151,3 +153,7 @@ export const SpectralRiver: React.FC<SpectralRiverProps> = ({ isActive, onComple
     </AnimatePresence>
   );
 };
+
+SpectralRiverComponent.displayName = 'SpectralRiver';
+
+export const SpectralRiver = SpectralRiverComponent;

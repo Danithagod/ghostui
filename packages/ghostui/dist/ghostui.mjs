@@ -1,128 +1,128 @@
-import { jsxs as h, jsx as t, Fragment as H } from "react/jsx-runtime";
-import j, { forwardRef as He, createElement as Oe, useState as R, useId as Ut, isValidElement as gt, cloneElement as Kt, createContext as We, useContext as Ie, useCallback as X, useEffect as A, useRef as F, useLayoutEffect as Jt, useMemo as me, Children as Qt } from "react";
-import { motion as v, AnimatePresence as L, useSpring as q, useMotionValue as Me, useMotionTemplate as eo, useTransform as Z } from "framer-motion";
+import { jsxs as p, jsx as t, Fragment as W } from "react/jsx-runtime";
+import O, { createContext as Le, useContext as Se, useState as G, useCallback as Q, useEffect as A, forwardRef as De, createElement as Ae, useId as ht, isValidElement as mt, cloneElement as Kt, useRef as L, useLayoutEffect as Jt, useMemo as ce, Children as Qt } from "react";
+import { motion as v, AnimatePresence as D, useMotionValue as Ce, useSpring as re, useMotionTemplate as eo, useTransform as V } from "framer-motion";
 import to, { createPortal as oo } from "react-dom";
-function bt(e) {
+function ft(e) {
   var o, r, n = "";
   if (typeof e == "string" || typeof e == "number") n += e;
   else if (typeof e == "object") if (Array.isArray(e)) {
     var s = e.length;
-    for (o = 0; o < s; o++) e[o] && (r = bt(e[o])) && (n && (n += " "), n += r);
+    for (o = 0; o < s; o++) e[o] && (r = ft(e[o])) && (n && (n += " "), n += r);
   } else for (r in e) e[r] && (n && (n += " "), n += r);
   return n;
 }
-function Ee() {
-  for (var e, o, r = 0, n = "", s = arguments.length; r < s; r++) (e = arguments[r]) && (o = bt(e)) && (n && (n += " "), n += o);
+function ro() {
+  for (var e, o, r = 0, n = "", s = arguments.length; r < s; r++) (e = arguments[r]) && (o = ft(e)) && (n && (n += " "), n += o);
   return n;
 }
-const ro = (e, o) => {
+const no = (e, o) => {
   const r = new Array(e.length + o.length);
   for (let n = 0; n < e.length; n++)
     r[n] = e[n];
   for (let n = 0; n < o.length; n++)
     r[e.length + n] = o[n];
   return r;
-}, no = (e, o) => ({
+}, so = (e, o) => ({
   classGroupId: e,
   validator: o
-}), yt = (e = /* @__PURE__ */ new Map(), o = null, r) => ({
+}), gt = (e = /* @__PURE__ */ new Map(), o = null, r) => ({
   nextPart: e,
   validators: o,
   classGroupId: r
-}), Ne = "-", et = [], so = "arbitrary..", io = (e) => {
-  const o = lo(e), {
+}), Ne = "-", Ue = [], io = "arbitrary..", ao = (e) => {
+  const o = co(e), {
     conflictingClassGroups: r,
     conflictingClassGroupModifiers: n
   } = e;
   return {
-    getClassGroupId: (a) => {
-      if (a.startsWith("[") && a.endsWith("]"))
-        return ao(a);
-      const l = a.split(Ne), c = l[0] === "" && l.length > 1 ? 1 : 0;
-      return xt(l, c, o);
+    getClassGroupId: (l) => {
+      if (l.startsWith("[") && l.endsWith("]"))
+        return lo(l);
+      const a = l.split(Ne), c = a[0] === "" && a.length > 1 ? 1 : 0;
+      return bt(a, c, o);
     },
-    getConflictingClassGroupIds: (a, l) => {
-      if (l) {
-        const c = n[a], d = r[a];
-        return c ? d ? ro(d, c) : c : d || et;
+    getConflictingClassGroupIds: (l, a) => {
+      if (a) {
+        const c = n[l], d = r[l];
+        return c ? d ? no(d, c) : c : d || Ue;
       }
-      return r[a] || et;
+      return r[l] || Ue;
     }
   };
-}, xt = (e, o, r) => {
+}, bt = (e, o, r) => {
   if (e.length - o === 0)
     return r.classGroupId;
   const s = e[o], i = r.nextPart.get(s);
   if (i) {
-    const d = xt(e, o + 1, i);
+    const d = bt(e, o + 1, i);
     if (d) return d;
   }
-  const a = r.validators;
-  if (a === null)
+  const l = r.validators;
+  if (l === null)
     return;
-  const l = o === 0 ? e.join(Ne) : e.slice(o).join(Ne), c = a.length;
+  const a = o === 0 ? e.join(Ne) : e.slice(o).join(Ne), c = l.length;
   for (let d = 0; d < c; d++) {
-    const u = a[d];
-    if (u.validator(l))
+    const u = l[d];
+    if (u.validator(a))
       return u.classGroupId;
   }
-}, ao = (e) => e.slice(1, -1).indexOf(":") === -1 ? void 0 : (() => {
+}, lo = (e) => e.slice(1, -1).indexOf(":") === -1 ? void 0 : (() => {
   const o = e.slice(1, -1), r = o.indexOf(":"), n = o.slice(0, r);
-  return n ? so + n : void 0;
-})(), lo = (e) => {
+  return n ? io + n : void 0;
+})(), co = (e) => {
   const {
     theme: o,
     classGroups: r
   } = e;
-  return co(r, o);
-}, co = (e, o) => {
-  const r = yt();
+  return uo(r, o);
+}, uo = (e, o) => {
+  const r = gt();
   for (const n in e) {
     const s = e[n];
-    Ze(s, r, n, o);
+    Pe(s, r, n, o);
   }
   return r;
-}, Ze = (e, o, r, n) => {
+}, Pe = (e, o, r, n) => {
   const s = e.length;
   for (let i = 0; i < s; i++) {
-    const a = e[i];
-    uo(a, o, r, n);
+    const l = e[i];
+    po(l, o, r, n);
   }
-}, uo = (e, o, r, n) => {
+}, po = (e, o, r, n) => {
   if (typeof e == "string") {
-    po(e, o, r);
+    ho(e, o, r);
     return;
   }
   if (typeof e == "function") {
     mo(e, o, r, n);
     return;
   }
-  ho(e, o, r, n);
-}, po = (e, o, r) => {
-  const n = e === "" ? o : vt(o, e);
+  fo(e, o, r, n);
+}, ho = (e, o, r) => {
+  const n = e === "" ? o : yt(o, e);
   n.classGroupId = r;
 }, mo = (e, o, r, n) => {
-  if (fo(e)) {
-    Ze(e(n), o, r, n);
+  if (go(e)) {
+    Pe(e(n), o, r, n);
     return;
   }
-  o.validators === null && (o.validators = []), o.validators.push(no(r, e));
-}, ho = (e, o, r, n) => {
+  o.validators === null && (o.validators = []), o.validators.push(so(r, e));
+}, fo = (e, o, r, n) => {
   const s = Object.entries(e), i = s.length;
-  for (let a = 0; a < i; a++) {
-    const [l, c] = s[a];
-    Ze(c, vt(o, l), r, n);
+  for (let l = 0; l < i; l++) {
+    const [a, c] = s[l];
+    Pe(c, yt(o, a), r, n);
   }
-}, vt = (e, o) => {
+}, yt = (e, o) => {
   let r = e;
   const n = o.split(Ne), s = n.length;
   for (let i = 0; i < s; i++) {
-    const a = n[i];
-    let l = r.nextPart.get(a);
-    l || (l = yt(), r.nextPart.set(a, l)), r = l;
+    const l = n[i];
+    let a = r.nextPart.get(l);
+    a || (a = gt(), r.nextPart.set(l, a)), r = a;
   }
   return r;
-}, fo = (e) => "isThemeGetter" in e && e.isThemeGetter === !0, go = (e) => {
+}, go = (e) => "isThemeGetter" in e && e.isThemeGetter === !0, bo = (e) => {
   if (e < 1)
     return {
       get: () => {
@@ -131,65 +131,65 @@ const ro = (e, o) => {
       }
     };
   let o = 0, r = /* @__PURE__ */ Object.create(null), n = /* @__PURE__ */ Object.create(null);
-  const s = (i, a) => {
-    r[i] = a, o++, o > e && (o = 0, n = r, r = /* @__PURE__ */ Object.create(null));
+  const s = (i, l) => {
+    r[i] = l, o++, o > e && (o = 0, n = r, r = /* @__PURE__ */ Object.create(null));
   };
   return {
     get(i) {
-      let a = r[i];
-      if (a !== void 0)
-        return a;
-      if ((a = n[i]) !== void 0)
-        return s(i, a), a;
+      let l = r[i];
+      if (l !== void 0)
+        return l;
+      if ((l = n[i]) !== void 0)
+        return s(i, l), l;
     },
-    set(i, a) {
-      i in r ? r[i] = a : s(i, a);
+    set(i, l) {
+      i in r ? r[i] = l : s(i, l);
     }
   };
-}, Pe = "!", tt = ":", bo = [], ot = (e, o, r, n, s) => ({
+}, Be = "!", Ke = ":", yo = [], Je = (e, o, r, n, s) => ({
   modifiers: e,
   hasImportantModifier: o,
   baseClassName: r,
   maybePostfixModifierPosition: n,
   isExternal: s
-}), yo = (e) => {
+}), xo = (e) => {
   const {
     prefix: o,
     experimentalParseClassName: r
   } = e;
   let n = (s) => {
     const i = [];
-    let a = 0, l = 0, c = 0, d;
+    let l = 0, a = 0, c = 0, d;
     const u = s.length;
-    for (let m = 0; m < u; m++) {
-      const g = s[m];
-      if (a === 0 && l === 0) {
-        if (g === tt) {
-          i.push(s.slice(c, m)), c = m + 1;
+    for (let g = 0; g < u; g++) {
+      const x = s[g];
+      if (l === 0 && a === 0) {
+        if (x === Ke) {
+          i.push(s.slice(c, g)), c = g + 1;
           continue;
         }
-        if (g === "/") {
-          d = m;
+        if (x === "/") {
+          d = g;
           continue;
         }
       }
-      g === "[" ? a++ : g === "]" ? a-- : g === "(" ? l++ : g === ")" && l--;
+      x === "[" ? l++ : x === "]" ? l-- : x === "(" ? a++ : x === ")" && a--;
     }
-    const b = i.length === 0 ? s : s.slice(c);
-    let p = b, f = !1;
-    b.endsWith(Pe) ? (p = b.slice(0, -1), f = !0) : (
+    const h = i.length === 0 ? s : s.slice(c);
+    let m = h, f = !1;
+    h.endsWith(Be) ? (m = h.slice(0, -1), f = !0) : (
       /**
        * In Tailwind CSS v3 the important modifier was at the start of the base class name. This is still supported for legacy reasons.
        * @see https://github.com/dcastil/tailwind-merge/issues/513#issuecomment-2614029864
        */
-      b.startsWith(Pe) && (p = b.slice(1), f = !0)
+      h.startsWith(Be) && (m = h.slice(1), f = !0)
     );
     const y = d && d > c ? d - c : void 0;
-    return ot(i, f, p, y);
+    return Je(i, f, m, y);
   };
   if (o) {
-    const s = o + tt, i = n;
-    n = (a) => a.startsWith(s) ? i(a.slice(s.length)) : ot(bo, !1, a, void 0, !0);
+    const s = o + Ke, i = n;
+    n = (l) => l.startsWith(s) ? i(l.slice(s.length)) : Je(yo, !1, l, void 0, !0);
   }
   if (r) {
     const s = n;
@@ -199,7 +199,7 @@ const ro = (e, o) => {
     });
   }
   return n;
-}, xo = (e) => {
+}, vo = (e) => {
   const o = /* @__PURE__ */ new Map();
   return e.orderSensitiveModifiers.forEach((r, n) => {
     o.set(r, 1e6 + n);
@@ -207,39 +207,39 @@ const ro = (e, o) => {
     const n = [];
     let s = [];
     for (let i = 0; i < r.length; i++) {
-      const a = r[i], l = a[0] === "[", c = o.has(a);
-      l || c ? (s.length > 0 && (s.sort(), n.push(...s), s = []), n.push(a)) : s.push(a);
+      const l = r[i], a = l[0] === "[", c = o.has(l);
+      a || c ? (s.length > 0 && (s.sort(), n.push(...s), s = []), n.push(l)) : s.push(l);
     }
     return s.length > 0 && (s.sort(), n.push(...s)), n;
   };
-}, vo = (e) => ({
-  cache: go(e.cacheSize),
-  parseClassName: yo(e),
-  sortModifiers: xo(e),
-  ...io(e)
-}), wo = /\s+/, ko = (e, o) => {
+}, wo = (e) => ({
+  cache: bo(e.cacheSize),
+  parseClassName: xo(e),
+  sortModifiers: vo(e),
+  ...ao(e)
+}), ko = /\s+/, Co = (e, o) => {
   const {
     parseClassName: r,
     getClassGroupId: n,
     getConflictingClassGroupIds: s,
     sortModifiers: i
-  } = o, a = [], l = e.trim().split(wo);
+  } = o, l = [], a = e.trim().split(ko);
   let c = "";
-  for (let d = l.length - 1; d >= 0; d -= 1) {
-    const u = l[d], {
-      isExternal: b,
-      modifiers: p,
+  for (let d = a.length - 1; d >= 0; d -= 1) {
+    const u = a[d], {
+      isExternal: h,
+      modifiers: m,
       hasImportantModifier: f,
       baseClassName: y,
-      maybePostfixModifierPosition: m
+      maybePostfixModifierPosition: g
     } = r(u);
-    if (b) {
+    if (h) {
       c = u + (c.length > 0 ? " " + c : c);
       continue;
     }
-    let g = !!m, w = n(g ? y.substring(0, m) : y);
+    let x = !!g, w = n(x ? y.substring(0, g) : y);
     if (!w) {
-      if (!g) {
+      if (!x) {
         c = u + (c.length > 0 ? " " + c : c);
         continue;
       }
@@ -247,61 +247,61 @@ const ro = (e, o) => {
         c = u + (c.length > 0 ? " " + c : c);
         continue;
       }
-      g = !1;
+      x = !1;
     }
-    const x = p.length === 0 ? "" : p.length === 1 ? p[0] : i(p).join(":"), T = f ? x + Pe : x, I = T + w;
-    if (a.indexOf(I) > -1)
+    const k = m.length === 0 ? "" : m.length === 1 ? m[0] : i(m).join(":"), $ = f ? k + Be : k, M = $ + w;
+    if (l.indexOf(M) > -1)
       continue;
-    a.push(I);
-    const $ = s(w, g);
-    for (let N = 0; N < $.length; ++N) {
-      const E = $[N];
-      a.push(T + E);
+    l.push(M);
+    const F = s(w, x);
+    for (let E = 0; E < F.length; ++E) {
+      const z = F[E];
+      l.push($ + z);
     }
     c = u + (c.length > 0 ? " " + c : c);
   }
   return c;
-}, Co = (...e) => {
+}, No = (...e) => {
   let o = 0, r, n, s = "";
   for (; o < e.length; )
-    (r = e[o++]) && (n = wt(r)) && (s && (s += " "), s += n);
+    (r = e[o++]) && (n = xt(r)) && (s && (s += " "), s += n);
   return s;
-}, wt = (e) => {
+}, xt = (e) => {
   if (typeof e == "string")
     return e;
   let o, r = "";
   for (let n = 0; n < e.length; n++)
-    e[n] && (o = wt(e[n])) && (r && (r += " "), r += o);
+    e[n] && (o = xt(e[n])) && (r && (r += " "), r += o);
   return r;
 }, Mo = (e, ...o) => {
   let r, n, s, i;
-  const a = (c) => {
-    const d = o.reduce((u, b) => b(u), e());
-    return r = vo(d), n = r.cache.get, s = r.cache.set, i = l, l(c);
-  }, l = (c) => {
+  const l = (c) => {
+    const d = o.reduce((u, h) => h(u), e());
+    return r = wo(d), n = r.cache.get, s = r.cache.set, i = a, a(c);
+  }, a = (c) => {
     const d = n(c);
     if (d)
       return d;
-    const u = ko(c, r);
+    const u = Co(c, r);
     return s(c, u), u;
   };
-  return i = a, (...c) => i(Co(...c));
-}, No = [], O = (e) => {
-  const o = (r) => r[e] || No;
+  return i = l, (...c) => i(No(...c));
+}, So = [], P = (e) => {
+  const o = (r) => r[e] || So;
   return o.isThemeGetter = !0, o;
-}, kt = /^\[(?:(\w[\w-]*):)?(.+)\]$/i, Ct = /^\((?:(\w[\w-]*):)?(.+)\)$/i, So = /^\d+\/\d+$/, Io = /^(\d+(\.\d+)?)?(xs|sm|md|lg|xl)$/, Eo = /\d+(%|px|r?em|[sdl]?v([hwib]|min|max)|pt|pc|in|cm|mm|cap|ch|ex|r?lh|cq(w|h|i|b|min|max))|\b(calc|min|max|clamp)\(.+\)|^0$/, zo = /^(rgba?|hsla?|hwb|(ok)?(lab|lch)|color-mix)\(.+\)$/, To = /^(inset_)?-?((\d+)?\.?(\d+)[a-z]+|0)_-?((\d+)?\.?(\d+)[a-z]+|0)/, Ro = /^(url|image|image-set|cross-fade|element|(repeating-)?(linear|radial|conic)-gradient)\(.+\)$/, se = (e) => So.test(e), G = (e) => !!e && !Number.isNaN(Number(e)), J = (e) => !!e && Number.isInteger(Number(e)), Ae = (e) => e.endsWith("%") && G(e.slice(0, -1)), K = (e) => Io.test(e), Go = () => !0, Ao = (e) => (
+}, vt = /^\[(?:(\w[\w-]*):)?(.+)\]$/i, wt = /^\((?:(\w[\w-]*):)?(.+)\)$/i, Io = /^\d+\/\d+$/, Eo = /^(\d+(\.\d+)?)?(xs|sm|md|lg|xl)$/, To = /\d+(%|px|r?em|[sdl]?v([hwib]|min|max)|pt|pc|in|cm|mm|cap|ch|ex|r?lh|cq(w|h|i|b|min|max))|\b(calc|min|max|clamp)\(.+\)|^0$/, $o = /^(rgba?|hsla?|hwb|(ok)?(lab|lch)|color-mix)\(.+\)$/, zo = /^(inset_)?-?((\d+)?\.?(\d+)[a-z]+|0)_-?((\d+)?\.?(\d+)[a-z]+|0)/, Ro = /^(url|image|image-set|cross-fade|element|(repeating-)?(linear|radial|conic)-gradient)\(.+\)$/, ie = (e) => Io.test(e), R = (e) => !!e && !Number.isNaN(Number(e)), J = (e) => !!e && Number.isInteger(Number(e)), Te = (e) => e.endsWith("%") && R(e.slice(0, -1)), K = (e) => Eo.test(e), Go = () => !0, Ao = (e) => (
   // `colorFunctionRegex` check is necessary because color functions can have percentages in them which which would be incorrectly classified as lengths.
   // For example, `hsl(0 0% 0%)` would be classified as a length without this check.
   // I could also use lookbehind assertion in `lengthUnitRegex` but that isn't supported widely enough.
-  Eo.test(e) && !zo.test(e)
-), Mt = () => !1, $o = (e) => To.test(e), Bo = (e) => Ro.test(e), Fo = (e) => !C(e) && !M(e), Lo = (e) => le(e, It, Mt), C = (e) => kt.test(e), ee = (e) => le(e, Et, Ao), $e = (e) => le(e, Ho, G), rt = (e) => le(e, Nt, Mt), Oo = (e) => le(e, St, Bo), ve = (e) => le(e, zt, $o), M = (e) => Ct.test(e), de = (e) => ce(e, Et), Po = (e) => ce(e, Wo), nt = (e) => ce(e, Nt), Do = (e) => ce(e, It), _o = (e) => ce(e, St), we = (e) => ce(e, zt, !0), le = (e, o, r) => {
-  const n = kt.exec(e);
+  To.test(e) && !$o.test(e)
+), kt = () => !1, Bo = (e) => zo.test(e), Fo = (e) => Ro.test(e), Oo = (e) => !S(e) && !I(e), Lo = (e) => de(e, Mt, kt), S = (e) => vt.test(e), oe = (e) => de(e, St, Ao), $e = (e) => de(e, Wo, R), Qe = (e) => de(e, Ct, kt), Do = (e) => de(e, Nt, Fo), ve = (e) => de(e, It, Bo), I = (e) => wt.test(e), he = (e) => ue(e, St), Po = (e) => ue(e, Zo), et = (e) => ue(e, Ct), _o = (e) => ue(e, Mt), Ho = (e) => ue(e, Nt), we = (e) => ue(e, It, !0), de = (e, o, r) => {
+  const n = vt.exec(e);
   return n ? n[1] ? o(n[1]) : r(n[2]) : !1;
-}, ce = (e, o, r = !1) => {
-  const n = Ct.exec(e);
+}, ue = (e, o, r = !1) => {
+  const n = wt.exec(e);
   return n ? n[1] ? o(n[1]) : r : !1;
-}, Nt = (e) => e === "position" || e === "percentage", St = (e) => e === "image" || e === "url", It = (e) => e === "length" || e === "size" || e === "bg-size", Et = (e) => e === "length", Ho = (e) => e === "number", Wo = (e) => e === "family-name", zt = (e) => e === "shadow", Zo = () => {
-  const e = O("color"), o = O("font"), r = O("text"), n = O("font-weight"), s = O("tracking"), i = O("leading"), a = O("breakpoint"), l = O("container"), c = O("spacing"), d = O("radius"), u = O("shadow"), b = O("inset-shadow"), p = O("text-shadow"), f = O("drop-shadow"), y = O("blur"), m = O("perspective"), g = O("aspect"), w = O("ease"), x = O("animate"), T = () => ["auto", "avoid", "all", "avoid-page", "page", "left", "right", "column"], I = () => [
+}, Ct = (e) => e === "position" || e === "percentage", Nt = (e) => e === "image" || e === "url", Mt = (e) => e === "length" || e === "size" || e === "bg-size", St = (e) => e === "length", Wo = (e) => e === "number", Zo = (e) => e === "family-name", It = (e) => e === "shadow", jo = () => {
+  const e = P("color"), o = P("font"), r = P("text"), n = P("font-weight"), s = P("tracking"), i = P("leading"), l = P("breakpoint"), a = P("container"), c = P("spacing"), d = P("radius"), u = P("shadow"), h = P("inset-shadow"), m = P("text-shadow"), f = P("drop-shadow"), y = P("blur"), g = P("perspective"), x = P("aspect"), w = P("ease"), k = P("animate"), $ = () => ["auto", "avoid", "all", "avoid-page", "page", "left", "right", "column"], M = () => [
     "center",
     "top",
     "bottom",
@@ -319,30 +319,30 @@ const ro = (e, o) => {
     "bottom-left",
     // Deprecated since Tailwind CSS v4.1.0, see https://github.com/tailwindlabs/tailwindcss/pull/17378
     "left-bottom"
-  ], $ = () => [...I(), M, C], N = () => ["auto", "hidden", "clip", "visible", "scroll"], E = () => ["auto", "contain", "none"], k = () => [M, C, c], B = () => [se, "full", "auto", ...k()], he = () => [J, "none", "subgrid", M, C], fe = () => ["auto", {
-    span: ["full", J, M, C]
-  }, J, M, C], re = () => [J, "auto", M, C], Xe = () => ["auto", "min", "max", "fr", M, C], Te = () => ["start", "end", "center", "between", "around", "evenly", "stretch", "baseline", "center-safe", "end-safe"], ne = () => ["start", "end", "center", "stretch", "center-safe", "end-safe"], U = () => ["auto", ...k()], Q = () => [se, "auto", "full", "dvw", "dvh", "lvw", "lvh", "svw", "svh", "min", "max", "fit", ...k()], z = () => [e, M, C], qe = () => [...I(), nt, rt, {
-    position: [M, C]
-  }], Ue = () => ["no-repeat", {
+  ], F = () => [...M(), I, S], E = () => ["auto", "hidden", "clip", "visible", "scroll"], z = () => ["auto", "contain", "none"], C = () => [I, S, c], N = () => [ie, "full", "auto", ...C()], B = () => [J, "none", "subgrid", I, S], _ = () => ["auto", {
+    span: ["full", J, I, S]
+  }, J, I, S], Z = () => [J, "auto", I, S], ne = () => ["auto", "min", "max", "fr", I, S], ee = () => ["start", "end", "center", "between", "around", "evenly", "stretch", "baseline", "center-safe", "end-safe"], se = () => ["start", "end", "center", "stretch", "center-safe", "end-safe"], U = () => ["auto", ...C()], te = () => [ie, "auto", "full", "dvw", "dvh", "lvw", "lvh", "svw", "svh", "min", "max", "fit", ...C()], T = () => [e, I, S], je = () => [...M(), et, Qe, {
+    position: [I, S]
+  }], Ye = () => ["no-repeat", {
     repeat: ["", "x", "y", "space", "round"]
-  }], Ke = () => ["auto", "cover", "contain", Do, Lo, {
-    size: [M, C]
-  }], Re = () => [Ae, de, ee], D = () => [
+  }], Ve = () => ["auto", "cover", "contain", _o, Lo, {
+    size: [I, S]
+  }], Ie = () => [Te, he, oe], j = () => [
     // Deprecated since Tailwind CSS v4.0.0
     "",
     "none",
     "full",
     d,
-    M,
-    C
-  ], W = () => ["", G, de, ee], ge = () => ["solid", "dashed", "dotted", "double"], Je = () => ["normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "color-burn", "hard-light", "soft-light", "difference", "exclusion", "hue", "saturation", "color", "luminosity"], P = () => [G, Ae, nt, rt], Qe = () => [
+    I,
+    S
+  ], Y = () => ["", R, he, oe], ge = () => ["solid", "dashed", "dotted", "double"], Xe = () => ["normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "color-burn", "hard-light", "soft-light", "difference", "exclusion", "hue", "saturation", "color", "luminosity"], H = () => [R, Te, et, Qe], qe = () => [
     // Deprecated since Tailwind CSS v4.0.0
     "",
     "none",
     y,
-    M,
-    C
-  ], be = () => ["none", G, M, C], ye = () => ["none", G, M, C], Ge = () => [G, M, C], xe = () => [se, "full", ...k()];
+    I,
+    S
+  ], be = () => ["none", R, I, S], ye = () => ["none", R, I, S], Ee = () => [R, I, S], xe = () => [ie, "full", ...C()];
   return {
     cacheSize: 500,
     theme: {
@@ -354,14 +354,14 @@ const ro = (e, o) => {
       container: [K],
       "drop-shadow": [K],
       ease: ["in", "out", "in-out"],
-      font: [Fo],
+      font: [Oo],
       "font-weight": ["thin", "extralight", "light", "normal", "medium", "semibold", "bold", "extrabold", "black"],
       "inset-shadow": [K],
       leading: ["none", "tight", "snug", "normal", "relaxed", "loose"],
       perspective: ["dramatic", "near", "normal", "midrange", "distant", "none"],
       radius: [K],
       shadow: [K],
-      spacing: ["px", G],
+      spacing: ["px", R],
       text: [K],
       "text-shadow": [K],
       tracking: ["tighter", "tight", "normal", "wide", "wider", "widest"]
@@ -375,7 +375,7 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/aspect-ratio
        */
       aspect: [{
-        aspect: ["auto", "square", se, C, M, g]
+        aspect: ["auto", "square", ie, S, I, x]
       }],
       /**
        * Container
@@ -388,21 +388,21 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/columns
        */
       columns: [{
-        columns: [G, C, M, l]
+        columns: [R, S, I, a]
       }],
       /**
        * Break After
        * @see https://tailwindcss.com/docs/break-after
        */
       "break-after": [{
-        "break-after": T()
+        "break-after": $()
       }],
       /**
        * Break Before
        * @see https://tailwindcss.com/docs/break-before
        */
       "break-before": [{
-        "break-before": T()
+        "break-before": $()
       }],
       /**
        * Break Inside
@@ -466,49 +466,49 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/object-position
        */
       "object-position": [{
-        object: $()
+        object: F()
       }],
       /**
        * Overflow
        * @see https://tailwindcss.com/docs/overflow
        */
       overflow: [{
-        overflow: N()
+        overflow: E()
       }],
       /**
        * Overflow X
        * @see https://tailwindcss.com/docs/overflow
        */
       "overflow-x": [{
-        "overflow-x": N()
+        "overflow-x": E()
       }],
       /**
        * Overflow Y
        * @see https://tailwindcss.com/docs/overflow
        */
       "overflow-y": [{
-        "overflow-y": N()
+        "overflow-y": E()
       }],
       /**
        * Overscroll Behavior
        * @see https://tailwindcss.com/docs/overscroll-behavior
        */
       overscroll: [{
-        overscroll: E()
+        overscroll: z()
       }],
       /**
        * Overscroll Behavior X
        * @see https://tailwindcss.com/docs/overscroll-behavior
        */
       "overscroll-x": [{
-        "overscroll-x": E()
+        "overscroll-x": z()
       }],
       /**
        * Overscroll Behavior Y
        * @see https://tailwindcss.com/docs/overscroll-behavior
        */
       "overscroll-y": [{
-        "overscroll-y": E()
+        "overscroll-y": z()
       }],
       /**
        * Position
@@ -520,63 +520,63 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/top-right-bottom-left
        */
       inset: [{
-        inset: B()
+        inset: N()
       }],
       /**
        * Right / Left
        * @see https://tailwindcss.com/docs/top-right-bottom-left
        */
       "inset-x": [{
-        "inset-x": B()
+        "inset-x": N()
       }],
       /**
        * Top / Bottom
        * @see https://tailwindcss.com/docs/top-right-bottom-left
        */
       "inset-y": [{
-        "inset-y": B()
+        "inset-y": N()
       }],
       /**
        * Start
        * @see https://tailwindcss.com/docs/top-right-bottom-left
        */
       start: [{
-        start: B()
+        start: N()
       }],
       /**
        * End
        * @see https://tailwindcss.com/docs/top-right-bottom-left
        */
       end: [{
-        end: B()
+        end: N()
       }],
       /**
        * Top
        * @see https://tailwindcss.com/docs/top-right-bottom-left
        */
       top: [{
-        top: B()
+        top: N()
       }],
       /**
        * Right
        * @see https://tailwindcss.com/docs/top-right-bottom-left
        */
       right: [{
-        right: B()
+        right: N()
       }],
       /**
        * Bottom
        * @see https://tailwindcss.com/docs/top-right-bottom-left
        */
       bottom: [{
-        bottom: B()
+        bottom: N()
       }],
       /**
        * Left
        * @see https://tailwindcss.com/docs/top-right-bottom-left
        */
       left: [{
-        left: B()
+        left: N()
       }],
       /**
        * Visibility
@@ -588,7 +588,7 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/z-index
        */
       z: [{
-        z: [J, "auto", M, C]
+        z: [J, "auto", I, S]
       }],
       // ------------------------
       // --- Flexbox and Grid ---
@@ -598,7 +598,7 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/flex-basis
        */
       basis: [{
-        basis: [se, "full", "auto", l, ...k()]
+        basis: [ie, "full", "auto", a, ...C()]
       }],
       /**
        * Flex Direction
@@ -619,84 +619,84 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/flex
        */
       flex: [{
-        flex: [G, se, "auto", "initial", "none", C]
+        flex: [R, ie, "auto", "initial", "none", S]
       }],
       /**
        * Flex Grow
        * @see https://tailwindcss.com/docs/flex-grow
        */
       grow: [{
-        grow: ["", G, M, C]
+        grow: ["", R, I, S]
       }],
       /**
        * Flex Shrink
        * @see https://tailwindcss.com/docs/flex-shrink
        */
       shrink: [{
-        shrink: ["", G, M, C]
+        shrink: ["", R, I, S]
       }],
       /**
        * Order
        * @see https://tailwindcss.com/docs/order
        */
       order: [{
-        order: [J, "first", "last", "none", M, C]
+        order: [J, "first", "last", "none", I, S]
       }],
       /**
        * Grid Template Columns
        * @see https://tailwindcss.com/docs/grid-template-columns
        */
       "grid-cols": [{
-        "grid-cols": he()
+        "grid-cols": B()
       }],
       /**
        * Grid Column Start / End
        * @see https://tailwindcss.com/docs/grid-column
        */
       "col-start-end": [{
-        col: fe()
+        col: _()
       }],
       /**
        * Grid Column Start
        * @see https://tailwindcss.com/docs/grid-column
        */
       "col-start": [{
-        "col-start": re()
+        "col-start": Z()
       }],
       /**
        * Grid Column End
        * @see https://tailwindcss.com/docs/grid-column
        */
       "col-end": [{
-        "col-end": re()
+        "col-end": Z()
       }],
       /**
        * Grid Template Rows
        * @see https://tailwindcss.com/docs/grid-template-rows
        */
       "grid-rows": [{
-        "grid-rows": he()
+        "grid-rows": B()
       }],
       /**
        * Grid Row Start / End
        * @see https://tailwindcss.com/docs/grid-row
        */
       "row-start-end": [{
-        row: fe()
+        row: _()
       }],
       /**
        * Grid Row Start
        * @see https://tailwindcss.com/docs/grid-row
        */
       "row-start": [{
-        "row-start": re()
+        "row-start": Z()
       }],
       /**
        * Grid Row End
        * @see https://tailwindcss.com/docs/grid-row
        */
       "row-end": [{
-        "row-end": re()
+        "row-end": Z()
       }],
       /**
        * Grid Auto Flow
@@ -710,70 +710,70 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/grid-auto-columns
        */
       "auto-cols": [{
-        "auto-cols": Xe()
+        "auto-cols": ne()
       }],
       /**
        * Grid Auto Rows
        * @see https://tailwindcss.com/docs/grid-auto-rows
        */
       "auto-rows": [{
-        "auto-rows": Xe()
+        "auto-rows": ne()
       }],
       /**
        * Gap
        * @see https://tailwindcss.com/docs/gap
        */
       gap: [{
-        gap: k()
+        gap: C()
       }],
       /**
        * Gap X
        * @see https://tailwindcss.com/docs/gap
        */
       "gap-x": [{
-        "gap-x": k()
+        "gap-x": C()
       }],
       /**
        * Gap Y
        * @see https://tailwindcss.com/docs/gap
        */
       "gap-y": [{
-        "gap-y": k()
+        "gap-y": C()
       }],
       /**
        * Justify Content
        * @see https://tailwindcss.com/docs/justify-content
        */
       "justify-content": [{
-        justify: [...Te(), "normal"]
+        justify: [...ee(), "normal"]
       }],
       /**
        * Justify Items
        * @see https://tailwindcss.com/docs/justify-items
        */
       "justify-items": [{
-        "justify-items": [...ne(), "normal"]
+        "justify-items": [...se(), "normal"]
       }],
       /**
        * Justify Self
        * @see https://tailwindcss.com/docs/justify-self
        */
       "justify-self": [{
-        "justify-self": ["auto", ...ne()]
+        "justify-self": ["auto", ...se()]
       }],
       /**
        * Align Content
        * @see https://tailwindcss.com/docs/align-content
        */
       "align-content": [{
-        content: ["normal", ...Te()]
+        content: ["normal", ...ee()]
       }],
       /**
        * Align Items
        * @see https://tailwindcss.com/docs/align-items
        */
       "align-items": [{
-        items: [...ne(), {
+        items: [...se(), {
           baseline: ["", "last"]
         }]
       }],
@@ -782,7 +782,7 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/align-self
        */
       "align-self": [{
-        self: ["auto", ...ne(), {
+        self: ["auto", ...se(), {
           baseline: ["", "last"]
         }]
       }],
@@ -791,21 +791,21 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/place-content
        */
       "place-content": [{
-        "place-content": Te()
+        "place-content": ee()
       }],
       /**
        * Place Items
        * @see https://tailwindcss.com/docs/place-items
        */
       "place-items": [{
-        "place-items": [...ne(), "baseline"]
+        "place-items": [...se(), "baseline"]
       }],
       /**
        * Place Self
        * @see https://tailwindcss.com/docs/place-self
        */
       "place-self": [{
-        "place-self": ["auto", ...ne()]
+        "place-self": ["auto", ...se()]
       }],
       // Spacing
       /**
@@ -813,63 +813,63 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/padding
        */
       p: [{
-        p: k()
+        p: C()
       }],
       /**
        * Padding X
        * @see https://tailwindcss.com/docs/padding
        */
       px: [{
-        px: k()
+        px: C()
       }],
       /**
        * Padding Y
        * @see https://tailwindcss.com/docs/padding
        */
       py: [{
-        py: k()
+        py: C()
       }],
       /**
        * Padding Start
        * @see https://tailwindcss.com/docs/padding
        */
       ps: [{
-        ps: k()
+        ps: C()
       }],
       /**
        * Padding End
        * @see https://tailwindcss.com/docs/padding
        */
       pe: [{
-        pe: k()
+        pe: C()
       }],
       /**
        * Padding Top
        * @see https://tailwindcss.com/docs/padding
        */
       pt: [{
-        pt: k()
+        pt: C()
       }],
       /**
        * Padding Right
        * @see https://tailwindcss.com/docs/padding
        */
       pr: [{
-        pr: k()
+        pr: C()
       }],
       /**
        * Padding Bottom
        * @see https://tailwindcss.com/docs/padding
        */
       pb: [{
-        pb: k()
+        pb: C()
       }],
       /**
        * Padding Left
        * @see https://tailwindcss.com/docs/padding
        */
       pl: [{
-        pl: k()
+        pl: C()
       }],
       /**
        * Margin
@@ -939,7 +939,7 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/margin#adding-space-between-children
        */
       "space-x": [{
-        "space-x": k()
+        "space-x": C()
       }],
       /**
        * Space Between X Reverse
@@ -951,7 +951,7 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/margin#adding-space-between-children
        */
       "space-y": [{
-        "space-y": k()
+        "space-y": C()
       }],
       /**
        * Space Between Y Reverse
@@ -966,14 +966,14 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/width#setting-both-width-and-height
        */
       size: [{
-        size: Q()
+        size: te()
       }],
       /**
        * Width
        * @see https://tailwindcss.com/docs/width
        */
       w: [{
-        w: [l, "screen", ...Q()]
+        w: [a, "screen", ...te()]
       }],
       /**
        * Min-Width
@@ -981,11 +981,11 @@ const ro = (e, o) => {
        */
       "min-w": [{
         "min-w": [
-          l,
+          a,
           "screen",
           /** Deprecated. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */
           "none",
-          ...Q()
+          ...te()
         ]
       }],
       /**
@@ -994,16 +994,16 @@ const ro = (e, o) => {
        */
       "max-w": [{
         "max-w": [
-          l,
+          a,
           "screen",
           "none",
           /** Deprecated since Tailwind CSS v4.0.0. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */
           "prose",
           /** Deprecated since Tailwind CSS v4.0.0. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */
           {
-            screen: [a]
+            screen: [l]
           },
-          ...Q()
+          ...te()
         ]
       }],
       /**
@@ -1011,21 +1011,21 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/height
        */
       h: [{
-        h: ["screen", "lh", ...Q()]
+        h: ["screen", "lh", ...te()]
       }],
       /**
        * Min-Height
        * @see https://tailwindcss.com/docs/min-height
        */
       "min-h": [{
-        "min-h": ["screen", "lh", "none", ...Q()]
+        "min-h": ["screen", "lh", "none", ...te()]
       }],
       /**
        * Max-Height
        * @see https://tailwindcss.com/docs/max-height
        */
       "max-h": [{
-        "max-h": ["screen", "lh", ...Q()]
+        "max-h": ["screen", "lh", ...te()]
       }],
       // ------------------
       // --- Typography ---
@@ -1035,7 +1035,7 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/font-size
        */
       "font-size": [{
-        text: ["base", r, de, ee]
+        text: ["base", r, he, oe]
       }],
       /**
        * Font Smoothing
@@ -1052,21 +1052,21 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/font-weight
        */
       "font-weight": [{
-        font: [n, M, $e]
+        font: [n, I, $e]
       }],
       /**
        * Font Stretch
        * @see https://tailwindcss.com/docs/font-stretch
        */
       "font-stretch": [{
-        "font-stretch": ["ultra-condensed", "extra-condensed", "condensed", "semi-condensed", "normal", "semi-expanded", "expanded", "extra-expanded", "ultra-expanded", Ae, C]
+        "font-stretch": ["ultra-condensed", "extra-condensed", "condensed", "semi-condensed", "normal", "semi-expanded", "expanded", "extra-expanded", "ultra-expanded", Te, S]
       }],
       /**
        * Font Family
        * @see https://tailwindcss.com/docs/font-family
        */
       "font-family": [{
-        font: [Po, C, o]
+        font: [Po, S, o]
       }],
       /**
        * Font Variant Numeric
@@ -1103,14 +1103,14 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/letter-spacing
        */
       tracking: [{
-        tracking: [s, M, C]
+        tracking: [s, I, S]
       }],
       /**
        * Line Clamp
        * @see https://tailwindcss.com/docs/line-clamp
        */
       "line-clamp": [{
-        "line-clamp": [G, "none", M, $e]
+        "line-clamp": [R, "none", I, $e]
       }],
       /**
        * Line Height
@@ -1120,7 +1120,7 @@ const ro = (e, o) => {
         leading: [
           /** Deprecated since Tailwind CSS v4.0.0. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */
           i,
-          ...k()
+          ...C()
         ]
       }],
       /**
@@ -1128,7 +1128,7 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/list-style-image
        */
       "list-image": [{
-        "list-image": ["none", M, C]
+        "list-image": ["none", I, S]
       }],
       /**
        * List Style Position
@@ -1142,7 +1142,7 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/list-style-type
        */
       "list-style-type": [{
-        list: ["disc", "decimal", "none", M, C]
+        list: ["disc", "decimal", "none", I, S]
       }],
       /**
        * Text Alignment
@@ -1157,14 +1157,14 @@ const ro = (e, o) => {
        * @see https://v3.tailwindcss.com/docs/placeholder-color
        */
       "placeholder-color": [{
-        placeholder: z()
+        placeholder: T()
       }],
       /**
        * Text Color
        * @see https://tailwindcss.com/docs/text-color
        */
       "text-color": [{
-        text: z()
+        text: T()
       }],
       /**
        * Text Decoration
@@ -1183,21 +1183,21 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/text-decoration-thickness
        */
       "text-decoration-thickness": [{
-        decoration: [G, "from-font", "auto", M, ee]
+        decoration: [R, "from-font", "auto", I, oe]
       }],
       /**
        * Text Decoration Color
        * @see https://tailwindcss.com/docs/text-decoration-color
        */
       "text-decoration-color": [{
-        decoration: z()
+        decoration: T()
       }],
       /**
        * Text Underline Offset
        * @see https://tailwindcss.com/docs/text-underline-offset
        */
       "underline-offset": [{
-        "underline-offset": [G, "auto", M, C]
+        "underline-offset": [R, "auto", I, S]
       }],
       /**
        * Text Transform
@@ -1221,14 +1221,14 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/text-indent
        */
       indent: [{
-        indent: k()
+        indent: C()
       }],
       /**
        * Vertical Alignment
        * @see https://tailwindcss.com/docs/vertical-align
        */
       "vertical-align": [{
-        align: ["baseline", "top", "middle", "bottom", "text-top", "text-bottom", "sub", "super", M, C]
+        align: ["baseline", "top", "middle", "bottom", "text-top", "text-bottom", "sub", "super", I, S]
       }],
       /**
        * Whitespace
@@ -1263,7 +1263,7 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/content
        */
       content: [{
-        content: ["none", M, C]
+        content: ["none", I, S]
       }],
       // -------------------
       // --- Backgrounds ---
@@ -1294,21 +1294,21 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/background-position
        */
       "bg-position": [{
-        bg: qe()
+        bg: je()
       }],
       /**
        * Background Repeat
        * @see https://tailwindcss.com/docs/background-repeat
        */
       "bg-repeat": [{
-        bg: Ue()
+        bg: Ye()
       }],
       /**
        * Background Size
        * @see https://tailwindcss.com/docs/background-size
        */
       "bg-size": [{
-        bg: Ke()
+        bg: Ve()
       }],
       /**
        * Background Image
@@ -1318,59 +1318,59 @@ const ro = (e, o) => {
         bg: ["none", {
           linear: [{
             to: ["t", "tr", "r", "br", "b", "bl", "l", "tl"]
-          }, J, M, C],
-          radial: ["", M, C],
-          conic: [J, M, C]
-        }, _o, Oo]
+          }, J, I, S],
+          radial: ["", I, S],
+          conic: [J, I, S]
+        }, Ho, Do]
       }],
       /**
        * Background Color
        * @see https://tailwindcss.com/docs/background-color
        */
       "bg-color": [{
-        bg: z()
+        bg: T()
       }],
       /**
        * Gradient Color Stops From Position
        * @see https://tailwindcss.com/docs/gradient-color-stops
        */
       "gradient-from-pos": [{
-        from: Re()
+        from: Ie()
       }],
       /**
        * Gradient Color Stops Via Position
        * @see https://tailwindcss.com/docs/gradient-color-stops
        */
       "gradient-via-pos": [{
-        via: Re()
+        via: Ie()
       }],
       /**
        * Gradient Color Stops To Position
        * @see https://tailwindcss.com/docs/gradient-color-stops
        */
       "gradient-to-pos": [{
-        to: Re()
+        to: Ie()
       }],
       /**
        * Gradient Color Stops From
        * @see https://tailwindcss.com/docs/gradient-color-stops
        */
       "gradient-from": [{
-        from: z()
+        from: T()
       }],
       /**
        * Gradient Color Stops Via
        * @see https://tailwindcss.com/docs/gradient-color-stops
        */
       "gradient-via": [{
-        via: z()
+        via: T()
       }],
       /**
        * Gradient Color Stops To
        * @see https://tailwindcss.com/docs/gradient-color-stops
        */
       "gradient-to": [{
-        to: z()
+        to: T()
       }],
       // ---------------
       // --- Borders ---
@@ -1380,175 +1380,175 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/border-radius
        */
       rounded: [{
-        rounded: D()
+        rounded: j()
       }],
       /**
        * Border Radius Start
        * @see https://tailwindcss.com/docs/border-radius
        */
       "rounded-s": [{
-        "rounded-s": D()
+        "rounded-s": j()
       }],
       /**
        * Border Radius End
        * @see https://tailwindcss.com/docs/border-radius
        */
       "rounded-e": [{
-        "rounded-e": D()
+        "rounded-e": j()
       }],
       /**
        * Border Radius Top
        * @see https://tailwindcss.com/docs/border-radius
        */
       "rounded-t": [{
-        "rounded-t": D()
+        "rounded-t": j()
       }],
       /**
        * Border Radius Right
        * @see https://tailwindcss.com/docs/border-radius
        */
       "rounded-r": [{
-        "rounded-r": D()
+        "rounded-r": j()
       }],
       /**
        * Border Radius Bottom
        * @see https://tailwindcss.com/docs/border-radius
        */
       "rounded-b": [{
-        "rounded-b": D()
+        "rounded-b": j()
       }],
       /**
        * Border Radius Left
        * @see https://tailwindcss.com/docs/border-radius
        */
       "rounded-l": [{
-        "rounded-l": D()
+        "rounded-l": j()
       }],
       /**
        * Border Radius Start Start
        * @see https://tailwindcss.com/docs/border-radius
        */
       "rounded-ss": [{
-        "rounded-ss": D()
+        "rounded-ss": j()
       }],
       /**
        * Border Radius Start End
        * @see https://tailwindcss.com/docs/border-radius
        */
       "rounded-se": [{
-        "rounded-se": D()
+        "rounded-se": j()
       }],
       /**
        * Border Radius End End
        * @see https://tailwindcss.com/docs/border-radius
        */
       "rounded-ee": [{
-        "rounded-ee": D()
+        "rounded-ee": j()
       }],
       /**
        * Border Radius End Start
        * @see https://tailwindcss.com/docs/border-radius
        */
       "rounded-es": [{
-        "rounded-es": D()
+        "rounded-es": j()
       }],
       /**
        * Border Radius Top Left
        * @see https://tailwindcss.com/docs/border-radius
        */
       "rounded-tl": [{
-        "rounded-tl": D()
+        "rounded-tl": j()
       }],
       /**
        * Border Radius Top Right
        * @see https://tailwindcss.com/docs/border-radius
        */
       "rounded-tr": [{
-        "rounded-tr": D()
+        "rounded-tr": j()
       }],
       /**
        * Border Radius Bottom Right
        * @see https://tailwindcss.com/docs/border-radius
        */
       "rounded-br": [{
-        "rounded-br": D()
+        "rounded-br": j()
       }],
       /**
        * Border Radius Bottom Left
        * @see https://tailwindcss.com/docs/border-radius
        */
       "rounded-bl": [{
-        "rounded-bl": D()
+        "rounded-bl": j()
       }],
       /**
        * Border Width
        * @see https://tailwindcss.com/docs/border-width
        */
       "border-w": [{
-        border: W()
+        border: Y()
       }],
       /**
        * Border Width X
        * @see https://tailwindcss.com/docs/border-width
        */
       "border-w-x": [{
-        "border-x": W()
+        "border-x": Y()
       }],
       /**
        * Border Width Y
        * @see https://tailwindcss.com/docs/border-width
        */
       "border-w-y": [{
-        "border-y": W()
+        "border-y": Y()
       }],
       /**
        * Border Width Start
        * @see https://tailwindcss.com/docs/border-width
        */
       "border-w-s": [{
-        "border-s": W()
+        "border-s": Y()
       }],
       /**
        * Border Width End
        * @see https://tailwindcss.com/docs/border-width
        */
       "border-w-e": [{
-        "border-e": W()
+        "border-e": Y()
       }],
       /**
        * Border Width Top
        * @see https://tailwindcss.com/docs/border-width
        */
       "border-w-t": [{
-        "border-t": W()
+        "border-t": Y()
       }],
       /**
        * Border Width Right
        * @see https://tailwindcss.com/docs/border-width
        */
       "border-w-r": [{
-        "border-r": W()
+        "border-r": Y()
       }],
       /**
        * Border Width Bottom
        * @see https://tailwindcss.com/docs/border-width
        */
       "border-w-b": [{
-        "border-b": W()
+        "border-b": Y()
       }],
       /**
        * Border Width Left
        * @see https://tailwindcss.com/docs/border-width
        */
       "border-w-l": [{
-        "border-l": W()
+        "border-l": Y()
       }],
       /**
        * Divide Width X
        * @see https://tailwindcss.com/docs/border-width#between-children
        */
       "divide-x": [{
-        "divide-x": W()
+        "divide-x": Y()
       }],
       /**
        * Divide Width X Reverse
@@ -1560,7 +1560,7 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/border-width#between-children
        */
       "divide-y": [{
-        "divide-y": W()
+        "divide-y": Y()
       }],
       /**
        * Divide Width Y Reverse
@@ -1586,70 +1586,70 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/border-color
        */
       "border-color": [{
-        border: z()
+        border: T()
       }],
       /**
        * Border Color X
        * @see https://tailwindcss.com/docs/border-color
        */
       "border-color-x": [{
-        "border-x": z()
+        "border-x": T()
       }],
       /**
        * Border Color Y
        * @see https://tailwindcss.com/docs/border-color
        */
       "border-color-y": [{
-        "border-y": z()
+        "border-y": T()
       }],
       /**
        * Border Color S
        * @see https://tailwindcss.com/docs/border-color
        */
       "border-color-s": [{
-        "border-s": z()
+        "border-s": T()
       }],
       /**
        * Border Color E
        * @see https://tailwindcss.com/docs/border-color
        */
       "border-color-e": [{
-        "border-e": z()
+        "border-e": T()
       }],
       /**
        * Border Color Top
        * @see https://tailwindcss.com/docs/border-color
        */
       "border-color-t": [{
-        "border-t": z()
+        "border-t": T()
       }],
       /**
        * Border Color Right
        * @see https://tailwindcss.com/docs/border-color
        */
       "border-color-r": [{
-        "border-r": z()
+        "border-r": T()
       }],
       /**
        * Border Color Bottom
        * @see https://tailwindcss.com/docs/border-color
        */
       "border-color-b": [{
-        "border-b": z()
+        "border-b": T()
       }],
       /**
        * Border Color Left
        * @see https://tailwindcss.com/docs/border-color
        */
       "border-color-l": [{
-        "border-l": z()
+        "border-l": T()
       }],
       /**
        * Divide Color
        * @see https://tailwindcss.com/docs/divide-color
        */
       "divide-color": [{
-        divide: z()
+        divide: T()
       }],
       /**
        * Outline Style
@@ -1663,21 +1663,21 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/outline-offset
        */
       "outline-offset": [{
-        "outline-offset": [G, M, C]
+        "outline-offset": [R, I, S]
       }],
       /**
        * Outline Width
        * @see https://tailwindcss.com/docs/outline-width
        */
       "outline-w": [{
-        outline: ["", G, de, ee]
+        outline: ["", R, he, oe]
       }],
       /**
        * Outline Color
        * @see https://tailwindcss.com/docs/outline-color
        */
       "outline-color": [{
-        outline: z()
+        outline: T()
       }],
       // ---------------
       // --- Effects ---
@@ -1701,28 +1701,28 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/box-shadow#setting-the-shadow-color
        */
       "shadow-color": [{
-        shadow: z()
+        shadow: T()
       }],
       /**
        * Inset Box Shadow
        * @see https://tailwindcss.com/docs/box-shadow#adding-an-inset-shadow
        */
       "inset-shadow": [{
-        "inset-shadow": ["none", b, we, ve]
+        "inset-shadow": ["none", h, we, ve]
       }],
       /**
        * Inset Box Shadow Color
        * @see https://tailwindcss.com/docs/box-shadow#setting-the-inset-shadow-color
        */
       "inset-shadow-color": [{
-        "inset-shadow": z()
+        "inset-shadow": T()
       }],
       /**
        * Ring Width
        * @see https://tailwindcss.com/docs/box-shadow#adding-a-ring
        */
       "ring-w": [{
-        ring: W()
+        ring: Y()
       }],
       /**
        * Ring Width Inset
@@ -1736,7 +1736,7 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/box-shadow#setting-the-ring-color
        */
       "ring-color": [{
-        ring: z()
+        ring: T()
       }],
       /**
        * Ring Offset Width
@@ -1745,7 +1745,7 @@ const ro = (e, o) => {
        * @see https://github.com/tailwindlabs/tailwindcss/blob/v4.0.0/packages/tailwindcss/src/utilities.ts#L4158
        */
       "ring-offset-w": [{
-        "ring-offset": [G, ee]
+        "ring-offset": [R, oe]
       }],
       /**
        * Ring Offset Color
@@ -1754,56 +1754,56 @@ const ro = (e, o) => {
        * @see https://github.com/tailwindlabs/tailwindcss/blob/v4.0.0/packages/tailwindcss/src/utilities.ts#L4158
        */
       "ring-offset-color": [{
-        "ring-offset": z()
+        "ring-offset": T()
       }],
       /**
        * Inset Ring Width
        * @see https://tailwindcss.com/docs/box-shadow#adding-an-inset-ring
        */
       "inset-ring-w": [{
-        "inset-ring": W()
+        "inset-ring": Y()
       }],
       /**
        * Inset Ring Color
        * @see https://tailwindcss.com/docs/box-shadow#setting-the-inset-ring-color
        */
       "inset-ring-color": [{
-        "inset-ring": z()
+        "inset-ring": T()
       }],
       /**
        * Text Shadow
        * @see https://tailwindcss.com/docs/text-shadow
        */
       "text-shadow": [{
-        "text-shadow": ["none", p, we, ve]
+        "text-shadow": ["none", m, we, ve]
       }],
       /**
        * Text Shadow Color
        * @see https://tailwindcss.com/docs/text-shadow#setting-the-shadow-color
        */
       "text-shadow-color": [{
-        "text-shadow": z()
+        "text-shadow": T()
       }],
       /**
        * Opacity
        * @see https://tailwindcss.com/docs/opacity
        */
       opacity: [{
-        opacity: [G, M, C]
+        opacity: [R, I, S]
       }],
       /**
        * Mix Blend Mode
        * @see https://tailwindcss.com/docs/mix-blend-mode
        */
       "mix-blend": [{
-        "mix-blend": [...Je(), "plus-darker", "plus-lighter"]
+        "mix-blend": [...Xe(), "plus-darker", "plus-lighter"]
       }],
       /**
        * Background Blend Mode
        * @see https://tailwindcss.com/docs/background-blend-mode
        */
       "bg-blend": [{
-        "bg-blend": Je()
+        "bg-blend": Xe()
       }],
       /**
        * Mask Clip
@@ -1824,106 +1824,106 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/mask-image
        */
       "mask-image-linear-pos": [{
-        "mask-linear": [G]
+        "mask-linear": [R]
       }],
       "mask-image-linear-from-pos": [{
-        "mask-linear-from": P()
+        "mask-linear-from": H()
       }],
       "mask-image-linear-to-pos": [{
-        "mask-linear-to": P()
+        "mask-linear-to": H()
       }],
       "mask-image-linear-from-color": [{
-        "mask-linear-from": z()
+        "mask-linear-from": T()
       }],
       "mask-image-linear-to-color": [{
-        "mask-linear-to": z()
+        "mask-linear-to": T()
       }],
       "mask-image-t-from-pos": [{
-        "mask-t-from": P()
+        "mask-t-from": H()
       }],
       "mask-image-t-to-pos": [{
-        "mask-t-to": P()
+        "mask-t-to": H()
       }],
       "mask-image-t-from-color": [{
-        "mask-t-from": z()
+        "mask-t-from": T()
       }],
       "mask-image-t-to-color": [{
-        "mask-t-to": z()
+        "mask-t-to": T()
       }],
       "mask-image-r-from-pos": [{
-        "mask-r-from": P()
+        "mask-r-from": H()
       }],
       "mask-image-r-to-pos": [{
-        "mask-r-to": P()
+        "mask-r-to": H()
       }],
       "mask-image-r-from-color": [{
-        "mask-r-from": z()
+        "mask-r-from": T()
       }],
       "mask-image-r-to-color": [{
-        "mask-r-to": z()
+        "mask-r-to": T()
       }],
       "mask-image-b-from-pos": [{
-        "mask-b-from": P()
+        "mask-b-from": H()
       }],
       "mask-image-b-to-pos": [{
-        "mask-b-to": P()
+        "mask-b-to": H()
       }],
       "mask-image-b-from-color": [{
-        "mask-b-from": z()
+        "mask-b-from": T()
       }],
       "mask-image-b-to-color": [{
-        "mask-b-to": z()
+        "mask-b-to": T()
       }],
       "mask-image-l-from-pos": [{
-        "mask-l-from": P()
+        "mask-l-from": H()
       }],
       "mask-image-l-to-pos": [{
-        "mask-l-to": P()
+        "mask-l-to": H()
       }],
       "mask-image-l-from-color": [{
-        "mask-l-from": z()
+        "mask-l-from": T()
       }],
       "mask-image-l-to-color": [{
-        "mask-l-to": z()
+        "mask-l-to": T()
       }],
       "mask-image-x-from-pos": [{
-        "mask-x-from": P()
+        "mask-x-from": H()
       }],
       "mask-image-x-to-pos": [{
-        "mask-x-to": P()
+        "mask-x-to": H()
       }],
       "mask-image-x-from-color": [{
-        "mask-x-from": z()
+        "mask-x-from": T()
       }],
       "mask-image-x-to-color": [{
-        "mask-x-to": z()
+        "mask-x-to": T()
       }],
       "mask-image-y-from-pos": [{
-        "mask-y-from": P()
+        "mask-y-from": H()
       }],
       "mask-image-y-to-pos": [{
-        "mask-y-to": P()
+        "mask-y-to": H()
       }],
       "mask-image-y-from-color": [{
-        "mask-y-from": z()
+        "mask-y-from": T()
       }],
       "mask-image-y-to-color": [{
-        "mask-y-to": z()
+        "mask-y-to": T()
       }],
       "mask-image-radial": [{
-        "mask-radial": [M, C]
+        "mask-radial": [I, S]
       }],
       "mask-image-radial-from-pos": [{
-        "mask-radial-from": P()
+        "mask-radial-from": H()
       }],
       "mask-image-radial-to-pos": [{
-        "mask-radial-to": P()
+        "mask-radial-to": H()
       }],
       "mask-image-radial-from-color": [{
-        "mask-radial-from": z()
+        "mask-radial-from": T()
       }],
       "mask-image-radial-to-color": [{
-        "mask-radial-to": z()
+        "mask-radial-to": T()
       }],
       "mask-image-radial-shape": [{
         "mask-radial": ["circle", "ellipse"]
@@ -1935,22 +1935,22 @@ const ro = (e, o) => {
         }]
       }],
       "mask-image-radial-pos": [{
-        "mask-radial-at": I()
+        "mask-radial-at": M()
       }],
       "mask-image-conic-pos": [{
-        "mask-conic": [G]
+        "mask-conic": [R]
       }],
       "mask-image-conic-from-pos": [{
-        "mask-conic-from": P()
+        "mask-conic-from": H()
       }],
       "mask-image-conic-to-pos": [{
-        "mask-conic-to": P()
+        "mask-conic-to": H()
       }],
       "mask-image-conic-from-color": [{
-        "mask-conic-from": z()
+        "mask-conic-from": T()
       }],
       "mask-image-conic-to-color": [{
-        "mask-conic-to": z()
+        "mask-conic-to": T()
       }],
       /**
        * Mask Mode
@@ -1971,21 +1971,21 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/mask-position
        */
       "mask-position": [{
-        mask: qe()
+        mask: je()
       }],
       /**
        * Mask Repeat
        * @see https://tailwindcss.com/docs/mask-repeat
        */
       "mask-repeat": [{
-        mask: Ue()
+        mask: Ye()
       }],
       /**
        * Mask Size
        * @see https://tailwindcss.com/docs/mask-size
        */
       "mask-size": [{
-        mask: Ke()
+        mask: Ve()
       }],
       /**
        * Mask Type
@@ -1999,7 +1999,7 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/mask-image
        */
       "mask-image": [{
-        mask: ["none", M, C]
+        mask: ["none", I, S]
       }],
       // ---------------
       // --- Filters ---
@@ -2013,8 +2013,8 @@ const ro = (e, o) => {
           // Deprecated since Tailwind CSS v3.0.0
           "",
           "none",
-          M,
-          C
+          I,
+          S
         ]
       }],
       /**
@@ -2022,21 +2022,21 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/blur
        */
       blur: [{
-        blur: Qe()
+        blur: qe()
       }],
       /**
        * Brightness
        * @see https://tailwindcss.com/docs/brightness
        */
       brightness: [{
-        brightness: [G, M, C]
+        brightness: [R, I, S]
       }],
       /**
        * Contrast
        * @see https://tailwindcss.com/docs/contrast
        */
       contrast: [{
-        contrast: [G, M, C]
+        contrast: [R, I, S]
       }],
       /**
        * Drop Shadow
@@ -2057,42 +2057,42 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/filter-drop-shadow#setting-the-shadow-color
        */
       "drop-shadow-color": [{
-        "drop-shadow": z()
+        "drop-shadow": T()
       }],
       /**
        * Grayscale
        * @see https://tailwindcss.com/docs/grayscale
        */
       grayscale: [{
-        grayscale: ["", G, M, C]
+        grayscale: ["", R, I, S]
       }],
       /**
        * Hue Rotate
        * @see https://tailwindcss.com/docs/hue-rotate
        */
       "hue-rotate": [{
-        "hue-rotate": [G, M, C]
+        "hue-rotate": [R, I, S]
       }],
       /**
        * Invert
        * @see https://tailwindcss.com/docs/invert
        */
       invert: [{
-        invert: ["", G, M, C]
+        invert: ["", R, I, S]
       }],
       /**
        * Saturate
        * @see https://tailwindcss.com/docs/saturate
        */
       saturate: [{
-        saturate: [G, M, C]
+        saturate: [R, I, S]
       }],
       /**
        * Sepia
        * @see https://tailwindcss.com/docs/sepia
        */
       sepia: [{
-        sepia: ["", G, M, C]
+        sepia: ["", R, I, S]
       }],
       /**
        * Backdrop Filter
@@ -2103,8 +2103,8 @@ const ro = (e, o) => {
           // Deprecated since Tailwind CSS v3.0.0
           "",
           "none",
-          M,
-          C
+          I,
+          S
         ]
       }],
       /**
@@ -2112,63 +2112,63 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/backdrop-blur
        */
       "backdrop-blur": [{
-        "backdrop-blur": Qe()
+        "backdrop-blur": qe()
       }],
       /**
        * Backdrop Brightness
        * @see https://tailwindcss.com/docs/backdrop-brightness
        */
       "backdrop-brightness": [{
-        "backdrop-brightness": [G, M, C]
+        "backdrop-brightness": [R, I, S]
       }],
       /**
        * Backdrop Contrast
        * @see https://tailwindcss.com/docs/backdrop-contrast
        */
       "backdrop-contrast": [{
-        "backdrop-contrast": [G, M, C]
+        "backdrop-contrast": [R, I, S]
       }],
       /**
        * Backdrop Grayscale
        * @see https://tailwindcss.com/docs/backdrop-grayscale
        */
       "backdrop-grayscale": [{
-        "backdrop-grayscale": ["", G, M, C]
+        "backdrop-grayscale": ["", R, I, S]
       }],
       /**
        * Backdrop Hue Rotate
        * @see https://tailwindcss.com/docs/backdrop-hue-rotate
        */
       "backdrop-hue-rotate": [{
-        "backdrop-hue-rotate": [G, M, C]
+        "backdrop-hue-rotate": [R, I, S]
       }],
       /**
        * Backdrop Invert
        * @see https://tailwindcss.com/docs/backdrop-invert
        */
       "backdrop-invert": [{
-        "backdrop-invert": ["", G, M, C]
+        "backdrop-invert": ["", R, I, S]
       }],
       /**
        * Backdrop Opacity
        * @see https://tailwindcss.com/docs/backdrop-opacity
        */
       "backdrop-opacity": [{
-        "backdrop-opacity": [G, M, C]
+        "backdrop-opacity": [R, I, S]
       }],
       /**
        * Backdrop Saturate
        * @see https://tailwindcss.com/docs/backdrop-saturate
        */
       "backdrop-saturate": [{
-        "backdrop-saturate": [G, M, C]
+        "backdrop-saturate": [R, I, S]
       }],
       /**
        * Backdrop Sepia
        * @see https://tailwindcss.com/docs/backdrop-sepia
        */
       "backdrop-sepia": [{
-        "backdrop-sepia": ["", G, M, C]
+        "backdrop-sepia": ["", R, I, S]
       }],
       // --------------
       // --- Tables ---
@@ -2185,21 +2185,21 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/border-spacing
        */
       "border-spacing": [{
-        "border-spacing": k()
+        "border-spacing": C()
       }],
       /**
        * Border Spacing X
        * @see https://tailwindcss.com/docs/border-spacing
        */
       "border-spacing-x": [{
-        "border-spacing-x": k()
+        "border-spacing-x": C()
       }],
       /**
        * Border Spacing Y
        * @see https://tailwindcss.com/docs/border-spacing
        */
       "border-spacing-y": [{
-        "border-spacing-y": k()
+        "border-spacing-y": C()
       }],
       /**
        * Table Layout
@@ -2223,7 +2223,7 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/transition-property
        */
       transition: [{
-        transition: ["", "all", "colors", "opacity", "shadow", "transform", "none", M, C]
+        transition: ["", "all", "colors", "opacity", "shadow", "transform", "none", I, S]
       }],
       /**
        * Transition Behavior
@@ -2237,28 +2237,28 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/transition-duration
        */
       duration: [{
-        duration: [G, "initial", M, C]
+        duration: [R, "initial", I, S]
       }],
       /**
        * Transition Timing Function
        * @see https://tailwindcss.com/docs/transition-timing-function
        */
       ease: [{
-        ease: ["linear", "initial", w, M, C]
+        ease: ["linear", "initial", w, I, S]
       }],
       /**
        * Transition Delay
        * @see https://tailwindcss.com/docs/transition-delay
        */
       delay: [{
-        delay: [G, M, C]
+        delay: [R, I, S]
       }],
       /**
        * Animation
        * @see https://tailwindcss.com/docs/animation
        */
       animate: [{
-        animate: ["none", x, M, C]
+        animate: ["none", k, I, S]
       }],
       // ------------------
       // --- Transforms ---
@@ -2275,14 +2275,14 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/perspective
        */
       perspective: [{
-        perspective: [m, M, C]
+        perspective: [g, I, S]
       }],
       /**
        * Perspective Origin
        * @see https://tailwindcss.com/docs/perspective-origin
        */
       "perspective-origin": [{
-        "perspective-origin": $()
+        "perspective-origin": F()
       }],
       /**
        * Rotate
@@ -2350,35 +2350,35 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/skew
        */
       skew: [{
-        skew: Ge()
+        skew: Ee()
       }],
       /**
        * Skew X
        * @see https://tailwindcss.com/docs/skew
        */
       "skew-x": [{
-        "skew-x": Ge()
+        "skew-x": Ee()
       }],
       /**
        * Skew Y
        * @see https://tailwindcss.com/docs/skew
        */
       "skew-y": [{
-        "skew-y": Ge()
+        "skew-y": Ee()
       }],
       /**
        * Transform
        * @see https://tailwindcss.com/docs/transform
        */
       transform: [{
-        transform: [M, C, "", "none", "gpu", "cpu"]
+        transform: [I, S, "", "none", "gpu", "cpu"]
       }],
       /**
        * Transform Origin
        * @see https://tailwindcss.com/docs/transform-origin
        */
       "transform-origin": [{
-        origin: $()
+        origin: F()
       }],
       /**
        * Transform Style
@@ -2428,7 +2428,7 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/accent-color
        */
       accent: [{
-        accent: z()
+        accent: T()
       }],
       /**
        * Appearance
@@ -2442,7 +2442,7 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/just-in-time-mode#caret-color-utilities
        */
       "caret-color": [{
-        caret: z()
+        caret: T()
       }],
       /**
        * Color Scheme
@@ -2456,7 +2456,7 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/cursor
        */
       cursor: [{
-        cursor: ["auto", "default", "pointer", "wait", "text", "move", "help", "not-allowed", "none", "context-menu", "progress", "cell", "crosshair", "vertical-text", "alias", "copy", "no-drop", "grab", "grabbing", "all-scroll", "col-resize", "row-resize", "n-resize", "e-resize", "s-resize", "w-resize", "ne-resize", "nw-resize", "se-resize", "sw-resize", "ew-resize", "ns-resize", "nesw-resize", "nwse-resize", "zoom-in", "zoom-out", M, C]
+        cursor: ["auto", "default", "pointer", "wait", "text", "move", "help", "not-allowed", "none", "context-menu", "progress", "cell", "crosshair", "vertical-text", "alias", "copy", "no-drop", "grab", "grabbing", "all-scroll", "col-resize", "row-resize", "n-resize", "e-resize", "s-resize", "w-resize", "ne-resize", "nw-resize", "se-resize", "sw-resize", "ew-resize", "ns-resize", "nesw-resize", "nwse-resize", "zoom-in", "zoom-out", I, S]
       }],
       /**
        * Field Sizing
@@ -2491,126 +2491,126 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/scroll-margin
        */
       "scroll-m": [{
-        "scroll-m": k()
+        "scroll-m": C()
       }],
       /**
        * Scroll Margin X
        * @see https://tailwindcss.com/docs/scroll-margin
        */
       "scroll-mx": [{
-        "scroll-mx": k()
+        "scroll-mx": C()
       }],
       /**
        * Scroll Margin Y
        * @see https://tailwindcss.com/docs/scroll-margin
        */
       "scroll-my": [{
-        "scroll-my": k()
+        "scroll-my": C()
       }],
       /**
        * Scroll Margin Start
        * @see https://tailwindcss.com/docs/scroll-margin
        */
       "scroll-ms": [{
-        "scroll-ms": k()
+        "scroll-ms": C()
       }],
       /**
        * Scroll Margin End
        * @see https://tailwindcss.com/docs/scroll-margin
        */
       "scroll-me": [{
-        "scroll-me": k()
+        "scroll-me": C()
       }],
       /**
        * Scroll Margin Top
        * @see https://tailwindcss.com/docs/scroll-margin
        */
       "scroll-mt": [{
-        "scroll-mt": k()
+        "scroll-mt": C()
       }],
       /**
        * Scroll Margin Right
        * @see https://tailwindcss.com/docs/scroll-margin
        */
       "scroll-mr": [{
-        "scroll-mr": k()
+        "scroll-mr": C()
       }],
       /**
        * Scroll Margin Bottom
        * @see https://tailwindcss.com/docs/scroll-margin
        */
       "scroll-mb": [{
-        "scroll-mb": k()
+        "scroll-mb": C()
       }],
       /**
        * Scroll Margin Left
        * @see https://tailwindcss.com/docs/scroll-margin
        */
       "scroll-ml": [{
-        "scroll-ml": k()
+        "scroll-ml": C()
       }],
       /**
        * Scroll Padding
        * @see https://tailwindcss.com/docs/scroll-padding
        */
       "scroll-p": [{
-        "scroll-p": k()
+        "scroll-p": C()
       }],
       /**
        * Scroll Padding X
        * @see https://tailwindcss.com/docs/scroll-padding
        */
       "scroll-px": [{
-        "scroll-px": k()
+        "scroll-px": C()
       }],
       /**
        * Scroll Padding Y
        * @see https://tailwindcss.com/docs/scroll-padding
        */
       "scroll-py": [{
-        "scroll-py": k()
+        "scroll-py": C()
       }],
       /**
        * Scroll Padding Start
        * @see https://tailwindcss.com/docs/scroll-padding
        */
       "scroll-ps": [{
-        "scroll-ps": k()
+        "scroll-ps": C()
       }],
       /**
        * Scroll Padding End
        * @see https://tailwindcss.com/docs/scroll-padding
        */
       "scroll-pe": [{
-        "scroll-pe": k()
+        "scroll-pe": C()
       }],
       /**
        * Scroll Padding Top
        * @see https://tailwindcss.com/docs/scroll-padding
        */
       "scroll-pt": [{
-        "scroll-pt": k()
+        "scroll-pt": C()
       }],
       /**
        * Scroll Padding Right
        * @see https://tailwindcss.com/docs/scroll-padding
        */
       "scroll-pr": [{
-        "scroll-pr": k()
+        "scroll-pr": C()
       }],
       /**
        * Scroll Padding Bottom
        * @see https://tailwindcss.com/docs/scroll-padding
        */
       "scroll-pb": [{
-        "scroll-pb": k()
+        "scroll-pb": C()
       }],
       /**
        * Scroll Padding Left
        * @see https://tailwindcss.com/docs/scroll-padding
        */
       "scroll-pl": [{
-        "scroll-pl": k()
+        "scroll-pl": C()
       }],
       /**
        * Scroll Snap Align
@@ -2678,7 +2678,7 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/will-change
        */
       "will-change": [{
-        "will-change": ["auto", "scroll", "contents", "transform", M, C]
+        "will-change": ["auto", "scroll", "contents", "transform", I, S]
       }],
       // -----------
       // --- SVG ---
@@ -2688,21 +2688,21 @@ const ro = (e, o) => {
        * @see https://tailwindcss.com/docs/fill
        */
       fill: [{
-        fill: ["none", ...z()]
+        fill: ["none", ...T()]
       }],
       /**
        * Stroke Width
        * @see https://tailwindcss.com/docs/stroke-width
        */
       "stroke-w": [{
-        stroke: [G, de, ee, $e]
+        stroke: [R, he, oe, $e]
       }],
       /**
        * Stroke
        * @see https://tailwindcss.com/docs/stroke
        */
       stroke: [{
-        stroke: ["none", ...z()]
+        stroke: ["none", ...T()]
       }],
       // ---------------------
       // --- Accessibility ---
@@ -2770,11 +2770,11 @@ const ro = (e, o) => {
     },
     orderSensitiveModifiers: ["*", "**", "after", "backdrop", "before", "details-content", "file", "first-letter", "first-line", "marker", "placeholder", "selection"]
   };
-}, ze = /* @__PURE__ */ Mo(Zo);
-function Y(...e) {
-  return ze(Ee(e));
+}, Yo = /* @__PURE__ */ Mo(jo);
+function b(...e) {
+  return Yo(ro(e));
 }
-const st = {
+const tt = {
   slime: {
     bg: "bg-[#32CD32]",
     glow: "shadow-[0_0_20px_rgba(50,205,50,0.7)]",
@@ -2782,22 +2782,22 @@ const st = {
     drip: "bg-[#32CD32]"
   },
   blood: {
-    bg: "bg-[#DC143C]",
-    glow: "shadow-[0_0_20px_rgba(220,20,60,0.7)]",
-    text: "text-red-100",
-    drip: "bg-[#DC143C]"
+    bg: "bg-[#dc2626]",
+    glow: "shadow-[0_0_25px_rgba(220,38,38,0.9)]",
+    text: "text-red-50",
+    drip: "bg-[#dc2626]"
   },
   ectoplasm: {
-    bg: "bg-[#9400D3]",
-    glow: "shadow-[0_0_25px_rgba(148,0,211,0.7)]",
+    bg: "bg-[#A855F7]",
+    glow: "shadow-[0_0_30px_rgba(168,85,247,0.8)]",
     text: "text-purple-100",
-    drip: "bg-[#9400D3]"
+    drip: "bg-[#A855F7]"
   }
-}, it = {
+}, ot = {
   low: { duration: 2.5, displacement: 25 },
   medium: { duration: 1.8, displacement: 40 },
   high: { duration: 1.2, displacement: 55 }
-}, jo = j.forwardRef(
+}, Vo = O.forwardRef(
   ({
     className: e,
     variant: o = "ectoplasm",
@@ -2805,39 +2805,39 @@ const st = {
     children: n,
     disabled: s,
     onClick: i,
-    ...a
-  }, l) => {
-    const d = `goo-filter-${j.useId().replace(/:/g, "")}`, [u, b] = j.useState(!1), [p, f] = j.useState(0), y = st[o] || st.ectoplasm, m = it[r] || it.medium, g = (I) => {
-      f(($) => $ + 1), i?.(I);
-    }, w = (I) => ({
+    ...l
+  }, a) => {
+    const d = `goo-filter-${O.useId().replace(/:/g, "")}`, [u, h] = O.useState(!1), [m, f] = O.useState(0), y = tt[o] || tt.ectoplasm, g = ot[r] || ot.medium, x = (M) => {
+      f((F) => F + 1), i?.(M);
+    }, w = (M) => ({
       initial: { y: 0, scaleY: 1 },
       hover: {
-        y: [0, m.displacement * 0.3, 0],
+        y: [0, g.displacement * 0.3, 0],
         scaleY: [1, 2, 1],
         // Stretch vertically to connect to leading circle
         transition: {
-          duration: m.duration,
+          duration: g.duration,
           repeat: 1 / 0,
           repeatType: "reverse",
           ease: "easeInOut",
-          delay: I
+          delay: M
         }
       }
-    }), x = (I) => ({
+    }), k = (M) => ({
       initial: { y: 0, scale: 1 },
       hover: {
-        y: [0, m.displacement, 0],
+        y: [0, g.displacement, 0],
         scale: [1, 1.2, 1],
         // Grow slightly as it drops
         transition: {
-          duration: m.duration,
+          duration: g.duration,
           repeat: 1 / 0,
           repeatType: "reverse",
           ease: "easeInOut",
-          delay: I
+          delay: M
         }
       }
-    }), T = {
+    }), $ = {
       initial: { scale: 1, borderRadius: "9999px" },
       hover: {
         scale: [1, 1.02, 0.98, 1.01, 1],
@@ -2851,14 +2851,14 @@ const st = {
       },
       tap: { scale: 0.95 }
     };
-    return /* @__PURE__ */ h(
+    return /* @__PURE__ */ p(
       "div",
       {
         className: "relative inline-block z-10 group",
-        onMouseEnter: () => b(!0),
-        onMouseLeave: () => b(!1),
+        onMouseEnter: () => h(!0),
+        onMouseLeave: () => h(!1),
         children: [
-          /* @__PURE__ */ t("svg", { className: "absolute w-0 h-0 pointer-events-none", "aria-hidden": "true", children: /* @__PURE__ */ t("defs", { children: /* @__PURE__ */ h("filter", { id: d, children: [
+          /* @__PURE__ */ t("svg", { className: "absolute w-0 h-0 pointer-events-none", "aria-hidden": "true", children: /* @__PURE__ */ t("defs", { children: /* @__PURE__ */ p("filter", { id: d, children: [
             /* @__PURE__ */ t("feGaussianBlur", { in: "SourceGraphic", stdDeviation: "10", result: "blur" }),
             /* @__PURE__ */ t(
               "feColorMatrix",
@@ -2888,7 +2888,7 @@ const st = {
           /* @__PURE__ */ t(
             "div",
             {
-              className: Y(
+              className: b(
                 "absolute inset-0 rounded-full pointer-events-none transition-all duration-300",
                 y.glow,
                 u ? "opacity-100 scale-105" : "opacity-60 scale-100"
@@ -2896,7 +2896,7 @@ const st = {
               style: { zIndex: -1 }
             }
           ),
-          /* @__PURE__ */ h(
+          /* @__PURE__ */ p(
             "div",
             {
               className: "absolute inset-0",
@@ -2905,18 +2905,18 @@ const st = {
                 /* @__PURE__ */ t(
                   v.div,
                   {
-                    className: Y(
+                    className: b(
                       "w-full h-full rounded-full",
                       y.bg,
                       s && "opacity-50"
                     ),
-                    variants: T,
+                    variants: $,
                     initial: "initial",
                     animate: u && !s ? "hover" : "initial",
                     whileTap: s ? void 0 : "tap"
                   }
                 ),
-                /* @__PURE__ */ h(
+                /* @__PURE__ */ p(
                   v.div,
                   {
                     initial: "initial",
@@ -2926,7 +2926,7 @@ const st = {
                       /* @__PURE__ */ t(
                         v.div,
                         {
-                          className: Y("absolute w-3 h-4 rounded-full motion-reduce:hidden", y.drip),
+                          className: b("absolute w-3 h-4 rounded-full motion-reduce:hidden", y.drip),
                           style: { left: "25%", bottom: "50%", transformOrigin: "top" },
                           variants: w(0)
                         }
@@ -2934,15 +2934,15 @@ const st = {
                       /* @__PURE__ */ t(
                         v.div,
                         {
-                          className: Y("absolute w-5 h-5 rounded-full motion-reduce:hidden", y.drip),
+                          className: b("absolute w-5 h-5 rounded-full motion-reduce:hidden", y.drip),
                           style: { left: "25%", bottom: "45%", transform: "translateX(-15%)", transformOrigin: "top" },
-                          variants: x(0)
+                          variants: k(0)
                         }
                       ),
                       /* @__PURE__ */ t(
                         v.div,
                         {
-                          className: Y("absolute w-4 h-5 rounded-full motion-reduce:hidden", y.drip),
+                          className: b("absolute w-4 h-5 rounded-full motion-reduce:hidden", y.drip),
                           style: { left: "50%", bottom: "50%", transformOrigin: "top" },
                           variants: w(0.2)
                         }
@@ -2950,15 +2950,15 @@ const st = {
                       /* @__PURE__ */ t(
                         v.div,
                         {
-                          className: Y("absolute w-7 h-7 rounded-full motion-reduce:hidden", y.drip),
+                          className: b("absolute w-7 h-7 rounded-full motion-reduce:hidden", y.drip),
                           style: { left: "50%", bottom: "42%", transform: "translateX(-20%)", transformOrigin: "top" },
-                          variants: x(0.2)
+                          variants: k(0.2)
                         }
                       ),
                       /* @__PURE__ */ t(
                         v.div,
                         {
-                          className: Y("absolute w-3 h-4 rounded-full motion-reduce:hidden", y.drip),
+                          className: b("absolute w-3 h-4 rounded-full motion-reduce:hidden", y.drip),
                           style: { left: "75%", bottom: "50%", transformOrigin: "top" },
                           variants: w(0.4)
                         }
@@ -2966,34 +2966,34 @@ const st = {
                       /* @__PURE__ */ t(
                         v.div,
                         {
-                          className: Y("absolute w-5 h-5 rounded-full motion-reduce:hidden", y.drip),
+                          className: b("absolute w-5 h-5 rounded-full motion-reduce:hidden", y.drip),
                           style: { left: "75%", bottom: "45%", transform: "translateX(-15%)", transformOrigin: "top" },
-                          variants: x(0.4)
+                          variants: k(0.4)
                         }
                       )
                     ]
                   }
                 ),
-                /* @__PURE__ */ t(L, { children: p > 0 && /* @__PURE__ */ t(
+                /* @__PURE__ */ t(D, { children: m > 0 && /* @__PURE__ */ t(
                   v.div,
                   {
-                    className: Y("absolute inset-0 rounded-full", y.bg),
+                    className: b("absolute inset-0 rounded-full", y.bg),
                     initial: { scale: 0.8, opacity: 1 },
                     animate: { scale: 1.8, opacity: 0 },
                     exit: { opacity: 0 },
                     transition: { duration: 0.6, ease: "easeOut" }
                   },
-                  p
+                  m
                 ) })
               ]
             }
           ),
-          /* @__PURE__ */ h(
+          /* @__PURE__ */ p(
             "button",
             {
-              ref: l,
-              onClick: g,
-              className: Y(
+              ref: a,
+              onClick: x,
+              className: b(
                 "relative block w-full h-full px-8 py-3 rounded-full font-bold text-lg",
                 "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-purple-500",
                 y.text,
@@ -3001,7 +3001,7 @@ const st = {
                 e
               ),
               disabled: s,
-              ...a,
+              ...l,
               children: [
                 /* @__PURE__ */ t("span", { className: "relative z-10 drop-shadow-sm", children: n }),
                 /* @__PURE__ */ t(
@@ -3021,362 +3021,8 @@ const st = {
     );
   }
 );
-jo.displayName = "GooeyButton";
-function S(...e) {
-  return ze(Ee(e));
-}
-const Yo = ({
-  children: e,
-  className: o,
-  gooColor: r = "bg-[#5b21b6]"
-}) => {
-  const n = [
-    {
-      position: "right-6",
-      width: "w-5",
-      top: "calc(100% - 35px)",
-      heights: ["40px", "90px", "40px"],
-      duration: 4.5,
-      delay: 0
-    },
-    {
-      position: "right-12",
-      width: "w-4",
-      top: "calc(100% - 30px)",
-      heights: ["35px", "80px", "35px"],
-      duration: 5,
-      delay: 0.5
-    },
-    {
-      position: "right-20",
-      width: "w-6",
-      top: "calc(100% - 40px)",
-      heights: ["45px", "100px", "45px"],
-      duration: 4.2,
-      delay: 1
-    },
-    {
-      position: "right-28",
-      width: "w-4",
-      top: "calc(100% - 32px)",
-      heights: ["38px", "85px", "38px"],
-      duration: 4.8,
-      delay: 1.5
-    },
-    {
-      position: "right-36",
-      width: "w-5",
-      top: "calc(100% - 36px)",
-      heights: ["42px", "95px", "42px"],
-      duration: 4.6,
-      delay: 2
-    }
-  ], s = [
-    { position: "right-4", width: "w-12", height: "h-6", bottom: "-bottom-2" },
-    { position: "right-16", width: "w-8", height: "h-6", bottom: "-bottom-2" },
-    { position: "right-32", width: "w-5", height: "h-4", bottom: "-bottom-1" }
-  ];
-  return /* @__PURE__ */ h("div", { className: "relative inline-block min-w-[320px] min-h-[200px]", children: [
-    /* @__PURE__ */ t("svg", { className: "absolute w-0 h-0 pointer-events-none", "aria-hidden": "true", children: /* @__PURE__ */ t("defs", { children: /* @__PURE__ */ h("filter", { id: "card-goo", children: [
-      /* @__PURE__ */ t("feGaussianBlur", { in: "SourceGraphic", stdDeviation: "8", result: "blur" }),
-      /* @__PURE__ */ t(
-        "feColorMatrix",
-        {
-          in: "blur",
-          mode: "matrix",
-          values: "1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 25 -9",
-          result: "goo"
-        }
-      ),
-      /* @__PURE__ */ t("feGaussianBlur", { in: "goo", stdDeviation: "2", result: "gooBlur" }),
-      /* @__PURE__ */ t(
-        "feSpecularLighting",
-        {
-          in: "gooBlur",
-          surfaceScale: "6",
-          specularConstant: "1.5",
-          specularExponent: "40",
-          lightingColor: "#ffffff",
-          result: "specular",
-          children: /* @__PURE__ */ t("feDistantLight", { azimuth: "225", elevation: "45" })
-        }
-      ),
-      /* @__PURE__ */ t("feComposite", { in: "specular", in2: "goo", operator: "in", result: "specularInGoo" }),
-      /* @__PURE__ */ t("feComposite", { in: "specularInGoo", in2: "goo", operator: "over" })
-    ] }) }) }),
-    /* @__PURE__ */ h(
-      "div",
-      {
-        className: "absolute inset-0",
-        style: { filter: "url(#card-goo)" },
-        children: [
-          /* @__PURE__ */ t("div", { className: S("absolute inset-0 rounded-3xl", r) }),
-          n.map((i, a) => /* @__PURE__ */ t(
-            v.div,
-            {
-              className: S(
-                "absolute rounded-full motion-reduce:hidden",
-                i.width,
-                i.position,
-                r
-              ),
-              style: {
-                top: i.top,
-                transformOrigin: "top"
-              },
-              animate: {
-                height: i.heights
-              },
-              transition: {
-                duration: i.duration,
-                repeat: 1 / 0,
-                repeatType: "loop",
-                ease: "easeInOut",
-                delay: i.delay
-              }
-            },
-            `drip-${a}`
-          )),
-          s.map((i, a) => /* @__PURE__ */ t(
-            "div",
-            {
-              className: S(
-                "absolute rounded-full",
-                i.width,
-                i.height,
-                i.position,
-                i.bottom,
-                r
-              )
-            },
-            `pool-${a}`
-          ))
-        ]
-      }
-    ),
-    /* @__PURE__ */ t("div", { className: S("relative z-20 p-6", o), children: e }),
-    /* @__PURE__ */ t("div", { className: "absolute inset-0 rounded-3xl border border-white/10 pointer-events-none z-30" }),
-    /* @__PURE__ */ t("div", { className: "absolute inset-0 rounded-3xl border-2 border-black/5 pointer-events-none z-30" })
-  ] });
-};
-Yo.displayName = "GooeyCard";
-const Vo = (e) => e.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase(), Xo = (e) => e.replace(
-  /^([A-Z])|[\s-_]+(\w)/g,
-  (o, r, n) => n ? n.toUpperCase() : r.toLowerCase()
-), at = (e) => {
-  const o = Xo(e);
-  return o.charAt(0).toUpperCase() + o.slice(1);
-}, Tt = (...e) => e.filter((o, r, n) => !!o && o.trim() !== "" && n.indexOf(o) === r).join(" ").trim(), qo = (e) => {
-  for (const o in e)
-    if (o.startsWith("aria-") || o === "role" || o === "title")
-      return !0;
-};
-var Uo = {
-  xmlns: "http://www.w3.org/2000/svg",
-  width: 24,
-  height: 24,
-  viewBox: "0 0 24 24",
-  fill: "none",
-  stroke: "currentColor",
-  strokeWidth: 2,
-  strokeLinecap: "round",
-  strokeLinejoin: "round"
-};
-const Ko = He(
-  ({
-    color: e = "currentColor",
-    size: o = 24,
-    strokeWidth: r = 2,
-    absoluteStrokeWidth: n,
-    className: s = "",
-    children: i,
-    iconNode: a,
-    ...l
-  }, c) => Oe(
-    "svg",
-    {
-      ref: c,
-      ...Uo,
-      width: o,
-      height: o,
-      stroke: e,
-      strokeWidth: n ? Number(r) * 24 / Number(o) : r,
-      className: Tt("lucide", s),
-      ...!i && !qo(l) && { "aria-hidden": "true" },
-      ...l
-    },
-    [
-      ...a.map(([d, u]) => Oe(d, u)),
-      ...Array.isArray(i) ? i : [i]
-    ]
-  )
-);
-const te = (e, o) => {
-  const r = He(
-    ({ className: n, ...s }, i) => Oe(Ko, {
-      ref: i,
-      iconNode: o,
-      className: Tt(
-        `lucide-${Vo(at(e))}`,
-        `lucide-${e}`,
-        n
-      ),
-      ...s
-    })
-  );
-  return r.displayName = at(e), r;
-};
-const Jo = [
-  [
-    "path",
-    {
-      d: "M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4",
-      key: "1slcih"
-    }
-  ]
-], Qo = te("flame", Jo);
-const er = [
-  ["path", { d: "M9 10h.01", key: "qbtxuw" }],
-  ["path", { d: "M15 10h.01", key: "1qmjsl" }],
-  [
-    "path",
-    {
-      d: "M12 2a8 8 0 0 0-8 8v12l3-3 2.5 2.5L12 19l2.5 2.5L17 19l3 3V10a8 8 0 0 0-8-8z",
-      key: "uwwb07"
-    }
-  ]
-], je = te("ghost", er);
-const tr = [
-  [
-    "path",
-    {
-      d: "M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401",
-      key: "kfwtm"
-    }
-  ]
-], or = te("moon", tr);
-const rr = [
-  ["path", { d: "m12.5 17-.5-1-.5 1h1z", key: "3me087" }],
-  [
-    "path",
-    {
-      d: "M15 22a1 1 0 0 0 1-1v-1a2 2 0 0 0 1.56-3.25 8 8 0 1 0-11.12 0A2 2 0 0 0 8 20v1a1 1 0 0 0 1 1z",
-      key: "1o5pge"
-    }
-  ],
-  ["circle", { cx: "15", cy: "12", r: "1", key: "1tmaij" }],
-  ["circle", { cx: "9", cy: "12", r: "1", key: "1vctgf" }]
-], nr = te("skull", rr);
-const sr = [
-  [
-    "path",
-    {
-      d: "M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z",
-      key: "1s2grr"
-    }
-  ],
-  ["path", { d: "M20 2v4", key: "1rf3ol" }],
-  ["path", { d: "M22 4h-4", key: "gwowj6" }],
-  ["circle", { cx: "4", cy: "20", r: "2", key: "6kqj1y" }]
-], ir = te("sparkles", sr);
-const ar = [
-  ["circle", { cx: "12", cy: "12", r: "4", key: "4exip2" }],
-  ["path", { d: "M12 2v2", key: "tus03m" }],
-  ["path", { d: "M12 20v2", key: "1lh1kg" }],
-  ["path", { d: "m4.93 4.93 1.41 1.41", key: "149t6j" }],
-  ["path", { d: "m17.66 17.66 1.41 1.41", key: "ptbguv" }],
-  ["path", { d: "M2 12h2", key: "1t8f8n" }],
-  ["path", { d: "M20 12h2", key: "1q8mjw" }],
-  ["path", { d: "m6.34 17.66-1.41 1.41", key: "1m8zz5" }],
-  ["path", { d: "m19.07 4.93-1.41 1.41", key: "1shlcs" }]
-], lr = te("sun", ar);
-const cr = [
-  ["path", { d: "M18 6 6 18", key: "1bl5f8" }],
-  ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
-], Rt = te("x", cr), Gt = ({
-  content: e,
-  children: o,
-  position: r = "top",
-  className: n
-}) => {
-  const [s, i] = R(!1), a = Ut(), l = {
-    top: "bottom-full left-1/2 -translate-x-1/2 mb-2",
-    bottom: "top-full left-1/2 -translate-x-1/2 mt-2",
-    left: "right-full top-1/2 -translate-y-1/2 mr-2",
-    right: "left-full top-1/2 -translate-y-1/2 ml-2"
-  }, c = {
-    top: "top-full left-1/2 -translate-x-1/2 border-t-ghost-purple border-l-transparent border-r-transparent border-b-transparent",
-    bottom: "bottom-full left-1/2 -translate-x-1/2 border-b-ghost-purple border-l-transparent border-r-transparent border-t-transparent",
-    left: "left-full top-1/2 -translate-y-1/2 border-l-ghost-purple border-t-transparent border-b-transparent border-r-transparent",
-    right: "right-full top-1/2 -translate-y-1/2 border-r-ghost-purple border-t-transparent border-b-transparent border-l-transparent"
-  }, d = gt(o) ? Kt(o, {
-    "aria-describedby": s ? a : void 0,
-    onFocus: (u) => {
-      i(!0);
-      const b = o.props.onFocus;
-      b && b(u);
-    },
-    onBlur: (u) => {
-      i(!1);
-      const b = o.props.onBlur;
-      b && b(u);
-    }
-  }) : o;
-  return /* @__PURE__ */ h(
-    "div",
-    {
-      className: "relative inline-block",
-      onMouseEnter: () => i(!0),
-      onMouseLeave: () => i(!1),
-      children: [
-        d,
-        /* @__PURE__ */ t(L, { children: s && /* @__PURE__ */ h(
-          v.div,
-          {
-            id: a,
-            initial: { opacity: 0, y: 10, scale: 0.9 },
-            animate: {
-              opacity: 1,
-              y: -5,
-              scale: 1,
-              // Ghostly float animation
-              rotate: [0, -2, 2, 0],
-              x: [0, -2, 2, 0]
-            },
-            exit: { opacity: 0, y: 10, scale: 0.9 },
-            transition: {
-              type: "spring",
-              damping: 20,
-              stiffness: 300,
-              // Loop the float
-              rotate: { repeat: 1 / 0, duration: 2, ease: "easeInOut" },
-              x: { repeat: 1 / 0, duration: 3, ease: "easeInOut" }
-            },
-            className: S(
-              "absolute z-50 px-3 py-2 text-sm text-ghost-white bg-ghost-dark border border-ghost-purple/40 rounded-md shadow-lg whitespace-nowrap",
-              l[r],
-              n
-            ),
-            role: "tooltip",
-            children: [
-              /* @__PURE__ */ t("div", { className: "relative z-10", children: e }),
-              /* @__PURE__ */ t(
-                "div",
-                {
-                  className: S(
-                    "absolute w-0 h-0 border-[6px]",
-                    c[r]
-                  )
-                }
-              ),
-              /* @__PURE__ */ t("div", { className: "absolute inset-0 bg-ghost-purple/10 rounded-md blur-sm -z-10" })
-            ]
-          }
-        ) })
-      ]
-    }
-  );
-}, Ye = We(void 0), dr = {
+Vo.displayName = "GooeyButton";
+const _e = Le(void 0), Xo = {
   spectral: {
     "--ghost-bg": "#1a0b2e",
     "--ghost-bg-secondary": "#2e1065",
@@ -3396,75 +3042,796 @@ const cr = [
     "--ghost-accent-rgb": "239, 68, 68"
   }
 };
-function ur(e) {
+function qo(e) {
   if (typeof window > "u") return null;
   const o = localStorage.getItem(e);
   return o === "spectral" || o === "blood" ? o : null;
 }
-function Be(e) {
+function ze(e) {
   if (typeof document > "u") return;
   const o = document.documentElement;
   o.setAttribute("data-theme", e);
-  const r = dr[e];
+  const r = Xo[e];
   Object.entries(r).forEach(([n, s]) => {
     o.style.setProperty(n, s);
   });
 }
-function pr({
+function Uo({
   children: e,
   defaultTheme: o = "spectral",
   storageKey: r = "ghostui-theme"
 }) {
-  const [n, s] = R(o), [i, a] = R(!1), l = X((u) => {
-    s(u), typeof window < "u" && localStorage.setItem(r, u), Be(u);
-  }, [r]), c = X(() => {
-    l(n === "spectral" ? "blood" : "spectral");
-  }, [n, l]);
+  const [n, s] = G(o), [i, l] = G(!1), a = Q((u) => {
+    s(u), typeof window < "u" && localStorage.setItem(r, u), ze(u);
+  }, [r]), c = Q(() => {
+    a(n === "spectral" ? "blood" : "spectral");
+  }, [n, a]);
   A(() => {
-    const b = ur(r) ?? o;
-    s(b), Be(b), a(!0);
+    const h = qo(r) ?? o;
+    s(h), ze(h), l(!0);
   }, [r, o]), A(() => {
-    i && Be(n);
+    i && ze(n);
   }, [n, i]), A(() => {
-    const u = (b) => {
-      b.key === r && (b.newValue === "spectral" || b.newValue === "blood") && s(b.newValue);
+    const u = (h) => {
+      h.key === r && (h.newValue === "spectral" || h.newValue === "blood") && s(h.newValue);
     };
     return window.addEventListener("storage", u), () => window.removeEventListener("storage", u);
   }, [r]);
-  const d = { theme: n, setTheme: l, toggleTheme: c };
-  return /* @__PURE__ */ t(Ye.Provider, { value: d, children: e });
+  const d = { theme: n, setTheme: a, toggleTheme: c };
+  return /* @__PURE__ */ t(_e.Provider, { value: d, children: e });
 }
-function Tn() {
-  const e = Ie(Ye);
+function Xn() {
+  const e = Se(_e);
   if (e === void 0)
     throw new Error("useTheme must be used within a ThemeProvider");
   return e;
 }
-function oe() {
-  return Ie(Ye);
+function X() {
+  return Se(_e);
 }
-pr.displayName = "ThemeProvider";
-function mr({
+Uo.displayName = "ThemeProvider";
+const Ko = {
+  spectral: "bg-[#5b21b6]",
+  // Purple
+  blood: "bg-[#dc2626]"
+  // Red
+}, Jo = O.forwardRef(
+  ({ children: e, className: o, gooColor: r, variant: n }, s) => {
+    const i = X(), l = n ?? i?.theme ?? "spectral", a = r ?? Ko[l], c = O.useId(), d = [
+      {
+        position: "right-6",
+        width: "w-5",
+        top: "calc(100% - 35px)",
+        heights: ["40px", "90px", "40px"],
+        duration: 4.5,
+        delay: 0
+      },
+      {
+        position: "right-12",
+        width: "w-4",
+        top: "calc(100% - 30px)",
+        heights: ["35px", "80px", "35px"],
+        duration: 5,
+        delay: 0.5
+      },
+      {
+        position: "right-20",
+        width: "w-6",
+        top: "calc(100% - 40px)",
+        heights: ["45px", "100px", "45px"],
+        duration: 4.2,
+        delay: 1
+      },
+      {
+        position: "right-28",
+        width: "w-4",
+        top: "calc(100% - 32px)",
+        heights: ["38px", "85px", "38px"],
+        duration: 4.8,
+        delay: 1.5
+      },
+      {
+        position: "right-36",
+        width: "w-5",
+        top: "calc(100% - 36px)",
+        heights: ["42px", "95px", "42px"],
+        duration: 4.6,
+        delay: 2
+      }
+    ], u = [
+      { position: "right-4", width: "w-12", height: "h-6", bottom: "-bottom-2" },
+      { position: "right-16", width: "w-8", height: "h-6", bottom: "-bottom-2" },
+      { position: "right-32", width: "w-5", height: "h-4", bottom: "-bottom-1" }
+    ];
+    return /* @__PURE__ */ p("div", { ref: s, className: "relative inline-block min-w-[320px] min-h-[200px]", children: [
+      /* @__PURE__ */ t("svg", { className: "absolute w-0 h-0 pointer-events-none", "aria-hidden": "true", children: /* @__PURE__ */ t("defs", { children: /* @__PURE__ */ p("filter", { id: `card-goo-${c}`, children: [
+        /* @__PURE__ */ t("feGaussianBlur", { in: "SourceGraphic", stdDeviation: "8", result: "blur" }),
+        /* @__PURE__ */ t(
+          "feColorMatrix",
+          {
+            in: "blur",
+            mode: "matrix",
+            values: "1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 25 -9",
+            result: "goo"
+          }
+        ),
+        /* @__PURE__ */ t("feGaussianBlur", { in: "goo", stdDeviation: "2", result: "gooBlur" }),
+        /* @__PURE__ */ t(
+          "feSpecularLighting",
+          {
+            in: "gooBlur",
+            surfaceScale: "6",
+            specularConstant: "1.5",
+            specularExponent: "40",
+            lightingColor: "#ffffff",
+            result: "specular",
+            children: /* @__PURE__ */ t("feDistantLight", { azimuth: "225", elevation: "45" })
+          }
+        ),
+        /* @__PURE__ */ t("feComposite", { in: "specular", in2: "goo", operator: "in", result: "specularInGoo" }),
+        /* @__PURE__ */ t("feComposite", { in: "specularInGoo", in2: "goo", operator: "over" })
+      ] }) }) }),
+      /* @__PURE__ */ p(
+        "div",
+        {
+          className: "absolute inset-0",
+          style: { filter: `url(#card-goo-${c})` },
+          children: [
+            /* @__PURE__ */ t("div", { className: b("absolute inset-0 rounded-3xl", a) }),
+            d.map((h, m) => /* @__PURE__ */ t(
+              v.div,
+              {
+                className: b(
+                  "absolute rounded-full motion-reduce:hidden",
+                  h.width,
+                  h.position,
+                  a
+                ),
+                style: {
+                  top: h.top,
+                  transformOrigin: "top"
+                },
+                animate: {
+                  height: h.heights
+                },
+                transition: {
+                  duration: h.duration,
+                  repeat: 1 / 0,
+                  repeatType: "loop",
+                  ease: "easeInOut",
+                  delay: h.delay
+                }
+              },
+              `drip-${m}`
+            )),
+            u.map((h, m) => /* @__PURE__ */ t(
+              "div",
+              {
+                className: b(
+                  "absolute rounded-full",
+                  h.width,
+                  h.height,
+                  h.position,
+                  h.bottom,
+                  a
+                )
+              },
+              `pool-${m}`
+            ))
+          ]
+        }
+      ),
+      /* @__PURE__ */ t("div", { className: b("relative z-20 p-6", o), children: e }),
+      /* @__PURE__ */ t("div", { className: "absolute inset-0 rounded-3xl border border-white/10 pointer-events-none z-30" }),
+      /* @__PURE__ */ t("div", { className: "absolute inset-0 rounded-3xl border-2 border-black/5 pointer-events-none z-30" })
+    ] });
+  }
+);
+Jo.displayName = "GooeyCard";
+const Qo = (e) => e.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase(), er = (e) => e.replace(
+  /^([A-Z])|[\s-_]+(\w)/g,
+  (o, r, n) => n ? n.toUpperCase() : r.toLowerCase()
+), rt = (e) => {
+  const o = er(e);
+  return o.charAt(0).toUpperCase() + o.slice(1);
+}, Et = (...e) => e.filter((o, r, n) => !!o && o.trim() !== "" && n.indexOf(o) === r).join(" ").trim(), tr = (e) => {
+  for (const o in e)
+    if (o.startsWith("aria-") || o === "role" || o === "title")
+      return !0;
+};
+var or = {
+  xmlns: "http://www.w3.org/2000/svg",
+  width: 24,
+  height: 24,
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 2,
+  strokeLinecap: "round",
+  strokeLinejoin: "round"
+};
+const rr = De(
+  ({
+    color: e = "currentColor",
+    size: o = 24,
+    strokeWidth: r = 2,
+    absoluteStrokeWidth: n,
+    className: s = "",
+    children: i,
+    iconNode: l,
+    ...a
+  }, c) => Ae(
+    "svg",
+    {
+      ref: c,
+      ...or,
+      width: o,
+      height: o,
+      stroke: e,
+      strokeWidth: n ? Number(r) * 24 / Number(o) : r,
+      className: Et("lucide", s),
+      ...!i && !tr(a) && { "aria-hidden": "true" },
+      ...a
+    },
+    [
+      ...l.map(([d, u]) => Ae(d, u)),
+      ...Array.isArray(i) ? i : [i]
+    ]
+  )
+);
+const pe = (e, o) => {
+  const r = De(
+    ({ className: n, ...s }, i) => Ae(rr, {
+      ref: i,
+      iconNode: o,
+      className: Et(
+        `lucide-${Qo(rt(e))}`,
+        `lucide-${e}`,
+        n
+      ),
+      ...s
+    })
+  );
+  return r.displayName = rt(e), r;
+};
+const nr = [
+  [
+    "path",
+    {
+      d: "M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4",
+      key: "1slcih"
+    }
+  ]
+], sr = pe("flame", nr);
+const ir = [
+  ["path", { d: "M9 10h.01", key: "qbtxuw" }],
+  ["path", { d: "M15 10h.01", key: "1qmjsl" }],
+  [
+    "path",
+    {
+      d: "M12 2a8 8 0 0 0-8 8v12l3-3 2.5 2.5L12 19l2.5 2.5L17 19l3 3V10a8 8 0 0 0-8-8z",
+      key: "uwwb07"
+    }
+  ]
+], He = pe("ghost", ir);
+const ar = [
+  [
+    "path",
+    {
+      d: "M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401",
+      key: "kfwtm"
+    }
+  ]
+], lr = pe("moon", ar);
+const cr = [
+  ["path", { d: "m12.5 17-.5-1-.5 1h1z", key: "3me087" }],
+  [
+    "path",
+    {
+      d: "M15 22a1 1 0 0 0 1-1v-1a2 2 0 0 0 1.56-3.25 8 8 0 1 0-11.12 0A2 2 0 0 0 8 20v1a1 1 0 0 0 1 1z",
+      key: "1o5pge"
+    }
+  ],
+  ["circle", { cx: "15", cy: "12", r: "1", key: "1tmaij" }],
+  ["circle", { cx: "9", cy: "12", r: "1", key: "1vctgf" }]
+], dr = pe("skull", cr);
+const ur = [
+  ["circle", { cx: "12", cy: "12", r: "4", key: "4exip2" }],
+  ["path", { d: "M12 2v2", key: "tus03m" }],
+  ["path", { d: "M12 20v2", key: "1lh1kg" }],
+  ["path", { d: "m4.93 4.93 1.41 1.41", key: "149t6j" }],
+  ["path", { d: "m17.66 17.66 1.41 1.41", key: "ptbguv" }],
+  ["path", { d: "M2 12h2", key: "1t8f8n" }],
+  ["path", { d: "M20 12h2", key: "1q8mjw" }],
+  ["path", { d: "m6.34 17.66-1.41 1.41", key: "1m8zz5" }],
+  ["path", { d: "m19.07 4.93-1.41 1.41", key: "1shlcs" }]
+], pr = pe("sun", ur);
+const hr = [
+  ["path", { d: "M18 6 6 18", key: "1bl5f8" }],
+  ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
+], We = pe("x", hr), mr = {
+  spectral: {
+    background: "#2e1065",
+    // Deep purple background (--ghost-bg-secondary)
+    accent: "#FF6F00",
+    // Orange accent (--ghost-accent)
+    accentRgb: "255, 111, 0",
+    text: "#e9d5ff"
+    // Light purple text (--ghost-text)
+  },
+  blood: {
+    background: "#450a0a",
+    // Deep red background (--ghost-bg-secondary)
+    accent: "#ef4444",
+    // Red accent (--ghost-accent)
+    accentRgb: "239, 68, 68",
+    text: "#fecaca"
+    // Light red text (--ghost-text)
+  }
+}, fr = {
+  right: "fixed top-1/2 right-8 h-[70vh] w-[350px] -translate-y-1/2",
+  left: "fixed top-1/2 left-8 h-[70vh] w-[350px] -translate-y-1/2",
+  bottom: "fixed bottom-8 left-1/2 w-[80vw] max-w-2xl h-[50vh] -translate-x-1/2",
+  top: "fixed top-8 left-1/2 w-[80vw] max-w-2xl h-[50vh] -translate-x-1/2"
+}, gr = (e) => {
+  const r = {
+    right: { x: "120%", y: "0%" },
+    left: { x: "-120%", y: "0%" },
+    bottom: { x: "0%", y: "120%" },
+    top: { x: "0%", y: "-120%" }
+  }[e];
+  return {
+    hidden: {
+      x: r.x,
+      y: r.y,
+      scale: 0.8,
+      opacity: 0
+    },
+    visible: {
+      x: "0%",
+      y: "0%",
+      scale: 1,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        damping: 25,
+        stiffness: 180,
+        mass: 0.8
+      }
+    },
+    exit: {
+      x: r.x,
+      y: r.y,
+      scale: 0.8,
+      opacity: 0,
+      transition: {
+        duration: 0.3,
+        ease: "anticipate"
+      }
+    }
+  };
+}, br = () => /* @__PURE__ */ t("style", { children: `
+      @import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
+
+      .font-creep {
+        font-family: 'Creepster', cursive;
+      }
+
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+    ` }), yr = ({ backgroundColor: e, placement: o }) => {
+  const r = () => o === "right" ? [
+    { position: "right-8", width: "w-6", top: "calc(100% - 44px)", heights: ["50px", "113px", "50px"], duration: 5, delay: 0 },
+    { position: "right-20", width: "w-5", top: "calc(100% - 38px)", heights: ["44px", "100px", "44px"], duration: 5.5, delay: 0.6 },
+    { position: "right-32", width: "w-7", top: "calc(100% - 50px)", heights: ["56px", "125px", "56px"], duration: 4.7, delay: 1.2 },
+    { position: "right-44", width: "w-5", top: "calc(100% - 40px)", heights: ["48px", "106px", "48px"], duration: 5.3, delay: 1.8 },
+    { position: "right-56", width: "w-6", top: "calc(100% - 45px)", heights: ["53px", "119px", "53px"], duration: 5.1, delay: 2.4 },
+    { position: "right-68", width: "w-5", top: "calc(100% - 41px)", heights: ["46px", "103px", "46px"], duration: 5.2, delay: 3 }
+  ] : o === "left" ? [
+    { position: "left-8", width: "w-6", top: "calc(100% - 44px)", heights: ["50px", "113px", "50px"], duration: 5, delay: 0 },
+    { position: "left-20", width: "w-5", top: "calc(100% - 38px)", heights: ["44px", "100px", "44px"], duration: 5.5, delay: 0.6 },
+    { position: "left-32", width: "w-7", top: "calc(100% - 50px)", heights: ["56px", "125px", "56px"], duration: 4.7, delay: 1.2 },
+    { position: "left-44", width: "w-5", top: "calc(100% - 40px)", heights: ["48px", "106px", "48px"], duration: 5.3, delay: 1.8 },
+    { position: "left-56", width: "w-6", top: "calc(100% - 45px)", heights: ["53px", "119px", "53px"], duration: 5.1, delay: 2.4 },
+    { position: "left-68", width: "w-5", top: "calc(100% - 41px)", heights: ["46px", "103px", "46px"], duration: 5.2, delay: 3 }
+  ] : [
+    { position: "left-[10%]", width: "w-6", top: "calc(100% - 44px)", heights: ["50px", "113px", "50px"], duration: 5, delay: 0 },
+    { position: "left-[25%]", width: "w-5", top: "calc(100% - 38px)", heights: ["44px", "100px", "44px"], duration: 5.5, delay: 0.6 },
+    { position: "left-[40%]", width: "w-7", top: "calc(100% - 50px)", heights: ["56px", "125px", "56px"], duration: 4.7, delay: 1.2 },
+    { position: "left-[55%]", width: "w-5", top: "calc(100% - 40px)", heights: ["48px", "106px", "48px"], duration: 5.3, delay: 1.8 },
+    { position: "left-[70%]", width: "w-6", top: "calc(100% - 45px)", heights: ["53px", "119px", "53px"], duration: 5.1, delay: 2.4 },
+    { position: "left-[85%]", width: "w-5", top: "calc(100% - 41px)", heights: ["46px", "103px", "46px"], duration: 5.2, delay: 3 }
+  ], n = () => o === "right" ? [
+    { position: "right-6", width: "w-15", height: "h-8", bottom: "-bottom-3" },
+    { position: "right-24", width: "w-10", height: "h-8", bottom: "-bottom-3" },
+    { position: "right-48", width: "w-6", height: "h-5", bottom: "-bottom-2" }
+  ] : o === "left" ? [
+    { position: "left-6", width: "w-15", height: "h-8", bottom: "-bottom-3" },
+    { position: "left-24", width: "w-10", height: "h-8", bottom: "-bottom-3" },
+    { position: "left-48", width: "w-6", height: "h-5", bottom: "-bottom-2" }
+  ] : [
+    { position: "left-[20%]", width: "w-15", height: "h-8", bottom: "-bottom-3" },
+    { position: "left-[50%]", width: "w-10", height: "h-8", bottom: "-bottom-3" },
+    { position: "left-[80%]", width: "w-6", height: "h-5", bottom: "-bottom-2" }
+  ], s = r(), i = n();
+  return /* @__PURE__ */ p("div", { className: "absolute inset-0", children: [
+    /* @__PURE__ */ t(
+      "div",
+      {
+        className: "absolute inset-0 rounded-[2rem]",
+        style: { backgroundColor: e }
+      }
+    ),
+    s.map((l, a) => /* @__PURE__ */ t(
+      v.div,
+      {
+        className: b(
+          "absolute rounded-full motion-reduce:hidden",
+          l.width,
+          l.position
+        ),
+        style: {
+          top: l.top,
+          transformOrigin: "top",
+          backgroundColor: e
+        },
+        animate: {
+          height: l.heights
+        },
+        transition: {
+          duration: l.duration,
+          repeat: 1 / 0,
+          repeatType: "loop",
+          ease: "easeInOut",
+          delay: l.delay
+        }
+      },
+      `drip-${a}`
+    )),
+    i.map((l, a) => /* @__PURE__ */ t(
+      "div",
+      {
+        className: b(
+          "absolute rounded-full",
+          l.width,
+          l.height,
+          l.position,
+          l.bottom
+        ),
+        style: { backgroundColor: e }
+      },
+      `pool-${a}`
+    ))
+  ] });
+}, xr = ({
+  isOpen: e,
+  onClose: o,
+  placement: r = "right",
+  children: n,
+  className: s
+}) => {
+  const l = X()?.theme ?? "spectral", a = mr[l], d = O.useId().replace(/:/g, "");
+  return O.useEffect(() => {
+    if (!e) return;
+    const u = (h) => {
+      h.key === "Escape" && o();
+    };
+    return document.addEventListener("keydown", u), () => {
+      document.removeEventListener("keydown", u);
+    };
+  }, [e, o]), /* @__PURE__ */ p(W, { children: [
+    /* @__PURE__ */ t(br, {}),
+    /* @__PURE__ */ t(
+      "svg",
+      {
+        className: "absolute w-0 h-0",
+        "aria-hidden": "true",
+        children: /* @__PURE__ */ t("defs", { children: /* @__PURE__ */ p("filter", { id: `goo-drawer-${d}`, children: [
+          /* @__PURE__ */ t(
+            "feGaussianBlur",
+            {
+              in: "SourceGraphic",
+              stdDeviation: "10",
+              result: "blur"
+            }
+          ),
+          /* @__PURE__ */ t(
+            "feColorMatrix",
+            {
+              in: "blur",
+              mode: "matrix",
+              values: "1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9",
+              result: "goo"
+            }
+          ),
+          /* @__PURE__ */ t(
+            "feGaussianBlur",
+            {
+              in: "goo",
+              stdDeviation: "2",
+              result: "smoothGoo"
+            }
+          ),
+          /* @__PURE__ */ t(
+            "feSpecularLighting",
+            {
+              in: "smoothGoo",
+              surfaceScale: "8",
+              specularConstant: "2.5",
+              specularExponent: "30",
+              lightingColor: a.accent,
+              result: "specular",
+              children: /* @__PURE__ */ t("feDistantLight", { azimuth: "235", elevation: "50" })
+            }
+          ),
+          /* @__PURE__ */ t(
+            "feComposite",
+            {
+              in: "specular",
+              in2: "smoothGoo",
+              operator: "in",
+              result: "specularGoo"
+            }
+          ),
+          /* @__PURE__ */ t(
+            "feComposite",
+            {
+              in: "specular",
+              in2: "goo",
+              operator: "in",
+              result: "specularClean"
+            }
+          ),
+          /* @__PURE__ */ t(
+            "feComposite",
+            {
+              in: "SourceGraphic",
+              in2: "goo",
+              operator: "atop",
+              result: "solidGoo"
+            }
+          ),
+          /* @__PURE__ */ t(
+            "feComposite",
+            {
+              in: "specularClean",
+              in2: "solidGoo",
+              operator: "over"
+            }
+          )
+        ] }) })
+      }
+    ),
+    /* @__PURE__ */ t(D, { children: e && /* @__PURE__ */ p(W, { children: [
+      /* @__PURE__ */ t(
+        v.div,
+        {
+          className: "fixed inset-0 z-40 bg-[#05020a]/60 backdrop-blur-sm cursor-pointer",
+          initial: { opacity: 0 },
+          animate: { opacity: 1 },
+          exit: { opacity: 0 },
+          onClick: o
+        }
+      ),
+      /* @__PURE__ */ t(
+        v.div,
+        {
+          className: b(
+            fr[r],
+            "z-50 pointer-events-none",
+            s
+          ),
+          variants: gr(r),
+          initial: "hidden",
+          animate: "visible",
+          exit: "exit",
+          children: /* @__PURE__ */ p("div", { className: "relative w-full h-full pointer-events-auto", children: [
+            /* @__PURE__ */ t(
+              "div",
+              {
+                className: "absolute inset-0 z-10 h-[120%]",
+                style: {
+                  filter: `url(#goo-drawer-${d})`,
+                  top: 0
+                },
+                children: /* @__PURE__ */ t("div", { className: "w-full h-[83.3%] relative", children: /* @__PURE__ */ t(yr, { backgroundColor: a.background, placement: r }) })
+              }
+            ),
+            /* @__PURE__ */ t("div", { className: "relative z-10 w-full h-full flex flex-col p-1", children: /* @__PURE__ */ p(
+              "div",
+              {
+                className: "flex-1 rounded-[2rem] border overflow-hidden flex flex-col shadow-inner",
+                style: { borderColor: `rgba(${a.accentRgb}, 0.1)` },
+                children: [
+                  /* @__PURE__ */ p(
+                    "div",
+                    {
+                      className: "p-5 border-b flex items-center justify-between",
+                      style: {
+                        borderColor: `rgba(${a.accentRgb}, 0.1)`,
+                        backgroundColor: `rgba(${a.accentRgb}, 0.05)`
+                      },
+                      children: [
+                        /* @__PURE__ */ p("div", { className: "flex items-center gap-3", children: [
+                          /* @__PURE__ */ t(
+                            "div",
+                            {
+                              className: "p-2 rounded-lg shadow-sm",
+                              style: { backgroundColor: a.background },
+                              children: /* @__PURE__ */ t(He, { className: "w-5 h-5", style: { color: a.accent } })
+                            }
+                          ),
+                          /* @__PURE__ */ t(
+                            "h2",
+                            {
+                              className: "font-creep text-2xl tracking-wider drop-shadow-sm",
+                              style: { color: a.text },
+                              children: "Possession"
+                            }
+                          )
+                        ] }),
+                        /* @__PURE__ */ t(
+                          "button",
+                          {
+                            onClick: o,
+                            className: "p-2 rounded-full",
+                            style: {
+                              color: a.text,
+                              opacity: 0.6
+                            },
+                            "aria-label": "Close drawer",
+                            children: /* @__PURE__ */ t(We, { className: "w-5 h-5" })
+                          }
+                        )
+                      ]
+                    }
+                  ),
+                  /* @__PURE__ */ t("div", { className: "flex-1 overflow-y-auto no-scrollbar p-5 space-y-3", children: n })
+                ]
+              }
+            ) }),
+            /* @__PURE__ */ t(
+              "div",
+              {
+                className: "absolute inset-0 rounded-[2rem] pointer-events-none z-30",
+                style: {
+                  border: `1px solid rgba(${a.accentRgb}, 0.25)`,
+                  boxShadow: `inset 0 0 30px rgba(${a.accentRgb}, 0.08)`
+                }
+              }
+            )
+          ] })
+        }
+      )
+    ] }) })
+  ] });
+};
+xr.displayName = "GooeyDrawer";
+const vr = {
+  spectral: {
+    border: "border-purple-500/40",
+    arrowColor: "purple-500",
+    glowBg: "bg-purple-500/10"
+  },
+  blood: {
+    border: "border-red-500/40",
+    arrowColor: "red-500",
+    glowBg: "bg-red-500/10"
+  }
+}, wr = (e) => {
+  const o = e === "blood" ? "border-t-red-500" : "border-t-purple-500", r = e === "blood" ? "border-b-red-500" : "border-b-purple-500", n = e === "blood" ? "border-l-red-500" : "border-l-purple-500", s = e === "blood" ? "border-r-red-500" : "border-r-purple-500";
+  return {
+    top: `top-full left-1/2 -translate-x-1/2 ${o} border-l-transparent border-r-transparent border-b-transparent`,
+    bottom: `bottom-full left-1/2 -translate-x-1/2 ${r} border-l-transparent border-r-transparent border-t-transparent`,
+    left: `left-full top-1/2 -translate-y-1/2 ${n} border-t-transparent border-b-transparent border-r-transparent`,
+    right: `right-full top-1/2 -translate-y-1/2 ${s} border-t-transparent border-b-transparent border-l-transparent`
+  };
+}, Ze = O.forwardRef(
+  ({ content: e, children: o, position: r = "top", className: n }, s) => {
+    const [i, l] = G(!1), a = ht(), d = X()?.theme ?? "spectral", u = vr[d], h = wr(d), m = {
+      top: "bottom-full left-1/2 -translate-x-1/2 mb-2",
+      bottom: "top-full left-1/2 -translate-x-1/2 mt-2",
+      left: "right-full top-1/2 -translate-y-1/2 mr-2",
+      right: "left-full top-1/2 -translate-y-1/2 ml-2"
+    }, f = mt(o) ? Kt(o, {
+      "aria-describedby": i ? a : void 0,
+      onFocus: (y) => {
+        l(!0);
+        const g = o.props.onFocus;
+        g && g(y);
+      },
+      onBlur: (y) => {
+        l(!1);
+        const g = o.props.onBlur;
+        g && g(y);
+      }
+    }) : o;
+    return /* @__PURE__ */ p(
+      "div",
+      {
+        ref: s,
+        className: "relative inline-block",
+        onMouseEnter: () => l(!0),
+        onMouseLeave: () => l(!1),
+        children: [
+          f,
+          /* @__PURE__ */ t(D, { children: i && /* @__PURE__ */ p(
+            v.div,
+            {
+              id: a,
+              initial: { opacity: 0, y: 10, scale: 0.9 },
+              animate: {
+                opacity: 1,
+                y: -5,
+                scale: 1,
+                // Ghostly float animation
+                rotate: [0, -2, 2, 0],
+                x: [0, -2, 2, 0]
+              },
+              exit: { opacity: 0, y: 10, scale: 0.9 },
+              transition: {
+                type: "spring",
+                damping: 20,
+                stiffness: 300,
+                // Loop the float
+                rotate: { repeat: 1 / 0, duration: 2, ease: "easeInOut" },
+                x: { repeat: 1 / 0, duration: 3, ease: "easeInOut" }
+              },
+              className: b(
+                "absolute z-50 px-3 py-2 text-sm text-ghost-white bg-ghost-dark rounded-md shadow-lg whitespace-nowrap border",
+                u.border,
+                m[r],
+                n
+              ),
+              role: "tooltip",
+              children: [
+                /* @__PURE__ */ t("div", { className: "relative z-10", children: e }),
+                /* @__PURE__ */ t(
+                  "div",
+                  {
+                    className: b(
+                      "absolute w-0 h-0 border-[6px]",
+                      h[r]
+                    )
+                  }
+                ),
+                /* @__PURE__ */ t("div", { className: b("absolute inset-0 rounded-md blur-sm -z-10", u.glowBg) })
+              ]
+            }
+          ) })
+        ]
+      }
+    );
+  }
+);
+Ze.displayName = "SpookyTooltip";
+function kr({
   checked: e,
   onChange: o,
   disabled: r = !1,
   className: n,
   variant: s = "spectral-blood",
   tooltip: i,
-  tooltipPosition: a,
-  tooltipClassName: l
+  tooltipPosition: l,
+  tooltipClassName: a
 }) {
-  const c = oe(), d = e !== void 0, u = d ? e : c?.theme === "spectral", b = (x) => {
-    d && o ? o(x) : c && c.setTheme(x ? "spectral" : "blood");
-  }, p = s === "spectral-blood" ? /* @__PURE__ */ h(
+  const c = X(), d = e !== void 0, u = d ? e : c?.theme === "spectral", h = (k) => {
+    d && o ? o(k) : c && c.setTheme(k ? "spectral" : "blood");
+  }, m = s === "spectral-blood" ? /* @__PURE__ */ p(
     v.button,
     {
       type: "button",
       role: "switch",
       "aria-checked": u,
       disabled: r,
-      onClick: () => !r && b(!u),
-      className: S(
+      onClick: () => !r && h(!u),
+      className: b(
         "relative w-24 h-12 rounded-full cursor-pointer p-1 transition-all duration-700 overflow-hidden outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
         u ? "bg-[#2e0202] focus-visible:ring-orange-500" : "bg-[#1a0505] focus-visible:ring-red-600",
         r && "opacity-50 cursor-not-allowed grayscale",
@@ -3476,7 +3843,7 @@ function mr({
       },
       style: { borderWidth: "1px", borderStyle: "solid" },
       children: [
-        /* @__PURE__ */ h(
+        /* @__PURE__ */ p(
           v.div,
           {
             className: "absolute inset-0 pointer-events-none",
@@ -3522,7 +3889,7 @@ function mr({
         /* @__PURE__ */ t(
           "div",
           {
-            className: S(
+            className: b(
               "w-full h-full flex items-center",
               u ? "justify-end" : "justify-start"
             ),
@@ -3540,7 +3907,7 @@ function mr({
                   backgroundColor: u ? "#FBBF24" : "#b91c1c",
                   boxShadow: u ? "0 0 20px 2px rgba(255, 111, 0, 0.6)" : "0 0 20px 2px rgba(220, 38, 38, 0.5)"
                 },
-                children: /* @__PURE__ */ h("svg", { viewBox: "0 0 100 100", className: "w-full h-full opacity-30 absolute inset-0 pointer-events-none", children: [
+                children: /* @__PURE__ */ p("svg", { viewBox: "0 0 100 100", className: "w-full h-full opacity-30 absolute inset-0 pointer-events-none", children: [
                   /* @__PURE__ */ t("circle", { cx: "30", cy: "30", r: "10", fill: "currentColor", className: u ? "text-purple-300" : "text-red-900" }),
                   /* @__PURE__ */ t("circle", { cx: "70", cy: "60", r: "8", fill: "currentColor", className: u ? "text-purple-300" : "text-red-900" }),
                   /* @__PURE__ */ t("circle", { cx: "40", cy: "80", r: "5", fill: "currentColor", className: u ? "text-purple-300" : "text-red-900" })
@@ -3556,7 +3923,7 @@ function mr({
       bg: "bg-slate-900",
       border: "border-indigo-500",
       thumb: "bg-slate-100",
-      icon: or,
+      icon: lr,
       iconColor: "text-slate-800",
       glow: "shadow-[0_0_20px_rgba(99,102,241,0.6)]"
     },
@@ -3564,19 +3931,19 @@ function mr({
       bg: "bg-sky-300",
       border: "border-yellow-400",
       thumb: "bg-yellow-100",
-      icon: lr,
+      icon: pr,
       iconColor: "text-orange-500",
       glow: "shadow-[0_0_20px_rgba(250,204,21,0.6)]"
     }
-  }, y = u ? f.on : f.off, m = y.icon, g = /* @__PURE__ */ h(
+  }, y = u ? f.on : f.off, g = y.icon, x = /* @__PURE__ */ p(
     v.button,
     {
       type: "button",
       role: "switch",
       "aria-checked": u,
       disabled: r,
-      onClick: () => !r && b(!u),
-      className: S(
+      onClick: () => !r && h(!u),
+      className: b(
         "relative w-20 h-10 rounded-full cursor-pointer p-1 transition-colors duration-500 border-2",
         y.bg,
         y.border,
@@ -3585,7 +3952,7 @@ function mr({
       ),
       whileTap: { scale: 0.95 },
       children: [
-        /* @__PURE__ */ t("div", { className: "absolute inset-0 overflow-hidden rounded-full pointer-events-none", children: u && /* @__PURE__ */ h(H, { children: [
+        /* @__PURE__ */ t("div", { className: "absolute inset-0 overflow-hidden rounded-full pointer-events-none", children: u && /* @__PURE__ */ p(W, { children: [
           /* @__PURE__ */ t(
             v.div,
             {
@@ -3606,7 +3973,7 @@ function mr({
         /* @__PURE__ */ t(
           v.div,
           {
-            className: S(
+            className: b(
               "w-7 h-7 rounded-full flex items-center justify-center relative z-10",
               y.thumb,
               y.glow
@@ -3619,14 +3986,14 @@ function mr({
               stiffness: 500,
               damping: 30
             },
-            children: /* @__PURE__ */ t(L, { mode: "wait", children: /* @__PURE__ */ t(
+            children: /* @__PURE__ */ t(D, { mode: "wait", children: /* @__PURE__ */ t(
               v.div,
               {
                 initial: { scale: 0, rotate: -180 },
                 animate: { scale: 1, rotate: 0 },
                 exit: { scale: 0, rotate: 180 },
                 transition: { duration: 0.2 },
-                children: /* @__PURE__ */ t(m, { size: 14, className: y.iconColor })
+                children: /* @__PURE__ */ t(g, { size: 14, className: y.iconColor })
               },
               u ? "on" : "off"
             ) })
@@ -3634,19 +4001,19 @@ function mr({
         )
       ]
     }
-  ), w = s === "spectral-blood" ? p : g;
+  ), w = s === "spectral-blood" ? m : x;
   return i ? /* @__PURE__ */ t(
-    Gt,
+    Ze,
     {
       content: i,
-      position: a,
-      className: l,
+      position: l,
+      className: a,
       children: w
     }
   ) : w;
 }
-mr.displayName = "MoonlightSwitch";
-const lt = "polygon(15% 0%, 85% 0%, 100% 10%, 90% 100%, 10% 100%, 0% 10%)", hr = {
+kr.displayName = "MoonlightSwitch";
+const nt = "polygon(15% 0%, 85% 0%, 100% 10%, 90% 100%, 10% 100%, 0% 10%)", Cr = {
   spectral: {
     borderHover: "group-hover:border-purple-500/30",
     gradientOverlay: "from-purple-900/30 via-purple-900/10 to-transparent",
@@ -3660,47 +4027,47 @@ const lt = "polygon(15% 0%, 85% 0%, 100% 10%, 90% 100%, 10% 100%, 0% 10%)", hr =
     glowBg: "bg-red-600/30"
   }
 };
-function fr({
+function Nr({
   className: e,
   children: o,
   title: r,
   index: n = 0,
   animated: s = !0,
   intensity: i = "medium",
-  showGlow: a = !0
+  showGlow: l = !0
 }) {
-  const c = oe()?.theme ?? "spectral", d = hr[c];
-  return /* @__PURE__ */ h(
+  const c = X()?.theme ?? "spectral", d = Cr[c];
+  return /* @__PURE__ */ p(
     v.div,
     {
       initial: s ? { opacity: 0, y: 50 } : void 0,
       whileInView: s ? { opacity: 1, y: 0 } : void 0,
       viewport: { once: !0 },
       transition: { delay: n * 0.1, duration: 0.5 },
-      className: S("relative group", e),
+      className: b("relative group", e),
       children: [
-        /* @__PURE__ */ h(
+        /* @__PURE__ */ p(
           "div",
           {
-            className: S(
+            className: b(
               "relative z-10 bg-[#0a0a0a] border border-white/5 p-8 pt-10 pb-12 text-center transition-all duration-500 group-hover:-translate-y-2",
               d.borderHover
             ),
             style: {
-              clipPath: lt,
+              clipPath: nt,
               boxShadow: "none"
             },
             children: [
               /* @__PURE__ */ t(
                 "div",
                 {
-                  className: S(
+                  className: b(
                     "absolute inset-0 bg-gradient-to-b opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none",
                     d.gradientOverlay
                   )
                 }
               ),
-              r && /* @__PURE__ */ t("h3", { className: S(
+              r && /* @__PURE__ */ t("h3", { className: b(
                 "font-creep text-3xl text-gray-200 mb-4 tracking-wider transition-colors duration-300",
                 d.titleHover
               ), children: r }),
@@ -3708,37 +4075,37 @@ function fr({
             ]
           }
         ),
-        a && /* @__PURE__ */ t(
+        l && /* @__PURE__ */ t(
           "div",
           {
-            className: S(
+            className: b(
               "absolute inset-0 blur-2xl -z-10 translate-y-4 opacity-0 group-hover:opacity-40 transition-opacity duration-700",
               d.glowBg
             ),
-            style: { clipPath: lt }
+            style: { clipPath: nt }
           }
         )
       ]
     }
   );
 }
-fr.displayName = "CoffinCard";
-const gr = j.forwardRef(
-  ({ className: e, label: o, error: r, ghostIcon: n, id: s, ...i }, a) => {
-    const [l, c] = R(!1), d = s || j.useId();
-    return /* @__PURE__ */ h("div", { className: S("relative w-full max-w-md", r ? "mb-10" : "mb-6"), children: [
+Nr.displayName = "CoffinCard";
+const Mr = O.forwardRef(
+  ({ className: e, label: o, error: r, ghostIcon: n, id: s, ...i }, l) => {
+    const [a, c] = G(!1), d = s || O.useId();
+    return /* @__PURE__ */ p("div", { className: b("relative w-full max-w-md", r ? "mb-10" : "mb-6"), children: [
       o && /* @__PURE__ */ t(
         "label",
         {
           htmlFor: d,
-          className: S(
+          className: b(
             "block mb-1.5 text-sm font-medium tracking-wide transition-colors duration-500",
-            r ? "text-red-500" : l ? "text-[var(--ghost-accent)]" : "text-gray-400"
+            r ? "text-red-500" : a ? "text-[var(--ghost-accent)]" : "text-gray-400"
           ),
           children: o
         }
       ),
-      /* @__PURE__ */ h(
+      /* @__PURE__ */ p(
         v.div,
         {
           className: "relative flex items-center",
@@ -3748,22 +4115,22 @@ const gr = j.forwardRef(
             n && /* @__PURE__ */ t(
               "div",
               {
-                className: S(
+                className: b(
                   "absolute left-0 flex items-center justify-center w-8 h-full transition-all duration-500",
-                  r ? "text-red-500" : l ? "text-[var(--ghost-accent)]" : "text-gray-600"
+                  r ? "text-red-500" : a ? "text-[var(--ghost-accent)]" : "text-gray-600"
                 ),
-                style: l && !r ? {
+                style: a && !r ? {
                   filter: "drop-shadow(0 0 8px var(--ghost-accent))"
                 } : void 0,
-                children: /* @__PURE__ */ t(je, { size: 18 })
+                children: /* @__PURE__ */ t(He, { size: 18 })
               }
             ),
             /* @__PURE__ */ t(
               "input",
               {
-                ref: a,
+                ref: l,
                 id: d,
-                className: S(
+                className: b(
                   "w-full bg-transparent border-none h-9 text-gray-100 outline-none transition-colors duration-500 placeholder:text-gray-700",
                   n ? "pl-8" : "pl-0.5",
                   "pr-0.5",
@@ -3781,7 +4148,7 @@ const gr = j.forwardRef(
             /* @__PURE__ */ t(
               "div",
               {
-                className: S(
+                className: b(
                   "absolute bottom-0 left-0 w-full h-[1px] transition-colors duration-500",
                   r ? "bg-red-900/50" : "bg-gray-700"
                 )
@@ -3797,8 +4164,8 @@ const gr = j.forwardRef(
                 },
                 initial: { scaleX: 0, opacity: 0 },
                 animate: {
-                  scaleX: l || r ? 1 : 0,
-                  opacity: l || r ? 1 : 0
+                  scaleX: a || r ? 1 : 0,
+                  opacity: a || r ? 1 : 0
                 },
                 transition: {
                   duration: 0.6,
@@ -3816,9 +4183,9 @@ const gr = j.forwardRef(
                 },
                 initial: { opacity: 0, y: 10, scaleY: 0 },
                 animate: {
-                  opacity: l && !r ? 0.8 : 0,
-                  y: l ? -15 : 10,
-                  scaleY: l ? 2 : 0
+                  opacity: a && !r ? 0.8 : 0,
+                  y: a ? -15 : 10,
+                  scaleY: a ? 2 : 0
                 },
                 transition: {
                   duration: 1.2,
@@ -3836,8 +4203,8 @@ const gr = j.forwardRef(
                 },
                 initial: { opacity: 0, scale: 0.5 },
                 animate: {
-                  opacity: l && !r ? 0.6 : 0,
-                  scale: l ? 1.2 : 0.5
+                  opacity: a && !r ? 0.6 : 0,
+                  scale: a ? 1.2 : 0.5
                 },
                 transition: {
                   duration: 1,
@@ -3848,14 +4215,14 @@ const gr = j.forwardRef(
           ]
         }
       ),
-      /* @__PURE__ */ t(L, { children: r && /* @__PURE__ */ h(
+      /* @__PURE__ */ t(D, { children: r && /* @__PURE__ */ p(
         v.p,
         {
           initial: { opacity: 0, y: -3 },
           animate: { opacity: 1, y: 0 },
           exit: { opacity: 0, y: -3 },
           transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
-          className: S(
+          className: b(
             "mt-2 text-xs text-red-500 font-mono flex items-center gap-1",
             n ? "pl-8" : "pl-0.5"
           ),
@@ -3869,8 +4236,8 @@ const gr = j.forwardRef(
     ] });
   }
 );
-gr.displayName = "SpiritInput";
-const Ve = ({ className: e }) => /* @__PURE__ */ t(
+Mr.displayName = "SpiritInput";
+const Sr = ({ className: e }) => /* @__PURE__ */ t(
   "svg",
   {
     viewBox: "0 0 512 512",
@@ -3880,160 +4247,81 @@ const Ve = ({ className: e }) => /* @__PURE__ */ t(
     children: /* @__PURE__ */ t("path", { d: "M372.084,106.642c9.277,64.285-67.483,102.934-76.724,103.858c-15.122,1.498-2.291-20.244,0.566-43.667c2.857-23.414-22.813,21.742-39.922,21.742c-17.108,0-42.778-45.156-39.93-21.742c2.858,23.423,15.688,45.165,0.566,43.667c-9.242-0.923-86.001-39.573-76.724-103.858C79.202,131.363-9.325,265.891,0.797,276.762c10.122,10.889,57.334-15.827,88.527,53.424c28.293-26.785,62.865-20.845,80.104,40.558c56.507-40.035,74.747,16.62,86.576,34.616c11.821-17.996,30.061-74.65,86.568-34.616c17.238-61.402,51.812-67.343,80.112-40.558c31.194-69.251,78.406-42.535,88.519-53.424C521.324,265.891,432.797,131.363,372.084,106.642z" })
   }
 );
-Ve.displayName = "BatIcon";
-const At = () => /* @__PURE__ */ t(
-  v.div,
-  {
-    className: "fixed inset-0 flex items-center justify-center pointer-events-none",
-    style: { zIndex: 9999 },
-    initial: { opacity: 0, scale: 0.2, y: 300 },
-    animate: { opacity: 1, scale: 5, y: 0 },
-    exit: { opacity: 0, scale: 8, y: -200 },
-    transition: {
-      duration: 0.6,
-      ease: [0.16, 1, 0.3, 1]
-    },
-    children: /* @__PURE__ */ t(
-      "div",
-      {
-        style: {
-          filter: "drop-shadow(0 0 20px rgba(0, 0, 0, 0.8)) blur(0.5px)"
-        },
-        children: /* @__PURE__ */ t(Ve, { className: "w-24 h-24 text-ghost-dark" })
-      }
-    )
-  }
-);
-At.displayName = "JumpscareBat";
-const $t = ({
-  id: e,
-  size: o,
-  homeX: r,
-  homeY: n,
-  opacity: s,
-  blur: i,
-  isHovered: a,
-  mousePos: l,
-  windowSize: c
-}) => {
-  const d = q(0, { stiffness: 60, damping: 15, mass: 1 }), u = q(0, { stiffness: 60, damping: 15, mass: 1 }), b = q(0, { stiffness: 60, damping: 15, mass: 1 });
-  A(() => {
-    const f = r / 100 * c.width, y = n / 100 * c.height, m = l.x - f, g = l.y - y, w = Math.sqrt(m * m + g * g), x = 300, T = 150;
-    if (a && w < x) {
-      const I = (x - w) / x, $ = Math.atan2(g, m), N = -Math.cos($) * I * T, E = -Math.sin($) * I * T, k = (m > 0 ? 1 : -1) * I * 45;
-      d.set(N), u.set(E), b.set(k);
-    } else
-      d.set(0), u.set(0), b.set(0);
-  }, [l, a, r, n, c, d, u, b]);
-  const p = 0.1 + e % 5 * 0.02;
-  return /* @__PURE__ */ t(
-    v.div,
-    {
-      className: "absolute pointer-events-none",
-      style: {
-        left: `${r}%`,
-        top: `${n}%`,
-        x: d,
-        y: u,
-        rotate: b,
-        width: o,
-        height: o,
-        opacity: s,
-        filter: i,
-        zIndex: a ? 100 : 0
-      },
-      children: /* @__PURE__ */ t(
-        "div",
-        {
-          style: {
-            animation: `flap ${p}s ease-in-out infinite alternate`,
-            color: "currentColor"
-          },
-          children: /* @__PURE__ */ t(Ve, { className: "w-full h-full" })
-        }
-      )
-    }
-  );
-};
-$t.displayName = "AnimatedBat";
-const Rn = ({
-  isOpen: e,
-  onClose: o,
-  title: r,
-  children: n,
-  className: s
-}) => {
-  const [i, a] = R(!1);
-  return A(() => (a(!0), () => a(!1)), []), A(() => {
-    const l = (c) => {
-      c.key === "Escape" && o();
-    };
-    return e && document.addEventListener("keydown", l), () => document.removeEventListener("keydown", l);
-  }, [e, o]), i ? oo(
-    /* @__PURE__ */ t(L, { children: e && /* @__PURE__ */ h("div", { className: "fixed inset-0 z-50 flex items-center justify-center p-4", children: [
-      /* @__PURE__ */ t(
-        v.div,
-        {
-          initial: { opacity: 0 },
-          animate: { opacity: 1 },
-          exit: { opacity: 0 },
-          onClick: o,
-          className: "absolute inset-0 backdrop-blur-sm",
-          style: { backgroundColor: "rgba(var(--ghost-accent-rgb), 0.1)", backdropFilter: "blur(4px)" },
-          "aria-hidden": "true"
-        }
-      ),
-      /* @__PURE__ */ h(
-        v.div,
-        {
-          initial: { opacity: 0, y: 100, scale: 0.95 },
-          animate: { opacity: 1, y: 0, scale: 1 },
-          exit: { opacity: 0, y: 100, scale: 0.95 },
-          transition: { type: "spring", damping: 20, stiffness: 300 },
-          className: S(
-            "relative w-full max-w-lg overflow-hidden rounded-xl border-2 shadow-2xl",
-            "before:absolute before:inset-0 before:z-0 before:bg-[url('https://www.transparenttextures.com/patterns/concrete-wall.png')] before:opacity-10 before:mix-blend-overlay",
-            s
-          ),
-          style: {
-            backgroundColor: "var(--ghost-bg)",
-            borderColor: "var(--ghost-accent)",
-            boxShadow: `
+Sr.displayName = "BatIcon";
+const Ir = O.forwardRef(
+  ({ isOpen: e, onClose: o, title: r, children: n, className: s }, i) => {
+    const [l, a] = G(!1);
+    return A(() => (a(!0), () => a(!1)), []), A(() => {
+      const c = (d) => {
+        d.key === "Escape" && o();
+      };
+      return e && document.addEventListener("keydown", c), () => document.removeEventListener("keydown", c);
+    }, [e, o]), l ? oo(
+      /* @__PURE__ */ t(D, { children: e && /* @__PURE__ */ p("div", { className: "fixed inset-0 z-50 flex items-center justify-center p-4", children: [
+        /* @__PURE__ */ t(
+          v.div,
+          {
+            initial: { opacity: 0 },
+            animate: { opacity: 1 },
+            exit: { opacity: 0 },
+            onClick: o,
+            className: "absolute inset-0 backdrop-blur-sm",
+            style: { backgroundColor: "rgba(var(--ghost-accent-rgb), 0.1)", backdropFilter: "blur(4px)" },
+            "aria-hidden": "true"
+          }
+        ),
+        /* @__PURE__ */ p(
+          v.div,
+          {
+            ref: i,
+            initial: { opacity: 0, y: 100, scale: 0.95 },
+            animate: { opacity: 1, y: 0, scale: 1 },
+            exit: { opacity: 0, y: 100, scale: 0.95 },
+            transition: { type: "spring", damping: 20, stiffness: 300 },
+            className: b(
+              "relative w-full max-w-lg overflow-hidden rounded-xl border-2 shadow-2xl",
+              "before:absolute before:inset-0 before:z-0 before:bg-[url('https://www.transparenttextures.com/patterns/concrete-wall.png')] before:opacity-10 before:mix-blend-overlay",
+              s
+            ),
+            style: {
+              backgroundColor: "var(--ghost-bg)",
+              borderColor: "var(--ghost-accent)",
+              boxShadow: `
                                 0 0 20px rgba(var(--ghost-accent-rgb), 0.4),
                                 0 0 40px rgba(var(--ghost-accent-rgb), 0.2),
                                 0 0 60px rgba(var(--ghost-accent-rgb), 0.1),
                                 inset 0 0 30px rgba(var(--ghost-accent-rgb), 0.05)
                             `
-          },
-          role: "dialog",
-          "aria-modal": "true",
-          children: [
-            /* @__PURE__ */ h(
-              "div",
-              {
-                className: "relative z-10 flex items-center justify-between px-6 py-4",
-                style: {
-                  borderBottom: "1px solid var(--ghost-border)",
-                  backgroundColor: "var(--ghost-bg-secondary)"
-                },
-                children: [
-                  r && /* @__PURE__ */ t(
-                    "h2",
-                    {
-                      className: "text-xl font-display tracking-wide",
-                      style: { color: "var(--ghost-text)" },
-                      children: r
-                    }
-                  ),
-                  /* @__PURE__ */ h(
-                    "button",
-                    {
-                      onClick: o,
-                      className: "grave-modal-close rounded-full p-2 transition-all duration-200 focus:outline-none",
-                      "aria-label": "Close modal",
-                      children: [
-                        /* @__PURE__ */ t(Rt, { className: "h-5 w-5" }),
-                        /* @__PURE__ */ t("style", { children: `
+            },
+            role: "dialog",
+            "aria-modal": "true",
+            children: [
+              /* @__PURE__ */ p(
+                "div",
+                {
+                  className: "relative z-10 flex items-center justify-between px-6 py-4",
+                  style: {
+                    borderBottom: "1px solid var(--ghost-border)",
+                    backgroundColor: "var(--ghost-bg-secondary)"
+                  },
+                  children: [
+                    r && /* @__PURE__ */ t(
+                      "h2",
+                      {
+                        className: "text-xl font-display tracking-wide",
+                        style: { color: "var(--ghost-text)" },
+                        children: r
+                      }
+                    ),
+                    /* @__PURE__ */ p(
+                      "button",
+                      {
+                        onClick: o,
+                        className: "grave-modal-close rounded-full p-2 transition-all duration-200 focus:outline-none",
+                        "aria-label": "Close modal",
+                        children: [
+                          /* @__PURE__ */ t(We, { className: "h-5 w-5" }),
+                          /* @__PURE__ */ t("style", { children: `
                                     .grave-modal-close {
                                         color: var(--ghost-text-secondary);
                                         background: transparent;
@@ -4046,36 +4334,39 @@ const Rn = ({
                                         box-shadow: 0 0 0 2px rgba(var(--ghost-accent-rgb), 0.5);
                                     }
                                 ` })
-                      ]
-                    }
-                  )
-                ]
-              }
-            ),
-            /* @__PURE__ */ t(
-              "div",
-              {
-                className: "relative z-10 p-6",
-                style: { color: "var(--ghost-text-secondary)" },
-                children: n
-              }
-            ),
-            /* @__PURE__ */ t(
-              "div",
-              {
-                className: "absolute bottom-0 left-0 right-0 h-1 opacity-70",
-                style: {
-                  background: "linear-gradient(to right, transparent, var(--ghost-accent), transparent)"
+                        ]
+                      }
+                    )
+                  ]
                 }
-              }
-            )
-          ]
-        }
-      )
-    ] }) }),
-    document.body
-  ) : null;
-}, Bt = () => /* @__PURE__ */ t(
+              ),
+              /* @__PURE__ */ t(
+                "div",
+                {
+                  className: "relative z-10 p-6",
+                  style: { color: "var(--ghost-text-secondary)" },
+                  children: n
+                }
+              ),
+              /* @__PURE__ */ t(
+                "div",
+                {
+                  className: "absolute bottom-0 left-0 right-0 h-1 opacity-70",
+                  style: {
+                    background: "linear-gradient(to right, transparent, var(--ghost-accent), transparent)"
+                  }
+                }
+              )
+            ]
+          }
+        )
+      ] }) }),
+      document.body
+    ) : null;
+  }
+);
+Ir.displayName = "GraveModal";
+const Tt = () => /* @__PURE__ */ t(
   "style",
   {
     dangerouslySetInnerHTML: {
@@ -4093,11 +4384,11 @@ const Rn = ({
     `
     }
   }
-), br = ({ className: e }) => /* @__PURE__ */ h(
+), Er = ({ className: e }) => /* @__PURE__ */ p(
   "svg",
   {
     viewBox: "0 0 101.11 162.77",
-    className: S(e, "ghost-animate-float"),
+    className: b(e, "ghost-animate-float"),
     xmlns: "http://www.w3.org/2000/svg",
     children: [
       /* @__PURE__ */ t(
@@ -4138,11 +4429,11 @@ const Rn = ({
       )
     ]
   }
-), yr = ({ className: e }) => /* @__PURE__ */ h(
+), Tr = ({ className: e }) => /* @__PURE__ */ p(
   "svg",
   {
     viewBox: "0 0 130.89 156.25",
-    className: S(e, "ghost-animate-float"),
+    className: b(e, "ghost-animate-float"),
     xmlns: "http://www.w3.org/2000/svg",
     children: [
       /* @__PURE__ */ t(
@@ -4152,7 +4443,7 @@ const Rn = ({
           d: "M130.89,156.25s-34.1-35.33-28.1-80.81c4.93-37.37-3.44-84.83-50.17-72.04C24.87,11,13.93,51.73,26.38,88.15c11.67,34.13,44.31,65.84,104.51,68.1Z"
         }
       ),
-      /* @__PURE__ */ h("g", { className: "ghost-animate-wiggle origin-center", children: [
+      /* @__PURE__ */ p("g", { className: "ghost-animate-wiggle origin-center", children: [
         /* @__PURE__ */ t(
           "path",
           {
@@ -4221,11 +4512,11 @@ const Rn = ({
       /* @__PURE__ */ t("ellipse", { fill: "#2b2b28", cx: "73.16", cy: "37.47", rx: "5.64", ry: "9.43" })
     ]
   }
-), xr = ({ className: e }) => /* @__PURE__ */ h(
+), $r = ({ className: e }) => /* @__PURE__ */ p(
   "svg",
   {
     viewBox: "0 0 105.71 147.07",
-    className: S(e, "ghost-animate-float"),
+    className: b(e, "ghost-animate-float"),
     xmlns: "http://www.w3.org/2000/svg",
     children: [
       /* @__PURE__ */ t(
@@ -4272,37 +4563,37 @@ const Rn = ({
       )
     ]
   }
-), ct = [br, yr, xr], ie = ({
+), st = [Er, Tr, $r], $t = ({
   children: e,
   className: o,
   peekDelay: r = 250,
   ghostEnabled: n = !0,
   ghostSize: s = 112,
   showBoo: i = !0,
-  contentClassName: a
+  contentClassName: l
 }) => {
-  const [l, c] = R(null), d = F(null), u = X(() => {
+  const [a, c] = G(null), d = L(null), u = Q(() => {
     n && (d.current && clearTimeout(d.current), d.current = setTimeout(() => {
-      const g = ct[Math.floor(Math.random() * ct.length)], w = ["top", "left", "right"], x = w[Math.floor(Math.random() * w.length)];
-      c({ id: Date.now(), Component: g, edge: x });
+      const x = st[Math.floor(Math.random() * st.length)], w = ["top", "left", "right"], k = w[Math.floor(Math.random() * w.length)];
+      c({ id: Date.now(), Component: x, edge: k });
     }, r));
-  }, [n, r]), b = X(() => {
+  }, [n, r]), h = Q(() => {
     d.current && clearTimeout(d.current), c(null);
   }, []);
   A(() => () => {
     d.current && clearTimeout(d.current);
   }, []);
-  const p = {
-    hidden: (g) => ({
-      y: g === "top" ? "20%" : 0,
-      x: g === "left" ? "20%" : g === "right" ? "-20%" : 0,
+  const m = {
+    hidden: (x) => ({
+      y: x === "top" ? "20%" : 0,
+      x: x === "left" ? "20%" : x === "right" ? "-20%" : 0,
       opacity: 0,
-      rotate: g === "left" ? -15 : g === "right" ? 15 : 0,
+      rotate: x === "left" ? -15 : x === "right" ? 15 : 0,
       scale: 0.8
     }),
-    visible: (g) => ({
-      y: g === "top" ? "-55%" : 0,
-      x: g === "left" ? "-55%" : g === "right" ? "55%" : 0,
+    visible: (x) => ({
+      y: x === "top" ? "-55%" : 0,
+      x: x === "left" ? "-55%" : x === "right" ? "55%" : 0,
       opacity: 0.7,
       rotate: 0,
       scale: 1,
@@ -4332,8 +4623,8 @@ const Rn = ({
       }
     },
     exit: { scale: 0, opacity: 0, transition: { duration: 0.2 } }
-  }, y = (g) => {
-    switch (g) {
+  }, y = (x) => {
+    switch (x) {
       case "top":
         return "top-0";
       case "left":
@@ -4341,8 +4632,8 @@ const Rn = ({
       case "right":
         return "right-0";
     }
-  }, m = (g) => {
-    switch (g) {
+  }, g = (x) => {
+    switch (x) {
       case "top":
         return "-top-24";
       case "left":
@@ -4351,32 +4642,32 @@ const Rn = ({
         return "-right-20 top-0";
     }
   };
-  return /* @__PURE__ */ h(
+  return /* @__PURE__ */ p(
     "div",
     {
-      className: S("relative group", o),
+      className: b("relative group", o),
       onMouseEnter: u,
-      onMouseLeave: b,
+      onMouseLeave: h,
       children: [
-        /* @__PURE__ */ t(Bt, {}),
-        /* @__PURE__ */ t("div", { className: S("relative z-20", a), children: e }),
-        /* @__PURE__ */ t("div", { className: "absolute inset-0 z-10 flex items-center justify-center pointer-events-none", children: /* @__PURE__ */ t(L, { children: l && /* @__PURE__ */ h(H, { children: [
+        /* @__PURE__ */ t(Tt, {}),
+        /* @__PURE__ */ t("div", { className: b("relative z-20", l), children: e }),
+        /* @__PURE__ */ t("div", { className: "absolute inset-0 z-10 flex items-center justify-center pointer-events-none", children: /* @__PURE__ */ t(D, { children: a && /* @__PURE__ */ p(W, { children: [
           /* @__PURE__ */ t(
             v.div,
             {
-              custom: l.edge,
-              variants: p,
+              custom: a.edge,
+              variants: m,
               initial: "hidden",
               animate: "visible",
               exit: "exit",
-              className: S(
+              className: b(
                 "absolute mix-blend-screen",
-                y(l.edge)
+                y(a.edge)
               ),
               style: { width: s, height: s },
-              children: /* @__PURE__ */ t(l.Component, { className: "w-full h-full drop-shadow-[0_0_15px_rgba(168,85,247,0.3)] opacity-90" })
+              children: /* @__PURE__ */ t(a.Component, { className: "w-full h-full drop-shadow-[0_0_15px_rgba(168,85,247,0.3)] opacity-90" })
             },
-            `ghost-${l.id}`
+            `ghost-${a.id}`
           ),
           i && /* @__PURE__ */ t(
             v.div,
@@ -4385,9 +4676,9 @@ const Rn = ({
               initial: "hidden",
               animate: "visible",
               exit: "exit",
-              className: S(
+              className: b(
                 "absolute z-50 font-black italic text-4xl text-white tracking-widest pointer-events-none",
-                m(l.edge)
+                g(a.edge)
               ),
               style: {
                 textShadow: "3px 3px 0 #000",
@@ -4396,38 +4687,40 @@ const Rn = ({
               },
               children: "BOO!"
             },
-            `boo-${l.id}`
+            `boo-${a.id}`
           )
         ] }) }) })
       ]
     }
   );
-}, vr = ({
+};
+$t.displayName = "HauntedCard";
+const ae = $t, zt = ({
   radius: e = 350,
   darkness: o = 0.9,
   blur: r = 2,
   enabled: n = !0,
   springDamping: s = 25,
   springStiffness: i = 150,
-  className: a
+  className: l
 }) => {
-  const l = Me(0), c = Me(0), [d, u] = R(!1), b = { damping: s, stiffness: i }, p = q(l, b), f = q(c, b);
+  const a = Ce(0), c = Ce(0), [d, u] = G(!1), h = { damping: s, stiffness: i }, m = re(a, h), f = re(c, h);
   A(() => {
-    u(!0), n && typeof window < "u" && (l.set(window.innerWidth / 2), c.set(window.innerHeight / 2));
-  }, [n, l, c]), A(() => {
+    u(!0), n && typeof window < "u" && (a.set(window.innerWidth / 2), c.set(window.innerHeight / 2));
+  }, [n, a, c]), A(() => {
     if (!n || !d) return;
-    const m = (g) => {
-      l.set(g.clientX), c.set(g.clientY);
+    const g = (x) => {
+      a.set(x.clientX), c.set(x.clientY);
     };
-    return window.addEventListener("mousemove", m), () => window.removeEventListener("mousemove", m);
-  }, [n, d, l, c]);
-  const y = eo`radial-gradient(circle ${e}px at ${p}px ${f}px, transparent 10%, black 100%)`;
+    return window.addEventListener("mousemove", g), () => window.removeEventListener("mousemove", g);
+  }, [n, d, a, c]);
+  const y = eo`radial-gradient(circle ${e}px at ${m}px ${f}px, transparent 10%, black 100%)`;
   return n ? /* @__PURE__ */ t(
     v.div,
     {
-      className: S(
+      className: b(
         "fixed inset-0 z-50 pointer-events-none",
-        a
+        l
       ),
       "aria-hidden": "true",
       style: {
@@ -4439,21 +4732,23 @@ const Rn = ({
       }
     }
   ) : null;
-}, Gn = ({
+};
+zt.displayName = "HauntedVignette";
+const qn = ({
   initialFlashlightOn: e = !0,
   showToggle: o = !0,
   className: r
 }) => {
-  const [n, s] = R(e);
-  return /* @__PURE__ */ h(
+  const [n, s] = G(e);
+  return /* @__PURE__ */ p(
     "div",
     {
-      className: S(
+      className: b(
         "min-h-screen bg-[#050505] text-gray-200 font-sans p-8 md:p-20 relative overflow-hidden",
         r
       ),
       children: [
-        /* @__PURE__ */ t(Bt, {}),
+        /* @__PURE__ */ t(Tt, {}),
         o && /* @__PURE__ */ t("div", { className: "fixed top-8 right-8 z-[60]", children: /* @__PURE__ */ t(
           "button",
           {
@@ -4462,38 +4757,38 @@ const Rn = ({
             children: n ? "Disable Flashlight" : "Enable Flashlight"
           }
         ) }),
-        n && /* @__PURE__ */ t(vr, {}),
-        /* @__PURE__ */ h("div", { className: "max-w-5xl mx-auto space-y-16 pt-20", children: [
-          /* @__PURE__ */ h("div", { className: "text-center space-y-4", children: [
+        n && /* @__PURE__ */ t(zt, {}),
+        /* @__PURE__ */ p("div", { className: "max-w-5xl mx-auto space-y-16 pt-20", children: [
+          /* @__PURE__ */ p("div", { className: "text-center space-y-4", children: [
             /* @__PURE__ */ t("h1", { className: "text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-b from-gray-100 to-gray-600 tracking-tighter", children: "THE DARK ROOM" }),
-            /* @__PURE__ */ h("p", { className: "text-gray-500 max-w-xl mx-auto", children: [
+            /* @__PURE__ */ p("p", { className: "text-gray-500 max-w-xl mx-auto", children: [
               "Move your cursor to explore. ",
               /* @__PURE__ */ t("br", {}),
               /* @__PURE__ */ t("span", { className: "text-purple-400", children: "Wait for the spirits..." })
             ] })
           ] }),
-          /* @__PURE__ */ h("div", { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 px-8", children: [
-            /* @__PURE__ */ t(ie, { children: /* @__PURE__ */ h("div", { className: "bg-gray-900 border border-gray-800 p-6 rounded-xl hover:border-purple-500/50 transition-colors duration-300", children: [
+          /* @__PURE__ */ p("div", { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 px-8", children: [
+            /* @__PURE__ */ t(ae, { children: /* @__PURE__ */ p("div", { className: "bg-gray-900 border border-gray-800 p-6 rounded-xl hover:border-purple-500/50 transition-colors duration-300", children: [
               /* @__PURE__ */ t("h3", { className: "text-xl font-bold text-gray-100 mb-2", children: "The Attic" }),
               /* @__PURE__ */ t("p", { className: "text-gray-400 text-sm", children: "Dust motes dance in the sliver of moonlight. Something scuttles in the corner." })
             ] }) }),
-            /* @__PURE__ */ t(ie, { children: /* @__PURE__ */ h("div", { className: "bg-gray-900 border border-gray-800 p-6 rounded-xl hover:border-purple-500/50 transition-colors duration-300", children: [
+            /* @__PURE__ */ t(ae, { children: /* @__PURE__ */ p("div", { className: "bg-gray-900 border border-gray-800 p-6 rounded-xl hover:border-purple-500/50 transition-colors duration-300", children: [
               /* @__PURE__ */ t("h3", { className: "text-xl font-bold text-gray-100 mb-2", children: "Cellar Door" }),
               /* @__PURE__ */ t("p", { className: "text-gray-400 text-sm", children: "Locked from the inside. Scratch marks mar the heavy oak surface." })
             ] }) }),
-            /* @__PURE__ */ t(ie, { children: /* @__PURE__ */ h("div", { className: "bg-gray-900 border border-gray-800 p-6 rounded-xl hover:border-purple-500/50 transition-colors duration-300", children: [
+            /* @__PURE__ */ t(ae, { children: /* @__PURE__ */ p("div", { className: "bg-gray-900 border border-gray-800 p-6 rounded-xl hover:border-purple-500/50 transition-colors duration-300", children: [
               /* @__PURE__ */ t("h3", { className: "text-xl font-bold text-gray-100 mb-2", children: "Dusty Mirror" }),
               /* @__PURE__ */ t("p", { className: "text-gray-400 text-sm", children: "Your reflection seems to lag just a second behind your movements." })
             ] }) }),
-            /* @__PURE__ */ t(ie, { children: /* @__PURE__ */ h("div", { className: "bg-gray-900 border border-gray-800 p-6 rounded-xl hover:border-purple-500/50 transition-colors duration-300", children: [
+            /* @__PURE__ */ t(ae, { children: /* @__PURE__ */ p("div", { className: "bg-gray-900 border border-gray-800 p-6 rounded-xl hover:border-purple-500/50 transition-colors duration-300", children: [
               /* @__PURE__ */ t("h3", { className: "text-xl font-bold text-gray-100 mb-2", children: "Ancient Grimoire" }),
               /* @__PURE__ */ t("p", { className: "text-gray-400 text-sm", children: "The pages turn by themselves when the wind isn't blowing." })
             ] }) }),
-            /* @__PURE__ */ t(ie, { children: /* @__PURE__ */ h("div", { className: "bg-gray-900 border border-gray-800 p-6 rounded-xl hover:border-purple-500/50 transition-colors duration-300", children: [
+            /* @__PURE__ */ t(ae, { children: /* @__PURE__ */ p("div", { className: "bg-gray-900 border border-gray-800 p-6 rounded-xl hover:border-purple-500/50 transition-colors duration-300", children: [
               /* @__PURE__ */ t("h3", { className: "text-xl font-bold text-gray-100 mb-2", children: "Music Box" }),
               /* @__PURE__ */ t("p", { className: "text-gray-400 text-sm", children: "It plays a lullaby you haven't heard since... since then." })
             ] }) }),
-            /* @__PURE__ */ t(ie, { children: /* @__PURE__ */ h("div", { className: "bg-gray-900 border border-gray-800 p-6 rounded-xl hover:border-purple-500/50 transition-colors duration-300", children: [
+            /* @__PURE__ */ t(ae, { children: /* @__PURE__ */ p("div", { className: "bg-gray-900 border border-gray-800 p-6 rounded-xl hover:border-purple-500/50 transition-colors duration-300", children: [
               /* @__PURE__ */ t("h3", { className: "text-xl font-bold text-gray-100 mb-2", children: "Cold Spot" }),
               /* @__PURE__ */ t("p", { className: "text-gray-400 text-sm", children: "The temperature drops 20 degrees in this exact spot." })
             ] }) })
@@ -4511,11 +4806,7 @@ const Rn = ({
       ]
     }
   );
-};
-function _(...e) {
-  return ze(Ee(e));
-}
-const De = 48, wr = 4, ae = De + wr, Ft = {
+}, Fe = 48, zr = 4, le = Fe + zr, Rt = {
   spectral: {
     bgGradient: "from-purple-950/90 via-purple-900/80 to-purple-950/90",
     border: "border-purple-500/20",
@@ -4538,9 +4829,9 @@ const De = 48, wr = 4, ae = De + wr, Ft = {
     hoverDot: "bg-red-400",
     specularColor: "#fecaca"
   }
-}, kr = ({ theme: e }) => {
-  const o = Ft[e];
-  return /* @__PURE__ */ t("svg", { className: "absolute w-0 h-0", children: /* @__PURE__ */ t("defs", { children: /* @__PURE__ */ h("filter", { id: `sidebar-goo-3d-${e}`, colorInterpolationFilters: "sRGB", children: [
+}, Rr = ({ theme: e }) => {
+  const o = Rt[e];
+  return /* @__PURE__ */ t("svg", { className: "absolute w-0 h-0", "aria-hidden": "true", children: /* @__PURE__ */ t("defs", { children: /* @__PURE__ */ p("filter", { id: `sidebar-goo-3d-${e}`, colorInterpolationFilters: "sRGB", children: [
     /* @__PURE__ */ t("feGaussianBlur", { in: "SourceGraphic", stdDeviation: "10", result: "blur" }),
     /* @__PURE__ */ t("feColorMatrix", { in: "blur", mode: "matrix", values: "1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 25 -12", result: "goo" }),
     /* @__PURE__ */ t("feGaussianBlur", { in: "goo", stdDeviation: "3", result: "smoothGoo" }),
@@ -4549,165 +4840,165 @@ const De = 48, wr = 4, ae = De + wr, Ft = {
     /* @__PURE__ */ t("feComposite", { in: "SourceGraphic", in2: "goo", operator: "atop", result: "solidGoo" }),
     /* @__PURE__ */ t("feComposite", { in: "specularClean", in2: "solidGoo", operator: "over" })
   ] }) }) });
-}, Cr = ({
+}, Gr = ({
   activeIndex: e,
   previousIndex: o,
   isAnimating: r,
   colors: n
 }) => {
-  const s = e * ae, i = e > o ? 1 : -1, a = Math.abs(e - o), l = { stiffness: 300, damping: 30, mass: 0.8 }, c = { stiffness: 120, damping: 25, mass: 2.5 }, d = q(s, l), u = q(s, c);
+  const s = e * le, i = e > o ? 1 : -1, l = Math.abs(e - o), a = { stiffness: 300, damping: 30, mass: 0.8 }, c = { stiffness: 120, damping: 25, mass: 2.5 }, d = re(s, a), u = re(s, c);
   A(() => {
     d.set(s), u.set(s);
   }, [s, d, u]);
-  const b = Z([d, u], ([N, E]) => Math.min(N, E)), p = Z([d, u], ([N, E]) => {
-    const k = Math.abs(N - E);
-    return Math.max(De, k + De);
-  }), f = Z([d, u], ([N, E]) => {
-    const k = Math.abs(N - E), B = Math.min(k / ae, 1);
-    return E < N ? `${Math.max(4, 16 - B * 12)}px` : "16px";
-  }), y = Z([d, u], ([N, E]) => {
-    const k = Math.abs(N - E), B = Math.min(k / ae, 1);
-    return E > N ? `${Math.max(4, 16 - B * 12)}px` : "16px";
-  }), m = Z([d, u], ([N, E]) => {
-    const k = Math.abs(N - E), B = Math.min(k / ae, 1);
-    return E < N ? `${100 - B * 40}%` : "100%";
-  }), g = Z([d, u], ([N, E]) => {
-    const k = Math.abs(N - E), B = Math.min(k / ae, 1);
-    return E > N ? `${100 - B * 40}%` : "100%";
-  }), w = Z(
+  const h = V([d, u], ([E, z]) => Math.min(E, z)), m = V([d, u], ([E, z]) => {
+    const C = Math.abs(E - z);
+    return Math.max(Fe, C + Fe);
+  }), f = V([d, u], ([E, z]) => {
+    const C = Math.abs(E - z), N = Math.min(C / le, 1);
+    return z < E ? `${Math.max(4, 16 - N * 12)}px` : "16px";
+  }), y = V([d, u], ([E, z]) => {
+    const C = Math.abs(E - z), N = Math.min(C / le, 1);
+    return z > E ? `${Math.max(4, 16 - N * 12)}px` : "16px";
+  }), g = V([d, u], ([E, z]) => {
+    const C = Math.abs(E - z), N = Math.min(C / le, 1);
+    return z < E ? `${100 - N * 40}%` : "100%";
+  }), x = V([d, u], ([E, z]) => {
+    const C = Math.abs(E - z), N = Math.min(C / le, 1);
+    return z > E ? `${100 - N * 40}%` : "100%";
+  }), w = V(
     [f, y],
-    ([N, E]) => `${N} ${N} ${E} ${E}`
-  ), x = Z(
-    [m, g],
-    ([N, E]) => {
-      const k = (100 - parseFloat(N)) / 2, B = (100 - parseFloat(E)) / 2;
-      return `polygon(${k}% 0%, ${100 - k}% 0%, ${100 - B}% 100%, ${B}% 100%)`;
+    ([E, z]) => `${E} ${E} ${z} ${z}`
+  ), k = V(
+    [g, x],
+    ([E, z]) => {
+      const C = (100 - parseFloat(E)) / 2, N = (100 - parseFloat(z)) / 2;
+      return `polygon(${C}% 0%, ${100 - C}% 0%, ${100 - N}% 100%, ${N}% 100%)`;
     }
-  ), T = q(s, { stiffness: 80, damping: 20, mass: 3.5 });
+  ), $ = re(s, { stiffness: 80, damping: 20, mass: 3.5 });
   A(() => {
-    T.set(s);
-  }, [s, T]);
-  const I = Z([d, T], ([N, E]) => {
-    const k = Math.abs(N - E);
-    return 0.3 + Math.min(k / (ae * 2), 1) * 0.7;
-  }), $ = Z([d, T], ([N, E]) => {
-    const k = Math.abs(N - E);
-    return Math.min(k / 20, 0.8);
+    $.set(s);
+  }, [s, $]);
+  const M = V([d, $], ([E, z]) => {
+    const C = Math.abs(E - z);
+    return 0.3 + Math.min(C / (le * 2), 1) * 0.7;
+  }), F = V([d, $], ([E, z]) => {
+    const C = Math.abs(E - z);
+    return Math.min(C / 20, 0.8);
   });
-  return /* @__PURE__ */ h(H, { children: [
+  return /* @__PURE__ */ p(W, { children: [
     /* @__PURE__ */ t(
       v.div,
       {
-        className: _("absolute left-0 w-full", n.blobBg),
+        className: b("absolute left-0 w-full", n.blobBg),
         style: {
-          y: b,
-          height: p,
+          y: h,
+          height: m,
           borderRadius: w,
-          clipPath: x
+          clipPath: k
         }
       }
     ),
     /* @__PURE__ */ t(
       v.div,
       {
-        className: _("absolute left-1/4 w-1/2 h-8 rounded-full", n.blobBg),
+        className: b("absolute left-1/4 w-1/2 h-8 rounded-full", n.blobBg),
         style: {
-          y: T,
-          scale: I,
-          opacity: $
+          y: $,
+          scale: M,
+          opacity: F
         }
       }
     ),
     /* @__PURE__ */ t(
       v.div,
       {
-        className: _("absolute left-1/3 w-1/3 h-6 rounded-full", n.blobBg),
+        className: b("absolute left-1/3 w-1/3 h-6 rounded-full", n.blobBg),
         style: {
-          y: Z(T, (N) => N + (i > 0 ? -20 : 20)),
-          scale: Z(I, (N) => N * 0.6),
-          opacity: Z($, (N) => a > 2 ? N * 0.8 : 0)
+          y: V($, (E) => E + (i > 0 ? -20 : 20)),
+          scale: V(M, (E) => E * 0.6),
+          opacity: V(F, (E) => l > 2 ? E * 0.8 : 0)
         }
       }
     )
   ] });
-}, Lt = j.forwardRef(
+}, Gt = O.forwardRef(
   ({ menuItems: e, activeId: o, onActiveChange: r, className: n }, s) => {
-    const a = oe()?.theme ?? "spectral", l = Ft[a], [c, d] = R(
+    const l = X()?.theme ?? "spectral", a = Rt[l], [c, d] = G(
       e[0]?.id || ""
-    ), [u, b] = R(null), [p, f] = R(0), [y, m] = R(!1), g = F(), w = o ?? c, x = e.findIndex((I) => I.id === w);
-    A(() => (x !== p && (m(!0), g.current && clearTimeout(g.current), g.current = setTimeout(() => {
-      f(x), m(!1);
+    ), [u, h] = G(null), [m, f] = G(0), [y, g] = G(!1), x = L(), w = o ?? c, k = e.findIndex((M) => M.id === w);
+    A(() => (k !== m && (g(!0), x.current && clearTimeout(x.current), x.current = setTimeout(() => {
+      f(k), g(!1);
     }, 600)), () => {
-      g.current && clearTimeout(g.current);
-    }), [x, p]);
-    const T = (I, $) => {
-      f(x), d(I), r?.(I);
+      x.current && clearTimeout(x.current);
+    }), [k, m]);
+    const $ = (M, F) => {
+      f(k), d(M), r?.(M);
     };
-    return /* @__PURE__ */ h(
+    return /* @__PURE__ */ p(
       "div",
       {
         ref: s,
-        className: _(
+        className: b(
           "relative w-72 h-[650px] bg-gradient-to-b overflow-hidden rounded-2xl shadow-2xl border",
-          l.bgGradient,
-          l.border,
+          a.bgGradient,
+          a.border,
           n
         ),
         children: [
-          /* @__PURE__ */ t(kr, { theme: a }),
-          /* @__PURE__ */ h("nav", { className: "relative flex flex-col gap-1 p-6 pt-8", children: [
+          /* @__PURE__ */ t(Rr, { theme: l }),
+          /* @__PURE__ */ p("nav", { className: "relative flex flex-col gap-1 p-6 pt-8", children: [
             /* @__PURE__ */ t(
               "div",
               {
                 className: "absolute left-6 top-8 right-6 bottom-6 pointer-events-none",
-                style: { filter: `url(#sidebar-goo-3d-${a})` },
+                style: { filter: `url(#sidebar-goo-3d-${l})` },
                 children: /* @__PURE__ */ t(
-                  Cr,
+                  Gr,
                   {
-                    activeIndex: x >= 0 ? x : 0,
-                    previousIndex: p,
+                    activeIndex: k >= 0 ? k : 0,
+                    previousIndex: m,
                     isAnimating: y,
-                    colors: l
+                    colors: a
                   }
                 )
               }
             ),
-            e.map((I, $) => {
-              const N = w === I.id, E = u === I.id;
-              return /* @__PURE__ */ h(
+            e.map((M, F) => {
+              const E = w === M.id, z = u === M.id;
+              return /* @__PURE__ */ p(
                 "button",
                 {
-                  onClick: () => T(I.id),
-                  onMouseEnter: () => b(I.id),
-                  onMouseLeave: () => b(null),
-                  className: _(
+                  onClick: () => $(M.id),
+                  onMouseEnter: () => h(M.id),
+                  onMouseLeave: () => h(null),
+                  className: b(
                     "relative w-full h-12 flex items-center gap-4 px-4 text-sm transition-all duration-300 rounded-lg outline-none group z-10",
-                    N ? `${l.activeText} font-medium` : `${l.inactiveText} hover:${l.hoverText} font-normal`
+                    E ? `${a.activeText} font-medium` : `${a.inactiveText} hover:${a.hoverText} font-normal`
                   ),
                   children: [
-                    I.icon && /* @__PURE__ */ t(
+                    M.icon && /* @__PURE__ */ t(
                       v.div,
                       {
-                        animate: N ? { scale: 1.1, x: 4 } : E ? { x: 2 } : { x: 0, scale: 1 },
-                        className: _(
+                        animate: E ? { scale: 1.1, x: 4 } : z ? { x: 2 } : { x: 0, scale: 1 },
+                        className: b(
                           "relative z-20 transition-colors",
-                          N ? `${l.activeText} drop-shadow-md` : `group-hover:${l.hoverText}`
+                          E ? `${a.activeText} drop-shadow-md` : `group-hover:${a.hoverText}`
                         ),
-                        children: I.icon
+                        children: M.icon
                       }
                     ),
-                    /* @__PURE__ */ t("span", { className: "relative z-20 tracking-wide", children: I.label }),
-                    E && !N && /* @__PURE__ */ t(
+                    /* @__PURE__ */ t("span", { className: "relative z-20 tracking-wide", children: M.label }),
+                    z && !E && /* @__PURE__ */ t(
                       v.div,
                       {
                         initial: { opacity: 0, x: -5 },
                         animate: { opacity: 1, x: 0 },
-                        className: _("absolute right-4 w-1.5 h-1.5 rounded-full", l.hoverDot)
+                        className: b("absolute right-4 w-1.5 h-1.5 rounded-full", a.hoverDot)
                       }
                     )
                   ]
                 },
-                I.id
+                M.id
               );
             })
           ] })
@@ -4716,8 +5007,8 @@ const De = 48, wr = 4, ae = De + wr, Ft = {
     );
   }
 );
-Lt.displayName = "GooeySidebar";
-const Mr = [
+Gt.displayName = "GooeySidebar";
+const Ar = [
   { id: "home", label: "Home" },
   { id: "dashboard", label: "Dashboard" },
   { id: "projects", label: "Projects" },
@@ -4725,7 +5016,7 @@ const Mr = [
   { id: "messages", label: "Messages" },
   { id: "analytics", label: "Analytics" },
   { id: "settings", label: "Settings" }
-], dt = {
+], it = {
   home: {
     title: "Welcome Home",
     description: "Your haunted dashboard awaits. Navigate through the shadows to explore different sections."
@@ -4754,11 +5045,11 @@ const Mr = [
     title: "Settings",
     description: "Configure your haunted experience. Adjust preferences for optimal spookiness."
   }
-}, Nr = ({
+}, Br = ({
   initialActiveId: e = "home",
   className: o
 }) => {
-  const [r, n] = R(e), i = oe()?.theme ?? "spectral", a = dt[r] || dt.home, l = i === "blood" ? {
+  const [r, n] = G(e), i = X()?.theme ?? "spectral", l = it[r] || it.home, a = i === "blood" ? {
     bg: "bg-red-950/30",
     border: "border-red-800/50",
     title: "text-red-100",
@@ -4771,11 +5062,11 @@ const Mr = [
     description: "text-purple-300/80",
     accent: "text-orange-400"
   };
-  return /* @__PURE__ */ h("div", { className: _("flex gap-6 w-full min-h-[700px]", o), children: [
+  return /* @__PURE__ */ p("div", { className: b("flex gap-6 w-full min-h-[700px]", o), children: [
     /* @__PURE__ */ t(
-      Lt,
+      Gt,
       {
-        menuItems: Mr,
+        menuItems: Ar,
         activeId: r,
         onActiveChange: n
       }
@@ -4783,12 +5074,12 @@ const Mr = [
     /* @__PURE__ */ t(
       "div",
       {
-        className: _(
+        className: b(
           "flex-1 rounded-2xl p-8 border transition-colors duration-300",
-          l.bg,
-          l.border
+          a.bg,
+          a.border
         ),
-        children: /* @__PURE__ */ h(
+        children: /* @__PURE__ */ p(
           v.div,
           {
             initial: { opacity: 0, y: 10 },
@@ -4796,21 +5087,21 @@ const Mr = [
             transition: { duration: 0.3 },
             className: "h-full flex flex-col",
             children: [
-              /* @__PURE__ */ t("h2", { className: _("text-3xl font-bold mb-4", l.title), children: a.title }),
-              /* @__PURE__ */ t("p", { className: _("text-lg leading-relaxed", l.description), children: a.description }),
-              /* @__PURE__ */ t("div", { className: "mt-8 flex-1 flex items-center justify-center", children: /* @__PURE__ */ h(
+              /* @__PURE__ */ t("h2", { className: b("text-3xl font-bold mb-4", a.title), children: l.title }),
+              /* @__PURE__ */ t("p", { className: b("text-lg leading-relaxed", a.description), children: l.description }),
+              /* @__PURE__ */ t("div", { className: "mt-8 flex-1 flex items-center justify-center", children: /* @__PURE__ */ p(
                 "div",
                 {
-                  className: _(
+                  className: b(
                     "text-center p-8 rounded-xl border border-dashed",
-                    l.border
+                    a.border
                   ),
                   children: [
-                    /* @__PURE__ */ h("p", { className: _("text-sm", l.accent), children: [
+                    /* @__PURE__ */ p("p", { className: b("text-sm", a.accent), children: [
                       "Active Section: ",
                       /* @__PURE__ */ t("span", { className: "font-mono font-bold", children: r })
                     ] }),
-                    /* @__PURE__ */ h("p", { className: _("text-xs mt-2", l.description), children: [
+                    /* @__PURE__ */ p("p", { className: b("text-xs mt-2", a.description), children: [
                       "Theme: ",
                       /* @__PURE__ */ t("span", { className: "font-mono", children: i })
                     ] })
@@ -4825,11 +5116,8 @@ const Mr = [
     )
   ] });
 };
-Nr.displayName = "GooeySidebarDemo";
-function ke(...e) {
-  return ze(Ee(e));
-}
-const Sr = ({ className: e }) => /* @__PURE__ */ h(
+Br.displayName = "GooeySidebarDemo";
+const Fr = ({ className: e }) => /* @__PURE__ */ p(
   "svg",
   {
     viewBox: "0 0 174.57 164.28",
@@ -4837,7 +5125,7 @@ const Sr = ({ className: e }) => /* @__PURE__ */ h(
     xmlns: "http://www.w3.org/2000/svg",
     children: [
       /* @__PURE__ */ t("defs", { children: /* @__PURE__ */ t("style", { children: ".cls-1{fill:#fff;}.cls-2{fill:#2b2b28;}" }) }),
-      /* @__PURE__ */ h("g", { id: "Objects", children: [
+      /* @__PURE__ */ p("g", { id: "Objects", children: [
         /* @__PURE__ */ t(
           "path",
           {
@@ -4845,7 +5133,7 @@ const Sr = ({ className: e }) => /* @__PURE__ */ h(
             d: "M159.58,87.56c-23.92-9.2-44.68-10.73-78.18-69.63C56.52-25.82,6.76,15.3,37.87,89.33s104.93,80.6,110.08,72.05c5.15-8.55-14.91-20.39-2.42-25.65,12.49-5.26,32.75-.1,28.45-10.9-4.3-10.8-22.72-16.55-8.6-21.24,14.12-4.69,2.17-12.96-5.8-16.02Z"
           }
         ),
-        /* @__PURE__ */ h("g", { className: "animate-[blink_4s_infinite]", children: [
+        /* @__PURE__ */ p("g", { className: "animate-[blink_4s_infinite]", children: [
           /* @__PURE__ */ t(
             "path",
             {
@@ -4885,13 +5173,15 @@ const Sr = ({ className: e }) => /* @__PURE__ */ h(
       ] })
     ]
   }
-), Ot = We(null), Pt = He(({ toast: e, removeToast: o }, r) => {
+), At = Le(null), Bt = De(({ toast: e, removeToast: o }, r) => {
   const n = e.side === "right";
-  return /* @__PURE__ */ h(
+  return /* @__PURE__ */ p(
     v.div,
     {
       ref: r,
       layout: !0,
+      role: "status",
+      "aria-atomic": "true",
       initial: {
         x: n ? "150%" : "-150%",
         opacity: 0,
@@ -4914,7 +5204,7 @@ const Sr = ({ className: e }) => /* @__PURE__ */ h(
         damping: 25,
         mass: 0.8
       },
-      className: ke(
+      className: b(
         "pointer-events-auto relative flex items-center mb-2",
         // Reduced margin for tighter stack
         n ? "flex-row-reverse self-end" : "flex-row self-start"
@@ -4928,40 +5218,40 @@ const Sr = ({ className: e }) => /* @__PURE__ */ h(
         /* @__PURE__ */ t(
           "div",
           {
-            className: ke(
+            className: b(
               "relative z-20 w-24 h-24 filter drop-shadow-2xl",
               n ? "-mr-6" : "-ml-6 scale-x-[-1]"
             ),
-            children: /* @__PURE__ */ t(Sr, { className: "w-full h-full" })
+            children: /* @__PURE__ */ t(Fr, { className: "w-full h-full" })
           }
         ),
-        /* @__PURE__ */ h(
+        /* @__PURE__ */ p(
           "div",
           {
-            className: ke(
+            className: b(
               "relative z-10 p-4 rounded-xl border backdrop-blur-md shadow-2xl max-w-xs",
-              e.type === "curse" ? "bg-[#2a0a0a]/95 border-red-900/50 text-red-100" : "bg-[#0f0a1f]/95 border-purple-900/50 text-purple-100",
+              e.type === "curse" ? "bg-[#2a0a0a]/95 border-red-900/50 text-red-100" : e.type === "success" ? "bg-[#0a1f0a]/95 border-green-900/50 text-green-100" : "bg-[#0f0a1f]/95 border-purple-900/50 text-purple-100",
               n ? "mr-4 rounded-tr-none" : "ml-4 rounded-tl-none"
             ),
             children: [
               /* @__PURE__ */ t(
                 "div",
                 {
-                  className: ke(
+                  className: b(
                     "absolute top-6 w-3 h-3 rotate-45 border-l border-t",
-                    e.type === "curse" ? "bg-[#2a0a0a] border-red-900/50" : "bg-[#0f0a1f] border-purple-900/50",
+                    e.type === "curse" ? "bg-[#2a0a0a] border-red-900/50" : e.type === "success" ? "bg-[#0a1f0a] border-green-900/50" : "bg-[#0f0a1f] border-purple-900/50",
                     n ? "-right-1.5 border-r border-t-0 border-l-0" : "-left-1.5"
                   )
                 }
               ),
-              /* @__PURE__ */ h("div", { className: "flex justify-between items-start gap-3", children: [
+              /* @__PURE__ */ p("div", { className: "flex justify-between items-start gap-3", children: [
                 /* @__PURE__ */ t("p", { className: "text-sm font-medium leading-relaxed drop-shadow-md", children: e.message }),
                 /* @__PURE__ */ t(
                   "button",
                   {
                     onClick: () => o(e.id),
                     className: "opacity-40 hover:opacity-100 transition-opacity",
-                    children: /* @__PURE__ */ t(Rt, { size: 14 })
+                    children: /* @__PURE__ */ t(We, { size: 14 })
                   }
                 )
               ] })
@@ -4972,254 +5262,57 @@ const Sr = ({ className: e }) => /* @__PURE__ */ h(
     }
   );
 });
-Pt.displayName = "GhostToastItem";
-const Ir = ({
+Bt.displayName = "GhostToastItem";
+const Or = ({
   toasts: e,
   removeToast: o
-}) => /* @__PURE__ */ h("div", { className: "fixed inset-y-0 left-0 right-0 pointer-events-none flex flex-col justify-end p-6 z-[9999] overflow-hidden", children: [
-  /* @__PURE__ */ t("style", { children: `
+}) => /* @__PURE__ */ p(
+  "div",
+  {
+    className: "fixed inset-y-0 left-0 right-0 pointer-events-none flex flex-col justify-end p-6 z-[9999] overflow-hidden",
+    "aria-live": "polite",
+    "aria-label": "Notifications",
+    children: [
+      /* @__PURE__ */ t("style", { children: `
         @keyframes blink {
           0%, 96%, 100% { transform: scaleY(1); }
           98% { transform: scaleY(0.1); }
         }
       ` }),
-  /* @__PURE__ */ t(L, { mode: "popLayout", children: e.map((r) => /* @__PURE__ */ t(
-    Pt,
-    {
-      toast: r,
-      removeToast: o
-    },
-    r.id
-  )) })
-] }), An = ({
+      /* @__PURE__ */ t(D, { mode: "popLayout", children: e.map((r) => /* @__PURE__ */ t(
+        Bt,
+        {
+          toast: r,
+          removeToast: o
+        },
+        r.id
+      )) })
+    ]
+  }
+), Lr = ({
   children: e
 }) => {
-  const [o, r] = R([]), n = (i, a = "info") => {
-    const l = Math.random().toString(36).substr(2, 9), c = Math.random() > 0.5 ? "right" : "left", d = 0.85 + Math.random() * 0.25, u = (Math.random() - 0.5) * 30, b = Math.random() * 60;
-    r((p) => [
-      ...p,
-      { id: l, message: i, type: a, side: c, scale: d, rotation: u, offsetX: b }
-    ]), setTimeout(() => s(l), 5e3);
+  const [o, r] = G([]), n = (i, l = "info") => {
+    const a = Math.random().toString(36).substr(2, 9), c = Math.random() > 0.5 ? "right" : "left", d = 0.85 + Math.random() * 0.25, u = (Math.random() - 0.5) * 30, h = Math.random() * 60;
+    r((m) => [
+      ...m,
+      { id: a, message: i, type: l, side: c, scale: d, rotation: u, offsetX: h }
+    ]), setTimeout(() => s(a), 5e3);
   }, s = (i) => {
-    r((a) => a.filter((l) => l.id !== i));
+    r((l) => l.filter((a) => a.id !== i));
   };
-  return /* @__PURE__ */ h(Ot.Provider, { value: { addToast: n }, children: [
+  return /* @__PURE__ */ p(At.Provider, { value: { addToast: n }, children: [
     e,
-    /* @__PURE__ */ t(Ir, { toasts: o, removeToast: s })
+    /* @__PURE__ */ t(Or, { toasts: o, removeToast: s })
   ] });
-}, $n = () => {
-  const e = Ie(Ot);
+};
+Lr.displayName = "GhostToastProvider";
+const Un = () => {
+  const e = Se(At);
   if (!e)
     throw new Error("useGhostToast must be used within a GhostToastProvider");
   return e;
-}, Er = {
-  spectral: {
-    accent: "rgb(168, 85, 247)",
-    // ghost-purple
-    accentRgb: "168, 85, 247",
-    glow: "rgba(168, 85, 247, 0.4)",
-    glowStrong: "rgba(168, 85, 247, 0.6)",
-    border: "rgba(168, 85, 247, 0.3)",
-    bg: "rgba(168, 85, 247, 0.1)",
-    bgHover: "rgba(168, 85, 247, 0.15)"
-  },
-  blood: {
-    accent: "rgb(239, 68, 68)",
-    // blood-red
-    accentRgb: "239, 68, 68",
-    glow: "rgba(239, 68, 68, 0.4)",
-    glowStrong: "rgba(239, 68, 68, 0.6)",
-    border: "rgba(239, 68, 68, 0.3)",
-    bg: "rgba(239, 68, 68, 0.1)",
-    bgHover: "rgba(239, 68, 68, 0.15)"
-  }
-}, Bn = ({
-  tabs: e,
-  defaultTab: o,
-  onTabChange: r,
-  className: n,
-  variant: s
-}) => {
-  const [i, a] = R(o || e[0]?.id), [l, c] = R(null), [d, u] = R(null), b = F(/* @__PURE__ */ new Map()), p = F(null), f = oe(), y = s ?? f?.theme ?? "spectral", m = Er[y], g = (x) => {
-    x !== i && (c(i), a(x), r?.(x));
-  };
-  Jt(() => {
-    const x = b.current.get(i), T = p.current;
-    if (x && T) {
-      const I = T.getBoundingClientRect(), $ = x.getBoundingClientRect();
-      u({
-        left: $.left - I.left,
-        width: $.width
-      });
-    }
-  }, [i, e]);
-  const w = (() => {
-    if (!l) return 0;
-    const x = e.findIndex((I) => I.id === l);
-    return e.findIndex((I) => I.id === i) > x ? 1 : -1;
-  })();
-  return /* @__PURE__ */ h("div", { className: S("w-full", n), children: [
-    /* @__PURE__ */ h(
-      "div",
-      {
-        ref: p,
-        className: "relative",
-        style: {
-          borderBottom: `1px solid ${m.border}`
-        },
-        children: [
-          /* @__PURE__ */ h("div", { className: "flex gap-1 relative", role: "tablist", children: [
-            d && /* @__PURE__ */ t(
-              v.div,
-              {
-                className: "absolute top-0 bottom-0 rounded-t-lg -z-10",
-                style: {
-                  background: `linear-gradient(180deg, ${m.bg} 0%, transparent 100%)`,
-                  borderTop: `2px solid ${m.accent}`,
-                  borderLeft: `1px solid ${m.border}`,
-                  borderRight: `1px solid ${m.border}`
-                },
-                animate: {
-                  left: d.left,
-                  width: d.width
-                },
-                transition: {
-                  type: "spring",
-                  stiffness: 400,
-                  damping: 30,
-                  mass: 0.8
-                }
-              }
-            ),
-            e.map((x) => {
-              const T = x.id === i, I = /* @__PURE__ */ h(
-                "button",
-                {
-                  ref: ($) => {
-                    $ && b.current.set(x.id, $);
-                  },
-                  onClick: () => g(x.id),
-                  className: S(
-                    "relative px-5 py-3.5 text-sm font-medium transition-all duration-300 focus:outline-none focus-visible:ring-2 rounded-t-lg",
-                    T ? "text-ghost-white" : "text-ghost-white/50 hover:text-ghost-white/80"
-                  ),
-                  style: {
-                    ...T && {
-                      textShadow: `0 0 20px ${m.glow}`
-                    }
-                  },
-                  role: "tab",
-                  "aria-selected": T,
-                  "aria-controls": `panel-${x.id}`,
-                  id: `tab-${x.id}`,
-                  children: [
-                    /* @__PURE__ */ h("div", { className: "flex items-center gap-2.5 relative z-10", children: [
-                      x.icon && /* @__PURE__ */ t(
-                        v.span,
-                        {
-                          animate: {
-                            scale: T ? 1.1 : 1,
-                            color: T ? m.accent : void 0
-                          },
-                          transition: { duration: 0.2 },
-                          children: x.icon
-                        }
-                      ),
-                      /* @__PURE__ */ t("span", { children: x.label })
-                    ] }),
-                    T && /* @__PURE__ */ t(
-                      v.div,
-                      {
-                        className: "absolute inset-0 rounded-t-lg -z-10 pointer-events-none",
-                        initial: { opacity: 0 },
-                        animate: { opacity: 1 },
-                        exit: { opacity: 0 },
-                        style: {
-                          background: `radial-gradient(ellipse at center bottom, ${m.glow} 0%, transparent 70%)`,
-                          filter: "blur(8px)"
-                        }
-                      }
-                    )
-                  ]
-                },
-                x.id
-              );
-              return x.tooltip ? /* @__PURE__ */ t(
-                Gt,
-                {
-                  content: x.tooltip,
-                  position: x.tooltipPosition,
-                  className: x.tooltipClassName,
-                  children: I
-                },
-                x.id
-              ) : I;
-            })
-          ] }),
-          d && /* @__PURE__ */ t(
-            v.div,
-            {
-              className: "absolute bottom-0 h-0.5",
-              style: {
-                background: `linear-gradient(90deg, transparent, ${m.accent}, transparent)`,
-                boxShadow: `0 0 10px ${m.glow}, 0 0 20px ${m.glow}`
-              },
-              animate: {
-                left: d.left,
-                width: d.width
-              },
-              transition: {
-                type: "spring",
-                stiffness: 400,
-                damping: 30,
-                mass: 0.8
-              }
-            }
-          )
-        ]
-      }
-    ),
-    /* @__PURE__ */ t("div", { className: "relative overflow-hidden", children: /* @__PURE__ */ t(L, { mode: "popLayout", initial: !1, children: e.map((x) => x.id === i ? /* @__PURE__ */ t(
-      v.div,
-      {
-        role: "tabpanel",
-        id: `panel-${x.id}`,
-        "aria-labelledby": `tab-${x.id}`,
-        initial: {
-          opacity: 0,
-          x: w * 30,
-          scale: 0.98,
-          filter: "blur(4px)"
-        },
-        animate: {
-          opacity: 1,
-          x: 0,
-          scale: 1,
-          filter: "blur(0px)"
-        },
-        exit: {
-          opacity: 0,
-          x: w * -30,
-          scale: 0.98,
-          filter: "blur(4px)",
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0
-        },
-        transition: {
-          duration: 0.35,
-          ease: [0.4, 0, 0.2, 1],
-          opacity: { duration: 0.25 },
-          filter: { duration: 0.3 }
-        },
-        className: "pt-6",
-        children: x.content
-      },
-      x.id
-    ) : null) }) })
-  ] });
-}, ut = [
+}, at = [
   "᚛",
   "᚜",
   "ᚠ",
@@ -5246,24 +5339,385 @@ const Ir = ({
   "ᛝ",
   "ᛟ",
   "ᛞ"
-], zr = j.forwardRef(
-  ({ className: e, label: o = "Invoke the Spirits", value: r, defaultValue: n, onChange: s, onFocus: i, onBlur: a, ...l }, c) => {
-    const [d, u] = R(n || ""), [b, p] = R(!1), [f, y] = R(0), m = F(Date.now()), g = r !== void 0, w = g ? r : d, x = Math.min(f / 100, 0.8), T = 20 + f / 2;
+], Dr = {
+  spectral: {
+    accent: "rgb(168, 85, 247)",
+    // ghost-purple
+    accentRgb: "168, 85, 247",
+    glow: "rgba(168, 85, 247, 0.4)",
+    glowStrong: "rgba(168, 85, 247, 0.6)",
+    border: "rgba(168, 85, 247, 0.3)",
+    bg: "rgba(168, 85, 247, 0.1)",
+    bgHover: "rgba(168, 85, 247, 0.15)",
+    ectoplasmBorder: "bg-purple-900/30",
+    runeText: "text-purple-300/20"
+  },
+  blood: {
+    accent: "rgb(239, 68, 68)",
+    // blood-red
+    accentRgb: "239, 68, 68",
+    glow: "rgba(239, 68, 68, 0.4)",
+    glowStrong: "rgba(239, 68, 68, 0.6)",
+    border: "rgba(239, 68, 68, 0.3)",
+    bg: "rgba(239, 68, 68, 0.1)",
+    bgHover: "rgba(239, 68, 68, 0.15)",
+    ectoplasmBorder: "bg-red-900/30",
+    runeText: "text-red-300/20"
+  }
+}, Pr = O.forwardRef(
+  ({
+    tabs: e,
+    defaultTab: o,
+    onTabChange: r,
+    className: n,
+    variant: s
+  }, i) => {
+    const l = O.useId(), [a, c] = G(o || e[0]?.id), [d, u] = G(null), [h, m] = G(null), [f, y] = G(0), g = L(/* @__PURE__ */ new Map()), x = L(null), w = L(null), k = X(), $ = s ?? k?.theme ?? "spectral", M = Dr[$];
     A(() => {
-      const E = setInterval(() => {
-        y((k) => Math.max(0, k - 5));
+      const N = setInterval(() => {
+        y((B) => Math.max(0, B - 3));
       }, 100);
-      return () => clearInterval(E);
+      return () => clearInterval(N);
     }, []);
-    const I = (E) => {
-      g || u(E.target.value), y((k) => Math.min(100, k + 15)), m.current = Date.now(), s?.(E);
-    }, $ = (E) => {
-      p(!0), i?.(E);
-    }, N = (E) => {
-      p(!1), a?.(E);
+    const F = Math.min(f / 100, 0.6), E = 15 + f / 3, z = (N) => {
+      N !== a && (u(a), c(N), y((B) => Math.min(100, B + 40)), r?.(N));
     };
-    return /* @__PURE__ */ h("div", { className: "relative w-full max-w-xl", children: [
-      /* @__PURE__ */ t("svg", { className: "absolute w-0 h-0 pointer-events-none", children: /* @__PURE__ */ t("defs", { children: /* @__PURE__ */ h("filter", { id: "ectoplasm-distortion", children: [
+    Jt(() => {
+      const N = g.current.get(a), B = x.current;
+      if (N && B) {
+        const _ = B.getBoundingClientRect(), Z = N.getBoundingClientRect();
+        m({
+          left: Z.left - _.left,
+          width: Z.width
+        });
+      }
+    }, [a, e]);
+    const C = (() => {
+      if (!d) return 0;
+      const N = e.findIndex((_) => _.id === d);
+      return e.findIndex((_) => _.id === a) > N ? 1 : -1;
+    })();
+    return /* @__PURE__ */ p("div", { ref: i, className: b("w-full relative", n), children: [
+      /* @__PURE__ */ t("svg", { className: "absolute w-0 h-0 pointer-events-none", "aria-hidden": "true", children: /* @__PURE__ */ t("defs", { children: /* @__PURE__ */ p("filter", { id: `ectoplasm-distortion-${l}`, children: [
+        /* @__PURE__ */ t(
+          "feTurbulence",
+          {
+            type: "fractalNoise",
+            baseFrequency: "0.015 0.05",
+            numOctaves: 2,
+            result: "noise",
+            children: /* @__PURE__ */ t(
+              "animate",
+              {
+                attributeName: "baseFrequency",
+                dur: "12s",
+                values: "0.015 0.05; 0.025 0.07; 0.015 0.05",
+                repeatCount: "indefinite"
+              }
+            )
+          }
+        ),
+        /* @__PURE__ */ t(
+          "feDisplacementMap",
+          {
+            in: "SourceGraphic",
+            in2: "noise",
+            scale: E
+          }
+        )
+      ] }) }) }),
+      /* @__PURE__ */ t(
+        "div",
+        {
+          className: b(
+            "absolute -inset-[2px] transition-opacity duration-300 pointer-events-none",
+            M.ectoplasmBorder
+          ),
+          style: {
+            filter: `url(#ectoplasm-distortion-${l})`,
+            opacity: f > 20 ? 0.4 + F / 3 : 0
+          }
+        }
+      ),
+      /* @__PURE__ */ t(D, { children: f > 30 && /* @__PURE__ */ t(W, { children: Array.from({ length: 4 }).map((N, B) => {
+        const _ = at[Math.floor(Math.random() * at.length)], Z = 10 + Math.random() * 80, ne = 10 + Math.random() * 80, ee = Math.random() * 360;
+        return /* @__PURE__ */ t(
+          v.div,
+          {
+            className: b("absolute text-2xl font-rune pointer-events-none z-0", M.runeText),
+            style: {
+              left: `${Z}%`,
+              top: `${ne}%`,
+              transform: `rotate(${ee}deg)`
+            },
+            initial: { opacity: 0, scale: 0.8 },
+            animate: {
+              opacity: Math.random() * 0.3 + f / 300,
+              scale: 1,
+              x: Math.random() * 15 - 7.5,
+              y: Math.random() * 15 - 7.5
+            },
+            exit: { opacity: 0, scale: 1.2 },
+            transition: { duration: 1.5, ease: "easeInOut" },
+            children: _
+          },
+          `rune-${a}-${B}`
+        );
+      }) }) }),
+      /* @__PURE__ */ p(
+        "div",
+        {
+          ref: x,
+          className: "relative z-10",
+          style: {
+            borderBottom: `1px solid ${M.border}`
+          },
+          children: [
+            /* @__PURE__ */ p("div", { className: "flex gap-1 relative", role: "tablist", children: [
+              h && /* @__PURE__ */ t(
+                v.div,
+                {
+                  className: "absolute top-0 bottom-0 -z-10",
+                  style: {
+                    background: `linear-gradient(180deg, ${M.bg} 0%, transparent 100%)`,
+                    borderTop: `2px solid ${M.accent}`,
+                    borderLeft: `1px solid ${M.border}`,
+                    borderRight: `1px solid ${M.border}`,
+                    filter: f > 20 ? `url(#ectoplasm-distortion-${l})` : "none",
+                    boxShadow: `0 0 ${15 + f / 5}px ${M.glow}`
+                  },
+                  animate: {
+                    left: h.left,
+                    width: h.width
+                  },
+                  transition: {
+                    type: "spring",
+                    stiffness: 400,
+                    damping: 30,
+                    mass: 0.8
+                  }
+                }
+              ),
+              e.map((N) => {
+                const B = N.id === a, _ = /* @__PURE__ */ p(
+                  "button",
+                  {
+                    ref: (Z) => {
+                      Z && g.current.set(N.id, Z);
+                    },
+                    onClick: () => z(N.id),
+                    className: b(
+                      "relative px-5 py-3.5 text-sm font-medium transition-all duration-300 focus:outline-none focus-visible:ring-2",
+                      B ? "text-ghost-white" : "text-ghost-white/50 hover:text-ghost-white/80"
+                    ),
+                    style: {
+                      ...B && {
+                        textShadow: `0 0 20px ${M.glow}`
+                      }
+                    },
+                    role: "tab",
+                    "aria-selected": B,
+                    "aria-controls": `panel-${N.id}`,
+                    id: `tab-${N.id}`,
+                    children: [
+                      /* @__PURE__ */ p("div", { className: "flex items-center gap-2.5 relative z-10", children: [
+                        N.icon && /* @__PURE__ */ t(
+                          v.span,
+                          {
+                            animate: {
+                              scale: B ? 1.1 : 1,
+                              color: B ? M.accent : void 0
+                            },
+                            transition: { duration: 0.2 },
+                            children: N.icon
+                          }
+                        ),
+                        /* @__PURE__ */ t("span", { children: N.label })
+                      ] }),
+                      B && /* @__PURE__ */ t(
+                        v.div,
+                        {
+                          className: "absolute inset-0 -z-10 pointer-events-none",
+                          initial: { opacity: 0 },
+                          animate: { opacity: 1 },
+                          exit: { opacity: 0 },
+                          style: {
+                            background: `radial-gradient(ellipse at center bottom, ${M.glow} 0%, transparent 70%)`,
+                            filter: "blur(8px)"
+                          }
+                        }
+                      )
+                    ]
+                  },
+                  N.id
+                );
+                return N.tooltip ? /* @__PURE__ */ t(
+                  Ze,
+                  {
+                    content: N.tooltip,
+                    position: N.tooltipPosition,
+                    className: N.tooltipClassName,
+                    children: _
+                  },
+                  N.id
+                ) : _;
+              })
+            ] }),
+            h && /* @__PURE__ */ t(
+              v.div,
+              {
+                className: "absolute bottom-0 h-0.5",
+                style: {
+                  background: `linear-gradient(90deg, transparent, ${M.accent}, transparent)`,
+                  boxShadow: `0 0 ${10 + f / 10}px ${M.glow}, 0 0 ${20 + f / 5}px ${M.glow}`,
+                  filter: f > 30 ? `url(#ectoplasm-distortion-${l})` : "none"
+                },
+                animate: {
+                  left: h.left,
+                  width: h.width
+                },
+                transition: {
+                  type: "spring",
+                  stiffness: 400,
+                  damping: 30,
+                  mass: 0.8
+                }
+              }
+            )
+          ]
+        }
+      ),
+      /* @__PURE__ */ t("div", { ref: w, className: "relative overflow-hidden z-10", children: /* @__PURE__ */ t(D, { mode: "wait", initial: !1, children: e.map((N) => N.id === a ? /* @__PURE__ */ t(
+        v.div,
+        {
+          role: "tabpanel",
+          id: `panel-${N.id}`,
+          "aria-labelledby": `tab-${N.id}`,
+          initial: {
+            opacity: 0,
+            x: C * 30,
+            scale: 0.98,
+            filter: "blur(4px)"
+          },
+          animate: {
+            opacity: 1,
+            x: 0,
+            scale: 1,
+            filter: "blur(0px)"
+          },
+          exit: {
+            opacity: 0,
+            x: C * -30,
+            scale: 0.98,
+            filter: "blur(4px)"
+          },
+          transition: {
+            duration: 0.35,
+            ease: [0.4, 0, 0.2, 1],
+            opacity: { duration: 0.25 },
+            filter: { duration: 0.3 }
+          },
+          className: "pt-6",
+          children: N.content
+        },
+        N.id
+      ) : null) }) }),
+      /* @__PURE__ */ t("style", { children: `
+                @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+                
+                .font-rune {
+                    font-family: 'Cinzel', serif;
+                    user-select: none;
+                }
+            ` })
+    ] });
+  }
+);
+Pr.displayName = "SpectralTabs";
+const _r = {
+  spectral: {
+    ectoplasmBorder: "bg-purple-900/30",
+    whisperGlow: "bg-purple-500/10",
+    runeText: "text-purple-300/20",
+    labelFocused: "text-purple-400",
+    labelDefault: "text-purple-200/50",
+    border: "border-purple-500/20",
+    borderFocused: "border-purple-500/50",
+    cornerBorder: "border-purple-500/40",
+    iconActive: "text-purple-400",
+    iconFocused: "text-purple-700",
+    iconDefault: "text-purple-900/40",
+    textColor: "text-purple-100",
+    placeholder: "placeholder:text-purple-900/50",
+    selection: "selection:bg-purple-500/30",
+    glowRgba: "rgba(168, 85, 247,",
+    textShadowRgba: "rgba(168, 85, 247, 0.4)",
+    caretColor: "#d8b4fe"
+  },
+  blood: {
+    ectoplasmBorder: "bg-red-900/30",
+    whisperGlow: "bg-red-500/10",
+    runeText: "text-red-300/20",
+    labelFocused: "text-red-400",
+    labelDefault: "text-red-200/50",
+    border: "border-red-500/20",
+    borderFocused: "border-red-500/50",
+    cornerBorder: "border-red-500/40",
+    iconActive: "text-red-400",
+    iconFocused: "text-red-700",
+    iconDefault: "text-red-900/40",
+    textColor: "text-red-100",
+    placeholder: "placeholder:text-red-900/50",
+    selection: "selection:bg-red-500/30",
+    glowRgba: "rgba(239, 68, 68,",
+    textShadowRgba: "rgba(239, 68, 68, 0.4)",
+    caretColor: "#fca5a5"
+  }
+}, lt = [
+  "᚛",
+  "᚜",
+  "ᚠ",
+  "ᚢ",
+  "ᚦ",
+  "ᚨ",
+  "ᚩ",
+  "ᚳ",
+  "ᚷ",
+  "ᚹ",
+  "ᚻ",
+  "ᚾ",
+  "ᛁ",
+  "ᛃ",
+  "ᛇ",
+  "ᛈ",
+  "ᛉ",
+  "ᛋ",
+  "ᛏ",
+  "ᛒ",
+  "ᛖ",
+  "ᛗ",
+  "ᛚ",
+  "ᛝ",
+  "ᛟ",
+  "ᛞ"
+], Hr = O.forwardRef(
+  ({ className: e, value: o, defaultValue: r, onChange: n, onFocus: s, onBlur: i, ...l }, a) => {
+    const c = O.useId(), [d, u] = G(r || ""), [h, m] = G(!1), [f, y] = G(0), g = L(Date.now()), w = X()?.theme ?? "spectral", k = _r[w], $ = o !== void 0, M = Math.min(f / 100, 0.8), F = 20 + f / 2;
+    A(() => {
+      const N = setInterval(() => {
+        y((B) => Math.max(0, B - 5));
+      }, 100);
+      return () => clearInterval(N);
+    }, []);
+    const E = (N) => {
+      $ || u(N.target.value), y((B) => Math.min(100, B + 15)), g.current = Date.now(), n?.(N);
+    }, z = (N) => {
+      m(!0), s?.(N);
+    }, C = (N) => {
+      m(!1), i?.(N);
+    };
+    return /* @__PURE__ */ p("div", { className: "relative w-full", children: [
+      /* @__PURE__ */ t("svg", { className: "absolute w-0 h-0 pointer-events-none", "aria-hidden": "true", children: /* @__PURE__ */ t("defs", { children: /* @__PURE__ */ p("filter", { id: `ectoplasm-distortion-${c}`, children: [
         /* @__PURE__ */ t(
           "feTurbulence",
           {
@@ -5287,39 +5741,39 @@ const Ir = ({
           {
             in: "SourceGraphic",
             in2: "noise",
-            scale: T
+            scale: F
           }
         )
       ] }) }) }),
       /* @__PURE__ */ t(
         "div",
         {
-          className: "absolute -inset-1 bg-purple-900/30 rounded transition-opacity duration-300 pointer-events-none",
+          className: b("absolute -inset-1 rounded transition-opacity duration-300 pointer-events-none", k.ectoplasmBorder),
           style: {
-            filter: "url(#ectoplasm-distortion)",
-            opacity: b ? 0.6 + x / 2 : 0
+            filter: `url(#ectoplasm-distortion-${c})`,
+            opacity: h ? 0.6 + M / 2 : 0
           }
         }
       ),
       /* @__PURE__ */ t(
         "div",
         {
-          className: "absolute inset-0 bg-purple-500/10 blur-xl rounded pointer-events-none transition-opacity duration-100",
+          className: b("absolute inset-0 blur-xl rounded pointer-events-none transition-opacity duration-100", k.whisperGlow),
           style: {
-            opacity: x
+            opacity: M
           }
         }
       ),
-      /* @__PURE__ */ t(L, { children: f > 10 && /* @__PURE__ */ t(H, { children: Array.from({ length: 6 }).map((E, k) => {
-        const B = ut[Math.floor(Math.random() * ut.length)], he = 10 + Math.random() * 80, fe = 10 + Math.random() * 80, re = Math.random() * 360;
+      /* @__PURE__ */ t(D, { children: f > 10 && /* @__PURE__ */ t(W, { children: Array.from({ length: 6 }).map((N, B) => {
+        const _ = lt[Math.floor(Math.random() * lt.length)], Z = 10 + Math.random() * 80, ne = 10 + Math.random() * 80, ee = Math.random() * 360;
         return /* @__PURE__ */ t(
           v.div,
           {
-            className: "absolute text-4xl text-purple-300/20 font-rune pointer-events-none",
+            className: b("absolute text-4xl font-rune pointer-events-none", k.runeText),
             style: {
-              left: `${he}%`,
-              top: `${fe}%`,
-              transform: `rotate(${re}deg)`
+              left: `${Z}%`,
+              top: `${ne}%`,
+              transform: `rotate(${ee}deg)`
             },
             initial: { opacity: 0, scale: 0.8 },
             animate: {
@@ -5330,63 +5784,51 @@ const Ir = ({
             },
             exit: { opacity: 0, scale: 1.2 },
             transition: { duration: 2, ease: "easeInOut" },
-            children: B
+            children: _
           },
-          `rune-${k}`
+          `rune-${B}`
         );
       }) }) }),
       /* @__PURE__ */ t(
-        "label",
-        {
-          className: S(
-            "absolute left-4 top-4 font-rune uppercase tracking-widest transition-all duration-300 pointer-events-none z-10",
-            b || w ? "text-[10px] -translate-y-7 text-purple-400" : "text-xs text-purple-200/50"
-          ),
-          children: o
-        }
-      ),
-      /* @__PURE__ */ t(
         "textarea",
         {
-          ref: c,
-          className: S(
-            "w-full min-h-[160px] resize-y relative z-10",
+          ref: a,
+          className: b(
+            "w-full min-h-[240px] resize-y relative z-10",
             "bg-[#0a0510]/80 backdrop-blur-sm",
-            "border border-purple-500/20",
-            "text-purple-100 text-lg leading-relaxed font-serif",
-            "px-4 pt-8 pb-4",
+            "border",
+            k.border,
+            k.textColor,
+            "text-lg leading-relaxed font-serif",
+            "px-6 py-6",
             "outline-none",
-            "placeholder:text-purple-900/50",
-            "selection:bg-purple-500/30 selection:text-white",
-            "ghost-text",
-            b && "border-purple-500/50",
+            k.placeholder,
+            k.selection,
+            "selection:text-white",
+            `ghost-text-${w}`,
+            h && k.borderFocused,
             e
           ),
-          style: b ? {
-            boxShadow: `0 0 ${20 + f}px rgba(168, 85, 247, ${0.1 + f / 500})`
-          } : void 0,
-          ...g ? { value: r } : { defaultValue: n },
-          onChange: I,
-          onFocus: $,
-          onBlur: N,
+          style: {
+            ...h && {
+              boxShadow: `0 0 ${20 + f}px ${k.glowRgba} ${0.1 + f / 500})`
+            },
+            textShadow: `0 0 8px ${k.textShadowRgba}, 2px 2px 0px rgba(0,0,0,0.5)`,
+            caretColor: k.caretColor
+          },
+          ...$ ? { value: o } : { defaultValue: r },
+          onChange: E,
+          onFocus: z,
+          onBlur: C,
           ...l
         }
       ),
-      /* @__PURE__ */ t("div", { className: "absolute top-0 left-0 w-1 h-1 border-t border-l border-purple-500/40 pointer-events-none z-20" }),
-      /* @__PURE__ */ t("div", { className: "absolute top-0 right-0 w-1 h-1 border-t border-r border-purple-500/40 pointer-events-none z-20" }),
-      /* @__PURE__ */ t("div", { className: "absolute bottom-0 left-0 w-1 h-1 border-b border-l border-purple-500/40 pointer-events-none z-20" }),
-      /* @__PURE__ */ t("div", { className: "absolute bottom-0 right-0 w-1 h-1 border-b border-r border-purple-500/40 pointer-events-none z-20" }),
-      /* @__PURE__ */ t("div", { className: "absolute bottom-4 right-4 z-20 transition-colors duration-500", children: f > 50 ? /* @__PURE__ */ t(ir, { className: S("w-5 h-5 text-purple-400 animate-spin") }) : /* @__PURE__ */ t(je, { className: S(
-        "w-5 h-5 transition-colors duration-500",
-        b ? "text-purple-700" : "text-purple-900/40"
-      ) }) }),
+      /* @__PURE__ */ t("div", { className: b("absolute top-0 left-0 w-1 h-1 border-t border-l pointer-events-none z-20", k.cornerBorder) }),
+      /* @__PURE__ */ t("div", { className: b("absolute top-0 right-0 w-1 h-1 border-t border-r pointer-events-none z-20", k.cornerBorder) }),
+      /* @__PURE__ */ t("div", { className: b("absolute bottom-0 left-0 w-1 h-1 border-b border-l pointer-events-none z-20", k.cornerBorder) }),
+      /* @__PURE__ */ t("div", { className: b("absolute bottom-0 right-0 w-1 h-1 border-b border-r pointer-events-none z-20", k.cornerBorder) }),
       /* @__PURE__ */ t("style", { children: `
           @import url('https://fonts.googleapis.com/css2?family=Creepster&family=Cinzel:wght@400;700&family=Inter:wght@400;600&display=swap');
-          
-          .ghost-text {
-            text-shadow: 0 0 8px rgba(168, 85, 247, 0.4), 2px 2px 0px rgba(0,0,0,0.5);
-            caret-color: #d8b4fe;
-          }
           
           .font-rune {
             font-family: 'Cinzel', serif;
@@ -5396,33 +5838,30 @@ const Ir = ({
     ] });
   }
 );
-zr.displayName = "WhisperBox";
-const Tr = {
+Hr.displayName = "WhisperBox";
+const Wr = {
   blood: {
     container: "bg-red-950/30 border-red-900/50",
     fill: "bg-[#8a1c1c]",
     glow: "shadow-[0_0_15px_rgba(220,38,38,0.4)]",
-    filterId: "goo-3d-blood",
     dripColor: "bg-[#8a1c1c]",
-    icon: /* @__PURE__ */ t(nr, { size: 16, className: "text-red-400" })
+    icon: /* @__PURE__ */ t(dr, { size: 16, className: "text-red-400" })
   },
   candle: {
     container: "bg-orange-950/30 border-orange-900/30",
     fill: "bg-[#ffedd5]",
     glow: "shadow-[0_0_15px_rgba(251,146,60,0.4)]",
-    filterId: "goo-3d-candle",
     dripColor: "bg-[#ffedd5]",
-    icon: /* @__PURE__ */ t(Qo, { size: 16, className: "text-orange-400" })
+    icon: /* @__PURE__ */ t(sr, { size: 16, className: "text-orange-400" })
   },
   soul: {
     container: "bg-indigo-950/40 border-indigo-500/30",
     fill: "bg-indigo-600",
     glow: "shadow-[0_0_20px_rgba(99,102,241,0.6)]",
-    filterId: "none",
     dripColor: "bg-transparent",
-    icon: /* @__PURE__ */ t(je, { size: 16, className: "text-indigo-300" })
+    icon: /* @__PURE__ */ t(He, { size: 16, className: "text-indigo-300" })
   }
-}, Dt = j.memo(({ filterId: e }) => /* @__PURE__ */ t("svg", { className: "absolute w-0 h-0", "aria-hidden": "true", children: /* @__PURE__ */ t("defs", { children: /* @__PURE__ */ h("filter", { id: e, colorInterpolationFilters: "sRGB", children: [
+}, Ft = O.memo(({ filterId: e, variant: o }) => /* @__PURE__ */ t("svg", { className: "absolute w-0 h-0", "aria-hidden": "true", children: /* @__PURE__ */ t("defs", { children: /* @__PURE__ */ p("filter", { id: `goo-3d-${o}-${e}`, colorInterpolationFilters: "sRGB", children: [
   /* @__PURE__ */ t("feGaussianBlur", { in: "SourceGraphic", stdDeviation: "4", result: "blur" }),
   /* @__PURE__ */ t(
     "feColorMatrix",
@@ -5450,12 +5889,12 @@ const Tr = {
   /* @__PURE__ */ t("feComposite", { in: "SourceGraphic", in2: "goo", operator: "atop", result: "solidGoo" }),
   /* @__PURE__ */ t("feComposite", { in: "specularClean", in2: "solidGoo", operator: "over" })
 ] }) }) }));
-Dt.displayName = "GooFilter";
-const _t = j.memo(({ dripColor: e }) => /* @__PURE__ */ h(H, { children: [
+Ft.displayName = "GooFilter";
+const Ot = O.memo(({ dripColor: e }) => /* @__PURE__ */ p(W, { children: [
   /* @__PURE__ */ t(
     v.div,
     {
-      className: S("absolute right-0 top-full w-4 h-4 -mt-2 rounded-full", e),
+      className: b("absolute right-0 top-full w-4 h-4 -mt-2 rounded-full", e),
       animate: { height: [10, 25, 10] },
       transition: { duration: 2, repeat: 1 / 0, ease: "easeInOut" }
     }
@@ -5463,15 +5902,15 @@ const _t = j.memo(({ dripColor: e }) => /* @__PURE__ */ h(H, { children: [
   /* @__PURE__ */ t(
     v.div,
     {
-      className: S("absolute right-4 top-full w-3 h-3 -mt-2 rounded-full", e),
+      className: b("absolute right-4 top-full w-3 h-3 -mt-2 rounded-full", e),
       animate: { height: [8, 20, 8] },
       transition: { duration: 3, repeat: 1 / 0, ease: "easeInOut", delay: 1 }
     }
   )
 ] }));
-_t.displayName = "Drips";
-const Ht = j.memo(() => /* @__PURE__ */ h(H, { children: [
-  /* @__PURE__ */ h("div", { className: "absolute inset-0 overflow-hidden rounded-full", children: [
+Ot.displayName = "Drips";
+const Lt = O.memo(() => /* @__PURE__ */ p(W, { children: [
+  /* @__PURE__ */ p("div", { className: "absolute inset-0 overflow-hidden rounded-full", children: [
     /* @__PURE__ */ t(
       "div",
       {
@@ -5503,73 +5942,82 @@ const Ht = j.memo(() => /* @__PURE__ */ h(H, { children: [
   ] }),
   /* @__PURE__ */ t("div", { className: "absolute right-0 top-0 bottom-0 w-2 bg-white/50 blur-sm" })
 ] }));
-Ht.displayName = "SoulEffects";
-const Rr = ({
-  value: e,
-  variant: o = "blood",
-  className: r
-}) => {
-  const n = Math.min(100, Math.max(0, e)), s = n === 100, i = Tr[o], a = o !== "soul", l = me(
-    () => a ? { filter: `url(#${i.filterId})` } : void 0,
-    [a, i.filterId]
-  ), c = me(
-    () => ({ type: "spring", stiffness: 50, damping: 15 }),
-    []
-  );
-  return /* @__PURE__ */ h("div", { className: S("w-full max-w-md", r), children: [
-    /* @__PURE__ */ h("div", { className: "flex justify-between items-center mb-2 px-1", children: [
-      /* @__PURE__ */ h("div", { className: "flex items-center gap-2 uppercase tracking-widest text-xs font-bold text-gray-500", children: [
-        i.icon,
-        /* @__PURE__ */ h("span", { children: [
-          o,
-          " Gauge"
+Lt.displayName = "SoulEffects";
+const Zr = O.forwardRef(
+  ({ value: e, variant: o = "blood", className: r }, n) => {
+    const s = O.useId(), i = Math.min(100, Math.max(0, e)), l = i === 100, a = Wr[o], c = o !== "soul", d = ce(
+      () => c ? { filter: `url(#goo-3d-${o}-${s})` } : void 0,
+      [c, o, s]
+    ), u = ce(
+      () => ({ type: "spring", stiffness: 50, damping: 15 }),
+      []
+    );
+    return /* @__PURE__ */ p("div", { ref: n, className: b("w-full max-w-md", r), children: [
+      /* @__PURE__ */ p("div", { className: "flex justify-between items-center mb-2 px-1", children: [
+        /* @__PURE__ */ p("div", { className: "flex items-center gap-2 uppercase tracking-widest text-xs font-bold text-gray-500", children: [
+          a.icon,
+          /* @__PURE__ */ p("span", { children: [
+            o,
+            " Gauge"
+          ] })
+        ] }),
+        /* @__PURE__ */ p("span", { className: "font-mono text-xs text-gray-400", children: [
+          Math.round(i),
+          "%"
         ] })
       ] }),
-      /* @__PURE__ */ h("span", { className: "font-mono text-xs text-gray-400", children: [
-        Math.round(n),
-        "%"
-      ] })
-    ] }),
-    a && /* @__PURE__ */ t(Dt, { filterId: i.filterId }),
-    /* @__PURE__ */ h("div", { className: "relative h-6 w-full", children: [
-      /* @__PURE__ */ t("div", { className: S("absolute inset-0 rounded-full border", i.container) }),
-      /* @__PURE__ */ t("div", { className: "absolute inset-0 w-full h-full overflow-visible", style: l, children: /* @__PURE__ */ h(
-        v.div,
+      c && /* @__PURE__ */ t(Ft, { filterId: s, variant: o }),
+      /* @__PURE__ */ p(
+        "div",
         {
-          className: S("h-full rounded-full relative", i.fill),
-          initial: !1,
-          animate: { width: `${n}%` },
-          transition: c,
+          className: "relative h-6 w-full",
+          role: "progressbar",
+          "aria-valuenow": Math.round(i),
+          "aria-valuemin": 0,
+          "aria-valuemax": 100,
+          "aria-label": `${o} progress: ${Math.round(i)}%`,
           children: [
-            o === "soul" && n > 0 && /* @__PURE__ */ t(Ht, {}),
-            a && n > 0 && /* @__PURE__ */ t(_t, { dripColor: i.dripColor })
+            /* @__PURE__ */ t("div", { className: b("absolute inset-0 rounded-full border", a.container) }),
+            /* @__PURE__ */ t("div", { className: "absolute inset-0 w-full h-full overflow-visible", style: d, children: /* @__PURE__ */ p(
+              v.div,
+              {
+                className: b("h-full rounded-full relative", a.fill),
+                initial: !1,
+                animate: { width: `${i}%` },
+                transition: u,
+                children: [
+                  o === "soul" && i > 0 && /* @__PURE__ */ t(Lt, {}),
+                  c && i > 0 && /* @__PURE__ */ t(Ot, { dripColor: a.dripColor })
+                ]
+              }
+            ) }),
+            /* @__PURE__ */ t(D, { children: l && /* @__PURE__ */ t(
+              v.div,
+              {
+                initial: { opacity: 0, scale: 1 },
+                animate: { opacity: [0, 1, 0], scale: 1.2 },
+                exit: { opacity: 0 },
+                transition: { duration: 1, repeat: 1 / 0 },
+                className: b(
+                  "absolute inset-0 rounded-full border-2 border-white/50 pointer-events-none",
+                  a.glow
+                )
+              }
+            ) })
           ]
         }
-      ) }),
-      /* @__PURE__ */ t(L, { children: s && /* @__PURE__ */ t(
-        v.div,
-        {
-          initial: { opacity: 0, scale: 1 },
-          animate: { opacity: [0, 1, 0], scale: 1.2 },
-          exit: { opacity: 0 },
-          transition: { duration: 1, repeat: 1 / 0 },
-          className: S(
-            "absolute inset-0 rounded-full border-2 border-white/50 pointer-events-none",
-            i.glow
-          )
-        }
-      ) })
-    ] }),
-    /* @__PURE__ */ t("style", { children: `
+      ),
+      /* @__PURE__ */ t("style", { children: `
         @keyframes shimmer {
           0% { transform: translateX(-100%); }
           100% { transform: translateX(100%); }
         }
       ` })
-  ] });
-};
-Rr.displayName = "GooeyProgressBar";
-const Wt = {
+    ] });
+  }
+);
+Zr.displayName = "GooeyProgressBar";
+const Dt = {
   spectral: {
     primary: "#2e1065",
     secondary: "#1a0b2e",
@@ -5593,41 +6041,41 @@ const Wt = {
     bg: "#150a0a"
   }
 };
-let Gr = 0;
-const Ar = () => `spooky-skeleton-${++Gr}`;
-function Fe(e) {
+let jr = 0;
+const Yr = () => `spooky-skeleton-${++jr}`;
+function Re(e) {
   const { className: o = "", style: r } = e.props, n = String(o);
   let s = "w-full";
   const i = n.match(/w-(\[[\d\w%]+\]|\d+\/\d+|full|auto|screen|min|max|fit|\d+)/);
   i ? s = `w-${i[1]}` : r?.width && (s = `w-[${r.width}]`);
-  let a = "h-4";
-  const l = n.match(/h-(\[[\d\w%]+\]|\d+\/\d+|full|auto|screen|min|max|fit|\d+)/);
-  l ? a = `h-${l[1]}` : r?.height && (a = `h-[${r.height}]`);
+  let l = "h-4";
+  const a = n.match(/h-(\[[\d\w%]+\]|\d+\/\d+|full|auto|screen|min|max|fit|\d+)/);
+  a ? l = `h-${a[1]}` : r?.height && (l = `h-[${r.height}]`);
   let c = "rounded-md";
-  return n.includes("rounded-full") || e.type === "img" && n.includes("avatar") ? c = "rounded-full" : n.includes("rounded-lg") ? c = "rounded-lg" : n.includes("rounded-xl") ? c = "rounded-xl" : n.includes("rounded-2xl") ? c = "rounded-2xl" : n.includes("rounded-none") && (c = "rounded-none"), { width: s, height: a, rounded: c };
+  return n.includes("rounded-full") || e.type === "img" && n.includes("avatar") ? c = "rounded-full" : n.includes("rounded-lg") ? c = "rounded-lg" : n.includes("rounded-xl") ? c = "rounded-xl" : n.includes("rounded-2xl") ? c = "rounded-2xl" : n.includes("rounded-none") && (c = "rounded-none"), { width: s, height: l, rounded: c };
 }
-function $r(e) {
+function Vr(e) {
   const o = ["p", "span", "h1", "h2", "h3", "h4", "h5", "h6", "label", "a"];
   return typeof e.type == "string" && o.includes(e.type);
 }
-function Br(e) {
+function Xr(e) {
   const { className: o = "" } = e.props, r = String(o);
   return e.type === "img" || r.includes("avatar") || r.includes("rounded-full") || r.includes("w-") && r.includes("h-") && /w-\d+/.test(r) && /h-\d+/.test(r);
 }
-function Fr(e) {
+function qr(e) {
   const o = ["div", "section", "article", "main", "aside", "header", "footer", "nav"];
   return typeof e.type == "string" && o.includes(e.type);
 }
-function Ce(e, o, r, n = 0) {
+function ke(e, o, r, n = 0) {
   if (!e) return null;
   if (Array.isArray(e))
-    return e.map((s, i) => Ce(s, o, r, n));
+    return e.map((s, i) => ke(s, o, r, n));
   if (typeof e == "string" || typeof e == "number") {
     const s = String(e).trim();
     if (!s) return null;
     const i = Math.min(s.length * 8, 200);
     return /* @__PURE__ */ t(
-      V,
+      q,
       {
         variant: o,
         theme: r,
@@ -5635,61 +6083,61 @@ function Ce(e, o, r, n = 0) {
       }
     );
   }
-  if (gt(e)) {
-    const s = e, { className: i = "", children: a, style: l } = s.props, c = String(i);
+  if (mt(e)) {
+    const s = e, { className: i = "", children: l, style: a } = s.props, c = String(i);
     if (c.includes("hidden") || c.includes("sr-only"))
       return null;
-    if (Br(s)) {
-      const u = Fe(s);
+    if (Xr(s)) {
+      const u = Re(s);
       return /* @__PURE__ */ t(
-        V,
+        q,
         {
           variant: o,
           theme: r,
-          className: S(u.width, u.height, u.rounded, "flex-shrink-0")
+          className: b(u.width, u.height, u.rounded, "flex-shrink-0")
         }
       );
     }
-    if ($r(s)) {
-      const u = Fe(s), b = ["w-full", "w-11/12", "w-5/6", "w-4/5", "w-3/4"], p = u.width === "w-full" ? b[Math.floor(Math.random() * b.length)] : u.width;
+    if (Vr(s)) {
+      const u = Re(s), h = ["w-full", "w-11/12", "w-5/6", "w-4/5", "w-3/4"], m = u.width === "w-full" ? h[Math.floor(Math.random() * h.length)] : u.width;
       return /* @__PURE__ */ t(
-        V,
+        q,
         {
           variant: o,
           theme: r,
-          className: S(p, u.height || "h-4", u.rounded)
+          className: b(m, u.height || "h-4", u.rounded)
         }
       );
     }
-    if (Fr(s)) {
+    if (qr(s)) {
       const u = Qt.map(
-        a,
-        (p) => Ce(p, o, r, n + 1)
-      ), b = c.split(" ").filter(
-        (p) => p.startsWith("flex") || p.startsWith("grid") || p.startsWith("gap") || p.startsWith("space-") || p.startsWith("p-") || p.startsWith("px-") || p.startsWith("py-") || p.startsWith("m-") || p.startsWith("mx-") || p.startsWith("my-") || p.startsWith("w-") || p.startsWith("h-") || p.startsWith("max-") || p.startsWith("min-") || p.startsWith("rounded") || p.startsWith("items-") || p.startsWith("justify-") || p.startsWith("self-") || p.startsWith("col-") || p.startsWith("row-")
+        l,
+        (m) => ke(m, o, r, n + 1)
+      ), h = c.split(" ").filter(
+        (m) => m.startsWith("flex") || m.startsWith("grid") || m.startsWith("gap") || m.startsWith("space-") || m.startsWith("p-") || m.startsWith("px-") || m.startsWith("py-") || m.startsWith("m-") || m.startsWith("mx-") || m.startsWith("my-") || m.startsWith("w-") || m.startsWith("h-") || m.startsWith("max-") || m.startsWith("min-") || m.startsWith("rounded") || m.startsWith("items-") || m.startsWith("justify-") || m.startsWith("self-") || m.startsWith("col-") || m.startsWith("row-")
       ).join(" ");
-      return /* @__PURE__ */ t("div", { className: b, children: u });
+      return /* @__PURE__ */ t("div", { className: h, children: u });
     }
-    if (a)
-      return Ce(a, o, r, n + 1);
-    const d = Fe(s);
+    if (l)
+      return ke(l, o, r, n + 1);
+    const d = Re(s);
     return /* @__PURE__ */ t(
-      V,
+      q,
       {
         variant: o,
         theme: r,
-        className: S(d.width, d.height, d.rounded)
+        className: b(d.width, d.height, d.rounded)
       }
     );
   }
   return null;
 }
-const V = ({ variant: e, className: o, theme: r }) => {
-  const n = oe(), s = r ?? n?.theme ?? "spectral", i = Wt[s];
+const q = ({ variant: e, className: o, theme: r }) => {
+  const n = X(), s = r ?? n?.theme ?? "spectral", i = Dt[s];
   return /* @__PURE__ */ t(
     "div",
     {
-      className: S("relative overflow-hidden rounded-md", (() => {
+      className: b("relative overflow-hidden rounded-md", (() => {
         switch (e) {
           case "sweep":
             return "skeleton-sweep";
@@ -5709,30 +6157,31 @@ const V = ({ variant: e, className: o, theme: r }) => {
       children: e === "fog" && /* @__PURE__ */ t("div", { className: "absolute inset-0 skeleton-fog-overlay" })
     }
   );
-}, Fn = ({ variant: e, children: o, className: r }) => {
-  const s = oe()?.theme ?? "spectral", i = Wt[s], a = j.useMemo(() => Ar(), []), l = o ? Ce(o, e, s) : (
+}, Pt = ({ variant: e, children: o, className: r }) => {
+  const s = X()?.theme ?? "spectral", i = Dt[s], l = O.useMemo(() => Yr(), []), a = o ? ke(o, e, s) : (
     // Default fallback layout when no children provided
-    /* @__PURE__ */ h(H, { children: [
-      /* @__PURE__ */ h("div", { className: "flex items-start gap-4 mb-4", children: [
-        /* @__PURE__ */ t(V, { variant: e, theme: s, className: "w-12 h-12 rounded-full flex-shrink-0" }),
-        /* @__PURE__ */ h("div", { className: "flex-1 space-y-2", children: [
-          /* @__PURE__ */ t(V, { variant: e, theme: s, className: "h-4 w-3/4" }),
-          /* @__PURE__ */ t(V, { variant: e, theme: s, className: "h-3 w-1/2" })
+    /* @__PURE__ */ p(W, { children: [
+      /* @__PURE__ */ p("div", { className: "flex items-start gap-4 mb-4", children: [
+        /* @__PURE__ */ t(q, { variant: e, theme: s, className: "w-12 h-12 rounded-full flex-shrink-0" }),
+        /* @__PURE__ */ p("div", { className: "flex-1 space-y-2", children: [
+          /* @__PURE__ */ t(q, { variant: e, theme: s, className: "h-4 w-3/4" }),
+          /* @__PURE__ */ t(q, { variant: e, theme: s, className: "h-3 w-1/2" })
         ] })
       ] }),
-      /* @__PURE__ */ h("div", { className: "space-y-3", children: [
-        /* @__PURE__ */ t(V, { variant: e, theme: s, className: "h-3 w-full" }),
-        /* @__PURE__ */ t(V, { variant: e, theme: s, className: "h-3 w-5/6" }),
-        /* @__PURE__ */ t(V, { variant: e, theme: s, className: "h-3 w-4/5" })
+      /* @__PURE__ */ p("div", { className: "space-y-3", children: [
+        /* @__PURE__ */ t(q, { variant: e, theme: s, className: "h-3 w-full" }),
+        /* @__PURE__ */ t(q, { variant: e, theme: s, className: "h-3 w-5/6" }),
+        /* @__PURE__ */ t(q, { variant: e, theme: s, className: "h-3 w-4/5" })
       ] })
     ] })
   );
-  return /* @__PURE__ */ h(H, { children: [
+  return /* @__PURE__ */ p(W, { children: [
     /* @__PURE__ */ t("style", { children: `
-        .${a} .skeleton-sweep {
+        .${l} .skeleton-sweep {
           background: linear-gradient(90deg, ${i.secondary} 0%, ${i.primary} 25%, ${i.accent} 50%, ${i.primary} 75%, ${i.secondary} 100%);
           background-size: 200% 100%;
-          animation: skeleton-sweep-anim 3s linear infinite;
+          animation: skeleton-sweep-anim 4.5s ease-in-out infinite;
+          box-shadow: 0 0 8px ${i.accent}40, inset 0 0 4px ${i.accent}20;
         }
 
         @keyframes skeleton-sweep-anim {
@@ -5740,20 +6189,21 @@ const V = ({ variant: e, className: o, theme: r }) => {
           100% { background-position: -200% 0; }
         }
 
-        .${a} .skeleton-scan {
+        .${l} .skeleton-scan {
           position: relative;
+          box-shadow: 0 0 6px ${i.glow}30, inset 0 0 3px ${i.glow}15;
         }
 
-        .${a} .skeleton-scan::after {
+        .${l} .skeleton-scan::after {
           content: '';
           position: absolute;
           left: 0;
           right: 0;
           height: 4px;
           background: ${i.glow};
-          box-shadow: 0 0 10px ${i.glow}, 0 0 20px ${i.glow};
-          opacity: 0.6;
-          animation: skeleton-scan-anim 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+          box-shadow: 0 0 12px ${i.glow}, 0 0 24px ${i.glow}, 0 0 36px ${i.glow}80;
+          opacity: 0.7;
+          animation: skeleton-scan-anim 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
           z-index: 10;
         }
 
@@ -5764,37 +6214,38 @@ const V = ({ variant: e, className: o, theme: r }) => {
           100% { top: 110%; opacity: 0; }
         }
 
-        .${a} .skeleton-flicker {
-          animation: skeleton-flicker-anim 3s steps(10, start) infinite;
+        .${l} .skeleton-flicker {
+          animation: skeleton-flicker-anim 4.5s steps(10, start) infinite;
+          box-shadow: 0 0 10px ${i.accent}50, 0 0 20px ${i.accent}25;
         }
 
         @keyframes skeleton-flicker-anim {
-          0%, 100% { opacity: 0.3; }
-          5% { opacity: 0.8; }
-          10% { opacity: 0.3; }
-          15% { opacity: 0.3; }
-          20% { opacity: 0.7; }
-          40% { opacity: 0.3; }
-          80% { opacity: 0.5; }
+          0%, 100% { opacity: 0.3; box-shadow: 0 0 6px ${i.accent}30; }
+          5% { opacity: 0.8; box-shadow: 0 0 16px ${i.accent}70, 0 0 24px ${i.accent}40; }
+          10% { opacity: 0.3; box-shadow: 0 0 6px ${i.accent}30; }
+          15% { opacity: 0.3; box-shadow: 0 0 6px ${i.accent}30; }
+          20% { opacity: 0.7; box-shadow: 0 0 14px ${i.accent}60, 0 0 20px ${i.accent}35; }
+          40% { opacity: 0.3; box-shadow: 0 0 6px ${i.accent}30; }
+          80% { opacity: 0.5; box-shadow: 0 0 10px ${i.accent}45; }
         }
 
-        .${a} .skeleton-fog-overlay {
-          background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        .${l} .skeleton-fog-overlay {
+          background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
           filter: blur(20px);
-          animation: skeleton-fog-anim 6s ease-in-out infinite alternate;
+          animation: skeleton-fog-anim 8s ease-in-out infinite alternate;
         }
 
         @keyframes skeleton-fog-anim {
-          0% { transform: translateX(-10%); opacity: 0.2; }
-          50% { transform: translateX(10%); opacity: 0.5; }
-          100% { transform: translateX(-10%); opacity: 0.2; }
+          0% { transform: translateX(-10%); opacity: 0.3; }
+          50% { transform: translateX(10%); opacity: 0.6; }
+          100% { transform: translateX(-10%); opacity: 0.3; }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .${a} .skeleton-sweep,
-          .${a} .skeleton-flicker,
-          .${a} .skeleton-fog-overlay,
-          .${a} .skeleton-scan::after {
+          .${l} .skeleton-sweep,
+          .${l} .skeleton-flicker,
+          .${l} .skeleton-fog-overlay,
+          .${l} .skeleton-scan::after {
             animation: none;
           }
         }
@@ -5802,22 +6253,25 @@ const V = ({ variant: e, className: o, theme: r }) => {
     /* @__PURE__ */ t(
       "div",
       {
-        className: S(
-          a,
+        className: b(
+          l,
           "relative p-6 rounded-2xl border shadow-lg",
           r
         ),
         style: {
           backgroundColor: i.bg,
-          borderColor: i.border
+          borderColor: i.border,
+          boxShadow: `0 0 20px ${i.accent}15, 0 4px 20px rgba(0,0,0,0.3), inset 0 0 30px ${i.accent}08`
         },
         role: "status",
         "aria-label": "Loading content",
-        children: l
+        children: a
       }
     )
   ] });
-}, Lr = `
+};
+Pt.displayName = "SpookySkeleton";
+const Kn = Pt, Ur = `
 /* Hide native scrollbar for various browsers */
 .hide-native-scrollbar {
   -ms-overflow-style: none;  /* IE and Edge */
@@ -5833,13 +6287,13 @@ const V = ({ variant: e, className: o, theme: r }) => {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-5px); }
 }
-`, Or = ({ className: e }) => /* @__PURE__ */ t(
+`, Kr = ({ className: e }) => /* @__PURE__ */ t(
   "svg",
   {
     viewBox: "0 0 174.57 164.28",
-    className: S("w-full h-full drop-shadow-[0_0_10px_rgba(255,255,255,0.4)]", e),
+    className: b("w-full h-full drop-shadow-[0_0_10px_rgba(255,255,255,0.4)]", e),
     xmlns: "http://www.w3.org/2000/svg",
-    children: /* @__PURE__ */ h("g", { style: { animation: "ghost-float 3s ease-in-out infinite" }, children: [
+    children: /* @__PURE__ */ p("g", { style: { animation: "ghost-float 3s ease-in-out infinite" }, children: [
       /* @__PURE__ */ t(
         "path",
         {
@@ -5886,13 +6340,13 @@ const V = ({ variant: e, className: o, theme: r }) => {
       )
     ] })
   }
-), Pr = ({ className: e }) => /* @__PURE__ */ t(
+), Jr = ({ className: e }) => /* @__PURE__ */ t(
   "svg",
   {
     viewBox: "0 0 116.24 100.37",
-    className: S("w-full h-full drop-shadow-[0_0_30px_rgba(255,255,255,0.6)]", e),
+    className: b("w-full h-full drop-shadow-[0_0_30px_rgba(255,255,255,0.6)]", e),
     xmlns: "http://www.w3.org/2000/svg",
-    children: /* @__PURE__ */ h("g", { children: [
+    children: /* @__PURE__ */ p("g", { children: [
       /* @__PURE__ */ t(
         "path",
         {
@@ -5900,7 +6354,7 @@ const V = ({ variant: e, className: o, theme: r }) => {
           d: "M70.58,2.81c-11.62-6.35-23.33-1.1-32.03,7.42-1.62,1.58-3.63,3.01-5.76,3.82-6.14,2.33-12.92,2.27-19.28,3.81-7.11,1.73-7.83,5.94-7.98,12.28-.19,8.37-2.03,17.7-4.3,25.74-.86,3.03-3.2,9.49,2.28,6.87,3.45-1.65,8.91-8.56,12.86-6.5,3.29,1.71,2.01,7.09,4.59,9.14,1.74,1.38,2.29.3,3.47-1.32,1.56-2.14,3.82-4.46,5.93-.74,1.62,2.85,1.01,7.4.42,10.52-1.03,5.44-3.8,10.7-4.53,16.18-.64,4.79,1.51,6.43,5.73,4.24,2.06-1.07,4.03-2.74,6.27-3.38,4.32-1.24,6.27.99,7.84,4.43,1.68,3.7,4.5,7.46,7.97,3.07,2.53-3.2,4.41-12.03,9.98-7.76,2.17,1.66,2.36,4.64,4.3,6.38,3.47,3.11,4.44-1.11,7.4-1.94,2.36-.66,3.98,2.69,6.88,1.82,3.76-1.12,4.01-4.44,3-7.64-.87-2.78-2.12-5.37-3.13-8.08-1.5-4.04-4.41-17.51,2.01-18.75,4.81-.93,6.43,7.02,12.19,3.72,3.27-1.87,2.64-4.52,2.36-7.57-.29-3.2-1.48-8.14,2.76-6.99,3.15.85,5.51,3.68,8.8,4.13,4.54.61,5.64-3.41,5.63-7.16-.02-9.46-.99-22.74-10.74-27.4-2.95-1.41-6.34-1.81-9.57-2.31-.61-.1-1.22-.19-1.82-.31-1.97-.37-3.83-.95-5.58-1.91-2.83-1.56-5.35-4.75-7.85-6.88-3.13-2.67-6.49-4.97-10.1-6.94Z"
         }
       ),
-      /* @__PURE__ */ h("g", { children: [
+      /* @__PURE__ */ p("g", { children: [
         /* @__PURE__ */ t(
           "path",
           {
@@ -5937,7 +6391,7 @@ const V = ({ variant: e, className: o, theme: r }) => {
           d: "M55.04,30.9c-.01-1.42-1.48-3.65-2.24-4.84-1.59-2.49-3.12-4.98-4.5-7.58-.99-1.87-1.87-3.81-3.02-5.59-.26-.41-.63-1.25-1.13-1.3-.72,1.74-.06,4.12.36,5.85.67,2.75,2.22,5.22,3.92,7.44,1.34,1.75,2.56,3.3,4.47,4.44.68.41,1.82.78,2.16,1.6Z"
         }
       ),
-      /* @__PURE__ */ h("g", { children: [
+      /* @__PURE__ */ p("g", { children: [
         /* @__PURE__ */ t(
           "path",
           {
@@ -6018,166 +6472,198 @@ const V = ({ variant: e, className: o, theme: r }) => {
       ] })
     ] })
   }
-), Ln = ({ children: e, className: o }) => {
-  const r = F(null), n = F(null), [s, i] = R(20), [a, l] = R(0), [c, d] = R(!1), [u, b] = R(!1), [p, f] = R(!1), y = X(() => {
-    if (!r.current || !n.current) return;
-    const { scrollTop: m, scrollHeight: g, clientHeight: w } = r.current, x = n.current.clientHeight, T = Math.max(
-      w / g * x,
-      40
-      // Minimum height
-    ), I = m / (g - w), $ = x - T, N = I * $;
-    i(T), l(N), g - m - w < 10 ? p || f(!0) : p && f(!1);
-  }, [p]);
-  return A(() => {
-    const m = r.current;
-    if (m) {
-      m.addEventListener("scroll", y), y();
-      const g = new ResizeObserver(y);
-      return g.observe(m), () => {
-        m.removeEventListener("scroll", y), g.disconnect();
+), Qr = O.forwardRef(
+  ({ children: e, className: o }, r) => {
+    const n = L(null), s = L(null), [i, l] = G(20), [a, c] = G(0), [d, u] = G(!1), [h, m] = G(!1), [f, y] = G(!1), [g, x] = G(0), w = O.useId(), k = Q(() => {
+      if (!n.current || !s.current) return;
+      const { scrollTop: $, scrollHeight: M, clientHeight: F } = n.current, E = s.current.clientHeight, z = Math.max(
+        F / M * E,
+        40
+        // Minimum height
+      ), C = $ / (M - F), N = E - z, B = C * N;
+      l(z), c(B), x(Math.round(C * 100)), M - $ - F < 10 ? f || y(!0) : f && y(!1);
+    }, [f]);
+    return A(() => {
+      const $ = n.current;
+      if ($) {
+        $.addEventListener("scroll", k), k();
+        const M = new ResizeObserver(k);
+        return M.observe($), () => {
+          $.removeEventListener("scroll", k), M.disconnect();
+        };
+      }
+    }, [k]), A(() => {
+      const $ = (F) => {
+        if (!h || !n.current || !s.current) return;
+        F.preventDefault();
+        const E = s.current.getBoundingClientRect(), z = E.top, C = E.height, N = F.clientY - z - i / 2, B = Math.max(0, Math.min(1, N / (C - i))), _ = n.current.scrollHeight, Z = n.current.clientHeight;
+        n.current.scrollTop = B * (_ - Z);
+      }, M = () => {
+        m(!1), document.body.style.userSelect = "";
       };
-    }
-  }, [y]), A(() => {
-    const m = (w) => {
-      if (!u || !r.current || !n.current) return;
-      w.preventDefault();
-      const x = n.current.getBoundingClientRect(), T = x.top, I = x.height, $ = w.clientY - T - s / 2, N = Math.max(0, Math.min(1, $ / (I - s))), E = r.current.scrollHeight, k = r.current.clientHeight;
-      r.current.scrollTop = N * (E - k);
-    }, g = () => {
-      b(!1), document.body.style.userSelect = "";
-    };
-    return u && (window.addEventListener("mousemove", m), window.addEventListener("mouseup", g), document.body.style.userSelect = "none"), () => {
-      window.removeEventListener("mousemove", m), window.removeEventListener("mouseup", g);
-    };
-  }, [u, s]), /* @__PURE__ */ h(
-    "div",
-    {
-      className: S("relative w-full h-full overflow-hidden rounded-lg transition-all duration-300", o),
-      style: {
-        borderWidth: "2px",
-        borderStyle: "solid",
-        borderColor: "var(--ghost-border)",
-        backgroundColor: "var(--ghost-bg-secondary)",
-        boxShadow: "0 0 20px rgba(var(--ghost-accent-rgb), 0.3), 0 0 40px rgba(var(--ghost-accent-rgb), 0.15)"
-      },
-      children: [
-        /* @__PURE__ */ t("style", { children: Lr }),
-        /* @__PURE__ */ t(
-          "div",
-          {
-            ref: r,
-            className: "w-full h-full overflow-y-auto hide-native-scrollbar pr-4 relative z-10",
-            children: e
-          }
-        ),
-        /* @__PURE__ */ t(
-          "div",
-          {
-            ref: n,
-            className: "absolute top-2 bottom-2 right-1 w-3 rounded-full z-50 transition-colors duration-300",
-            style: {
-              backgroundColor: "rgba(255, 255, 255, 0.05)",
-              borderWidth: "1px",
-              borderStyle: "solid",
-              borderColor: "rgba(255, 255, 255, 0.1)"
-            },
-            onMouseEnter: () => d(!0),
-            onMouseLeave: () => !u && d(!1),
-            children: /* @__PURE__ */ h(
-              "div",
-              {
-                className: "absolute w-full rounded-full cursor-pointer transition-all duration-200",
-                style: {
-                  height: s,
-                  top: a,
-                  backgroundColor: c || u ? "var(--ghost-accent)" : "rgba(var(--ghost-accent-rgb), 0.5)"
-                },
-                onMouseDown: (m) => {
-                  m.stopPropagation(), b(!0);
-                },
-                children: [
-                  /* @__PURE__ */ t(L, { children: (c || u) && /* @__PURE__ */ h(
-                    v.div,
-                    {
-                      initial: { opacity: 0, x: 20, scale: 0.5, rotate: 20 },
-                      animate: { opacity: 1, x: -60, scale: 1, rotate: -10 },
-                      exit: { opacity: 0, x: 10, scale: 0.5, rotate: 0 },
-                      transition: { type: "spring", stiffness: 300, damping: 20 },
-                      className: "absolute top-1/2 -translate-y-1/2 w-16 h-16 pointer-events-none",
-                      children: [
-                        /* @__PURE__ */ t(Or, {}),
-                        /* @__PURE__ */ h(
-                          v.div,
-                          {
-                            initial: { opacity: 0, scale: 0 },
-                            animate: { opacity: 1, scale: 1 },
-                            transition: { delay: 0.2 },
-                            className: "absolute -top-8 -left-8 bg-white text-black text-[10px] font-bold px-2 py-1 rounded-lg whitespace-nowrap",
-                            children: [
-                              "Boo! Scrolled ya!",
-                              /* @__PURE__ */ t("div", { className: "absolute bottom-0 right-2 w-2 h-2 bg-white rotate-45 translate-y-1" })
-                            ]
-                          }
-                        )
-                      ]
-                    }
-                  ) }),
-                  /* @__PURE__ */ t(
-                    "div",
-                    {
-                      className: S(
-                        "absolute inset-0 blur-md rounded-full transition-opacity duration-300",
-                        c || u ? "opacity-100" : "opacity-0"
-                      ),
-                      style: {
-                        backgroundColor: "var(--ghost-accent)"
+      return h && (window.addEventListener("mousemove", $), window.addEventListener("mouseup", M), document.body.style.userSelect = "none"), () => {
+        window.removeEventListener("mousemove", $), window.removeEventListener("mouseup", M);
+      };
+    }, [h, i]), /* @__PURE__ */ p(
+      "div",
+      {
+        ref: r,
+        className: b("relative w-full h-full overflow-hidden rounded-lg transition-all duration-300", o),
+        style: {
+          borderWidth: "2px",
+          borderStyle: "solid",
+          borderColor: "var(--ghost-border)",
+          backgroundColor: "var(--ghost-bg-secondary)",
+          boxShadow: "0 0 20px rgba(var(--ghost-accent-rgb), 0.3), 0 0 40px rgba(var(--ghost-accent-rgb), 0.15)"
+        },
+        children: [
+          /* @__PURE__ */ t("style", { children: Ur }),
+          /* @__PURE__ */ t(
+            "div",
+            {
+              ref: n,
+              id: w,
+              className: "w-full h-full overflow-y-auto hide-native-scrollbar pr-4 relative z-10",
+              children: e
+            }
+          ),
+          /* @__PURE__ */ t(
+            "div",
+            {
+              ref: s,
+              className: "absolute top-2 bottom-2 right-1 w-3 rounded-full z-50 transition-colors duration-300",
+              style: {
+                backgroundColor: "rgba(255, 255, 255, 0.05)",
+                borderWidth: "1px",
+                borderStyle: "solid",
+                borderColor: "rgba(255, 255, 255, 0.1)"
+              },
+              onMouseEnter: () => u(!0),
+              onMouseLeave: () => !h && u(!1),
+              children: /* @__PURE__ */ p(
+                "div",
+                {
+                  role: "scrollbar",
+                  "aria-controls": w,
+                  "aria-valuenow": g,
+                  "aria-valuemin": 0,
+                  "aria-valuemax": 100,
+                  "aria-label": "Scroll position",
+                  tabIndex: 0,
+                  className: "absolute w-full rounded-full cursor-pointer transition-all duration-200",
+                  style: {
+                    height: i,
+                    top: a,
+                    backgroundColor: d || h ? "var(--ghost-accent)" : "rgba(var(--ghost-accent-rgb), 0.5)"
+                  },
+                  onMouseDown: ($) => {
+                    $.stopPropagation(), m(!0);
+                  },
+                  children: [
+                    /* @__PURE__ */ t(D, { children: (d || h) && /* @__PURE__ */ p(
+                      v.div,
+                      {
+                        initial: { opacity: 0, x: 20, scale: 0.5, rotate: 20 },
+                        animate: { opacity: 1, x: -60, scale: 1, rotate: -10 },
+                        exit: { opacity: 0, x: 10, scale: 0.5, rotate: 0 },
+                        transition: { type: "spring", stiffness: 300, damping: 20 },
+                        className: "absolute top-1/2 -translate-y-1/2 pointer-events-none",
+                        style: {
+                          width: Math.max(i * 0.8, 40),
+                          height: Math.max(i * 0.8, 40)
+                        },
+                        children: [
+                          /* @__PURE__ */ t(Kr, {}),
+                          /* @__PURE__ */ p(
+                            v.div,
+                            {
+                              initial: { opacity: 0, scale: 0 },
+                              animate: { opacity: 1, scale: 1 },
+                              transition: { delay: 0.2 },
+                              className: "absolute -top-8 -left-8 bg-white text-black text-[10px] font-bold px-2 py-1 rounded-lg whitespace-nowrap",
+                              children: [
+                                "Boo! Scrolled ya!",
+                                /* @__PURE__ */ t("div", { className: "absolute bottom-0 right-2 w-2 h-2 bg-white rotate-45 translate-y-1" })
+                              ]
+                            }
+                          )
+                        ]
                       }
-                    }
-                  )
-                ]
-              }
-            )
-          }
-        ),
-        /* @__PURE__ */ t(L, { children: p && /* @__PURE__ */ t(H, { children: /* @__PURE__ */ t(
-          v.div,
-          {
-            initial: { opacity: 0 },
-            animate: { opacity: 1 },
-            exit: { opacity: 0 },
-            className: "absolute inset-0 bg-black/60 backdrop-blur-[2px] z-40 pointer-events-none flex flex-col items-center justify-end pb-0",
-            children: /* @__PURE__ */ h(
-              v.div,
-              {
-                initial: { y: "100%", scale: 0 },
-                animate: { y: "10%", scale: 1.5 },
-                exit: { y: "100%", scale: 0, opacity: 0 },
-                transition: { type: "spring", stiffness: 200, damping: 15 },
-                className: "w-64 h-64 relative",
-                children: [
-                  /* @__PURE__ */ t(Pr, {}),
-                  /* @__PURE__ */ t(
-                    v.div,
-                    {
-                      initial: { opacity: 0, y: 20 },
-                      animate: { opacity: 1, y: 0 },
-                      transition: { delay: 0.3 },
-                      className: "absolute -top-10 left-1/2 -translate-x-1/2 text-white font-black text-2xl uppercase tracking-widest",
-                      style: {
-                        filter: "drop-shadow(0 0 10px var(--ghost-accent)) drop-shadow(0 0 20px var(--ghost-accent))"
-                      },
-                      children: "The End Is Here"
-                    }
-                  )
-                ]
-              }
-            )
-          }
-        ) }) })
-      ]
-    }
-  );
-}, Dr = `
+                    ) }),
+                    /* @__PURE__ */ t(
+                      "div",
+                      {
+                        className: b(
+                          "absolute inset-0 blur-md rounded-full transition-opacity duration-300",
+                          d || h ? "opacity-100" : "opacity-0"
+                        ),
+                        style: {
+                          backgroundColor: "var(--ghost-accent)"
+                        }
+                      }
+                    )
+                  ]
+                }
+              )
+            }
+          ),
+          /* @__PURE__ */ t(D, { children: f && /* @__PURE__ */ t(W, { children: /* @__PURE__ */ t(
+            v.div,
+            {
+              initial: { opacity: 0 },
+              animate: { opacity: 1 },
+              exit: { opacity: 0 },
+              className: "absolute inset-0 bg-black/60 backdrop-blur-[2px] z-40 pointer-events-none flex flex-col items-center justify-end pb-0",
+              children: /* @__PURE__ */ p(
+                v.div,
+                {
+                  initial: { y: "100%", scale: 0 },
+                  animate: { y: "10%", scale: 1.5 },
+                  exit: { y: "100%", scale: 0, opacity: 0 },
+                  transition: { type: "spring", stiffness: 200, damping: 15 },
+                  className: "relative",
+                  style: {
+                    width: n.current ? Math.min(n.current.clientWidth * 0.4, 256) : 256,
+                    height: n.current ? Math.min(n.current.clientHeight * 0.4, 256) : 256
+                  },
+                  children: [
+                    /* @__PURE__ */ t(Jr, {}),
+                    /* @__PURE__ */ t(
+                      v.div,
+                      {
+                        initial: { opacity: 0, y: 20 },
+                        animate: { opacity: 1, y: 0 },
+                        transition: { delay: 0.3 },
+                        className: "absolute left-1/2 -translate-x-1/2 text-white font-black uppercase tracking-widest whitespace-nowrap",
+                        style: {
+                          top: n.current ? -Math.min(n.current.clientHeight * 0.05, 40) : -40,
+                          fontSize: n.current ? Math.min(n.current.clientWidth * 0.04, 24) : 24,
+                          filter: "drop-shadow(0 0 10px var(--ghost-accent)) drop-shadow(0 0 20px var(--ghost-accent))"
+                        },
+                        children: "The End Is Here"
+                      }
+                    )
+                  ]
+                }
+              )
+            }
+          ) }) })
+        ]
+      }
+    );
+  }
+);
+Qr.displayName = "SpookyScrollbar";
+const en = {
+  spectral: {
+    glowBg: "bg-purple-500/30",
+    textShadow: "0 0 10px rgba(168, 85, 247, 0.8)"
+  },
+  blood: {
+    glowBg: "bg-red-500/30",
+    textShadow: "0 0 10px rgba(239, 68, 68, 0.8)"
+  }
+}, tn = `
 /* Hide default cursor everywhere when this component is active */
 body.ghost-cursor-active, body.ghost-cursor-active * {
   cursor: none !important;
@@ -6193,7 +6679,7 @@ body.ghost-cursor-active, body.ghost-cursor-active * {
   animation: ghost-blink 4s infinite;
   transform-origin: center;
 }
-`, _r = ({ className: e }) => /* @__PURE__ */ h(
+`, on = ({ className: e }) => /* @__PURE__ */ p(
   "svg",
   {
     viewBox: "0 0 174.57 164.28",
@@ -6201,7 +6687,7 @@ body.ghost-cursor-active, body.ghost-cursor-active * {
     xmlns: "http://www.w3.org/2000/svg",
     children: [
       /* @__PURE__ */ t("defs", { children: /* @__PURE__ */ t("style", { children: ".cls-1{fill:#fff;}.cls-2{fill:#2b2b28;}" }) }),
-      /* @__PURE__ */ h("g", { id: "Objects", children: [
+      /* @__PURE__ */ p("g", { id: "Objects", children: [
         /* @__PURE__ */ t(
           "path",
           {
@@ -6209,7 +6695,7 @@ body.ghost-cursor-active, body.ghost-cursor-active * {
             d: "M159.58,87.56c-23.92-9.2-44.68-10.73-78.18-69.63C56.52-25.82,6.76,15.3,37.87,89.33s104.93,80.6,110.08,72.05c5.15-8.55-14.91-20.39-2.42-25.65,12.49-5.26,32.75-.1,28.45-10.9-4.3-10.8-22.72-16.55-8.6-21.24,14.12-4.69,2.17-12.96-5.8-16.02Z"
           }
         ),
-        /* @__PURE__ */ h("g", { className: "animate-blink", children: [
+        /* @__PURE__ */ p("g", { className: "animate-blink", children: [
           /* @__PURE__ */ t(
             "path",
             {
@@ -6249,60 +6735,60 @@ body.ghost-cursor-active, body.ghost-cursor-active * {
       ] })
     ]
   }
-), On = () => {
-  const e = Me(-100), o = Me(-100), r = { damping: 25, stiffness: 300, mass: 0.5 }, n = q(e, r), s = q(o, r), [i, a] = R(!1), [l, c] = R(!1), [d, u] = R([]), b = F(0);
+), _t = () => {
+  const o = X()?.theme ?? "spectral", r = en[o], n = Ce(-100), s = Ce(-100), i = { damping: 25, stiffness: 300, mass: 0.5 }, l = re(n, i), a = re(s, i), [c, d] = G(!1), [u, h] = G(!1), [m, f] = G([]), y = L(0);
   return A(() => {
     document.body.classList.add("ghost-cursor-active");
-    const p = (y) => {
-      e.set(y.clientX), o.set(y.clientY);
-      const m = y.target, g = m.tagName === "BUTTON" || m.tagName === "A" || m.closest("button") || m.closest("a") || window.getComputedStyle(m).cursor === "pointer";
-      a(!!g);
-    }, f = (y) => {
-      c(!0);
-      const m = Math.random() > 0.5 ? "BOO!" : "POOF!", g = {
-        id: b.current++,
-        x: y.clientX,
-        y: y.clientY,
-        text: m
+    const g = (w) => {
+      n.set(w.clientX), s.set(w.clientY);
+      const k = w.target, $ = k.tagName === "BUTTON" || k.tagName === "A" || k.closest("button") || k.closest("a") || window.getComputedStyle(k).cursor === "pointer";
+      d(!!$);
+    }, x = (w) => {
+      h(!0);
+      const k = Math.random() > 0.5 ? "BOO!" : "POOF!", $ = {
+        id: y.current++,
+        x: w.clientX,
+        y: w.clientY,
+        text: k
       };
-      u((w) => [...w, g]), setTimeout(() => {
-        u((w) => w.filter((x) => x.id !== g.id));
-      }, 1e3), setTimeout(() => c(!1), 150);
+      f((M) => [...M, $]), setTimeout(() => {
+        f((M) => M.filter((F) => F.id !== $.id));
+      }, 1e3), setTimeout(() => h(!1), 150);
     };
-    return window.addEventListener("mousemove", p), window.addEventListener("mousedown", f), () => {
-      document.body.classList.remove("ghost-cursor-active"), window.removeEventListener("mousemove", p), window.removeEventListener("mousedown", f);
+    return window.addEventListener("mousemove", g), window.addEventListener("mousedown", x), () => {
+      document.body.classList.remove("ghost-cursor-active"), window.removeEventListener("mousemove", g), window.removeEventListener("mousedown", x);
     };
-  }, [e, o]), /* @__PURE__ */ h(H, { children: [
-    /* @__PURE__ */ t("style", { children: Dr }),
+  }, [n, s]), /* @__PURE__ */ p(W, { children: [
+    /* @__PURE__ */ t("style", { children: tn }),
     /* @__PURE__ */ t(
       v.div,
       {
         className: "fixed top-0 left-0 pointer-events-none z-[9999]",
         style: {
-          x: n,
-          y: s,
+          x: l,
+          y: a,
           translateX: "-20%",
           // Center offset slightly so the "head" is the pointer
           translateY: "-20%"
         },
-        children: /* @__PURE__ */ h(
+        children: /* @__PURE__ */ p(
           v.div,
           {
             animate: {
-              scale: l ? 0.8 : i ? 1.2 : 1,
-              rotate: l ? -15 : i ? 10 : 0
+              scale: u ? 0.8 : c ? 1.2 : 1,
+              rotate: u ? -15 : c ? 10 : 0
             },
             transition: { type: "spring", stiffness: 400, damping: 20 },
             className: "relative w-12 h-12",
             children: [
-              /* @__PURE__ */ t("div", { className: "absolute inset-0 bg-purple-500/30 blur-xl rounded-full scale-150 animate-pulse" }),
-              /* @__PURE__ */ t(_r, { className: "w-full h-full drop-shadow-lg" })
+              /* @__PURE__ */ t("div", { className: b("absolute inset-0 blur-xl rounded-full scale-150 animate-pulse", r.glowBg) }),
+              /* @__PURE__ */ t(on, { className: "w-full h-full drop-shadow-lg" })
             ]
           }
         )
       }
     ),
-    /* @__PURE__ */ t(L, { children: d.map((p) => /* @__PURE__ */ t(
+    /* @__PURE__ */ t(D, { children: m.map((g) => /* @__PURE__ */ t(
       v.div,
       {
         initial: { opacity: 1, scale: 0.5, y: 0 },
@@ -6311,68 +6797,81 @@ body.ghost-cursor-active, body.ghost-cursor-active * {
         transition: { duration: 0.8, ease: "easeOut" },
         className: "fixed pointer-events-none z-[9998] font-black text-lg text-white tracking-widest",
         style: {
-          left: p.x,
-          top: p.y,
-          textShadow: "0 0 10px rgba(168, 85, 247, 0.8)",
+          left: g.x,
+          top: g.y,
+          textShadow: r.textShadow,
           // Random rotation for variety
           rotate: Math.random() * 30 - 15
         },
-        children: p.text
+        children: g.text
       },
-      p.id
+      g.id
     )) })
   ] });
-}, Pn = ({
-  color: e = "#90FFB5",
+};
+_t.displayName = "GhostCursor";
+const Jn = _t, rn = {
+  spectral: {
+    defaultColor: "#FF6F00"
+    // Orange accent for spectral theme
+  },
+  blood: {
+    defaultColor: "#ef4444"
+    // Red accent for blood theme
+  }
+}, Ht = ({
+  color: e,
   particleCount: o = 3
 }) => {
-  const [r, n] = R([]);
+  const [r, n] = G([]), i = X()?.theme ?? "spectral", l = rn[i], a = e ?? l.defaultColor;
   return A(() => {
-    let s = 0, i = 0;
-    const a = (l) => {
-      const c = Date.now();
-      if (c - i < 50) return;
-      i = c;
-      const d = [];
-      for (let u = 0; u < o; u++)
-        d.push({
-          x: l.clientX + (Math.random() - 0.5) * 20,
-          y: l.clientY + (Math.random() - 0.5) * 20,
-          id: s++,
+    let c = 0, d = 0;
+    const u = (h) => {
+      const m = Date.now();
+      if (m - d < 50) return;
+      d = m;
+      const f = [];
+      for (let y = 0; y < o; y++)
+        f.push({
+          x: h.clientX + (Math.random() - 0.5) * 20,
+          y: h.clientY + (Math.random() - 0.5) * 20,
+          id: c++,
           vx: (Math.random() - 0.5) * 2,
           vy: (Math.random() - 0.5) * 2 - 1
         });
-      n((u) => [...u, ...d].slice(-30));
+      n((y) => [...y, ...f].slice(-30));
     };
-    return window.addEventListener("mousemove", a), () => window.removeEventListener("mousemove", a);
-  }, [o]), /* @__PURE__ */ t("div", { className: "pointer-events-none fixed inset-0 z-50", children: /* @__PURE__ */ t(L, { children: r.map((s) => /* @__PURE__ */ t(
+    return window.addEventListener("mousemove", u), () => window.removeEventListener("mousemove", u);
+  }, [o]), /* @__PURE__ */ t("div", { className: "pointer-events-none fixed inset-0 z-50", children: /* @__PURE__ */ t(D, { children: r.map((c) => /* @__PURE__ */ t(
     v.div,
     {
       className: "absolute rounded-full",
       style: {
-        left: s.x,
-        top: s.y,
+        left: c.x,
+        top: c.y,
         width: 4 + Math.random() * 4,
         height: 4 + Math.random() * 4,
-        backgroundColor: e,
-        boxShadow: `0 0 10px ${e}`
+        backgroundColor: a,
+        boxShadow: `0 0 10px ${a}`
       },
       initial: { opacity: 0.8, scale: 1 },
       animate: {
         opacity: 0,
         scale: 0.2,
-        x: s.vx * 50,
-        y: s.vy * 50
+        x: c.vx * 50,
+        y: c.vy * 50
       },
       exit: { opacity: 0 },
       transition: { duration: 1, ease: "easeOut" },
       onAnimationComplete: () => {
-        n((i) => i.filter((a) => a.id !== s.id));
+        n((d) => d.filter((u) => u.id !== c.id));
       }
     },
-    s.id
+    c.id
   )) }) });
-}, Hr = {
+};
+Ht.displayName = "WispTrail";
+const Qn = Ht, nn = {
   spooky: {
     colors: {
       primary: "#22C55E",
@@ -6406,7 +6905,7 @@ body.ghost-cursor-active, body.ghost-cursor-active * {
     glowOpacity: 0.25,
     distortionIntensity: 1
   }
-}, ue = {
+}, me = {
   theme: "spooky",
   intensity: 1,
   effects: {
@@ -6421,70 +6920,70 @@ body.ghost-cursor-active, body.ghost-cursor-active * {
   maxWaves: 5,
   colorTransitionZones: "vertical"
 };
-function Wr(e, o) {
+function sn(e, o) {
   const r = o.timestamp - e.timestamp;
   if (r === 0)
     return { x: 0, y: 0, magnitude: 0 };
-  const n = 16.67, s = (o.x - e.x) / r * n, i = (o.y - e.y) / r * n, a = Math.sqrt(s * s + i * i);
-  return { x: s, y: i, magnitude: a };
+  const n = 16.67, s = (o.x - e.x) / r * n, i = (o.y - e.y) / r * n, l = Math.sqrt(s * s + i * i);
+  return { x: s, y: i, magnitude: l };
 }
-function Zr({ onStateChange: e, throttleMs: o = 16.67 }) {
-  const [r, n] = R({
+function an({ onStateChange: e, throttleMs: o = 16.67 }) {
+  const [r, n] = G({
     position: { x: 0, y: 0 },
     velocity: { x: 0, y: 0, magnitude: 0 },
     isMoving: !1,
     isClicking: !1
-  }), s = F({
+  }), s = L({
     x: 0,
     y: 0,
     timestamp: Date.now()
-  }), i = F(Date.now()), a = F(!1), l = F(e);
+  }), i = L(Date.now()), l = L(!1), a = L(e);
   return A(() => {
-    l.current = e;
+    a.current = e;
   }, [e]), A(() => {
-    l.current(r);
+    a.current(r);
   }, [r]), A(() => {
-    const c = (b) => {
-      const p = Date.now();
-      if (p - i.current < o)
+    const c = (h) => {
+      const m = Date.now();
+      if (m - i.current < o)
         return;
       const f = {
-        x: b.clientX,
-        y: b.clientY,
-        timestamp: p
-      }, y = Wr(s.current, f), m = {
+        x: h.clientX,
+        y: h.clientY,
+        timestamp: m
+      }, y = sn(s.current, f), g = {
         position: { x: f.x, y: f.y },
         velocity: y,
         isMoving: y.magnitude > 0.5,
         // Consider moving if velocity > 0.5 pixels/frame
-        isClicking: a.current
+        isClicking: l.current
       };
-      n(m), s.current = f, i.current = p;
+      n(g), s.current = f, i.current = m;
     }, d = () => {
-      a.current = !0, n((b) => ({ ...b, isClicking: !0 }));
+      l.current = !0, n((h) => ({ ...h, isClicking: !0 }));
     }, u = () => {
-      a.current = !1, n((b) => ({ ...b, isClicking: !1 }));
+      l.current = !1, n((h) => ({ ...h, isClicking: !1 }));
     };
     return window.addEventListener("mousemove", c), window.addEventListener("mousedown", d), window.addEventListener("mouseup", u), () => {
       window.removeEventListener("mousemove", c), window.removeEventListener("mousedown", d), window.removeEventListener("mouseup", u);
     };
   }, [o]), null;
 }
-function Zt(e) {
+function Wt(e) {
   const o = e || "spooky";
-  return typeof o == "string" ? Hr[o] : o;
+  return typeof o == "string" ? nn[o] : o;
 }
-function jr(e, o, r = typeof window < "u" ? window.innerHeight : 1e3) {
-  const n = Zt(o.theme), s = o.colorTransitionZones || "vertical";
+function ln(e, o, r = typeof window < "u" ? window.innerHeight : 1e3) {
+  const n = Wt(o.theme), s = o.colorTransitionZones || "vertical";
   let i;
   if (s === "vertical")
-    i = Yr(e.y, r, n);
+    i = cn(e.y, r, n);
   else if (s === "horizontal") {
-    const a = typeof window < "u" ? window.innerWidth : 1e3;
-    i = Vr(e.x, a, n);
+    const l = typeof window < "u" ? window.innerWidth : 1e3;
+    i = dn(e.x, l, n);
   } else if (s === "radial") {
-    const a = typeof window < "u" ? window.innerWidth : 1e3;
-    i = Xr(e, a, r, n);
+    const l = typeof window < "u" ? window.innerWidth : 1e3;
+    i = un(e, l, r, n);
   } else
     i = n.colors.primary;
   return {
@@ -6495,19 +6994,19 @@ function jr(e, o, r = typeof window < "u" ? window.innerHeight : 1e3) {
     }
   };
 }
-function Yr(e, o, r) {
+function cn(e, o, r) {
   const n = e / o;
   return n < 0.33 ? r.colors.primary : n < 0.66 ? r.colors.secondary : r.colors.tertiary;
 }
-function Vr(e, o, r) {
+function dn(e, o, r) {
   const n = e / o;
   return n < 0.33 ? r.colors.primary : n < 0.66 ? r.colors.secondary : r.colors.tertiary;
 }
-function Xr(e, o, r, n) {
-  const s = o / 2, i = r / 2, a = Math.sqrt(s * s + i * i), l = e.x - s, c = e.y - i, u = Math.sqrt(l * l + c * c) / a;
+function un(e, o, r, n) {
+  const s = o / 2, i = r / 2, l = Math.sqrt(s * s + i * i), a = e.x - s, c = e.y - i, u = Math.sqrt(a * a + c * c) / l;
   return u < 0.33 ? n.colors.primary : u < 0.66 ? n.colors.secondary : n.colors.tertiary;
 }
-function jt() {
+function Zt() {
   if (typeof CSS > "u" || typeof CSS.supports != "function")
     return !1;
   try {
@@ -6516,7 +7015,7 @@ function jt() {
     return !1;
   }
 }
-function Yt() {
+function jt() {
   if (typeof document > "u")
     return !1;
   try {
@@ -6526,7 +7025,7 @@ function Yt() {
     return !1;
   }
 }
-function Vt() {
+function Yt() {
   if (typeof CSS > "u" || typeof CSS.supports != "function")
     return !1;
   try {
@@ -6535,10 +7034,10 @@ function Vt() {
     return !1;
   }
 }
-function qr() {
+function pn() {
   return typeof requestAnimationFrame < "u";
 }
-function Ur() {
+function hn() {
   if (typeof window > "u")
     return !1;
   try {
@@ -6547,23 +7046,23 @@ function Ur() {
     return !1;
   }
 }
-function Kr(e, o, r) {
+function mn(e, o, r) {
   return Math.max(o, Math.min(r, e));
 }
-function Le(e, o = 1) {
-  return e == null ? o : typeof e != "number" || isNaN(e) ? (console.warn("[CursorEffect] Invalid intensity value, using default:", o), o) : Kr(e, 0, 1);
+function Ge(e, o = 1) {
+  return e == null ? o : typeof e != "number" || isNaN(e) ? (console.warn("[CursorEffect] Invalid intensity value, using default:", o), o) : mn(e, 0, 1);
 }
-function pt(e, o = 150) {
+function ct(e, o = 150) {
   return e == null ? o : typeof e != "number" || isNaN(e) || e < 0 ? (console.warn("[CursorEffect] Invalid proximity radius, using default:", o), o) : e;
 }
-function _e(e) {
+function Oe(e) {
   return e ? document.body.contains(e) : !1;
 }
-function Jr(e) {
+function fn(e) {
   return e.width > 0 && e.height > 0;
 }
-function Qr(e) {
-  if (!e || !_e(e))
+function gn(e) {
+  if (!e || !Oe(e))
     return new DOMRect(0, 0, 0, 0);
   try {
     return e.getBoundingClientRect();
@@ -6571,8 +7070,8 @@ function Qr(e) {
     return console.warn("[CursorEffect] Error getting element bounds:", o), new DOMRect(0, 0, 0, 0);
   }
 }
-function en() {
-  const e = jt(), o = Yt(), r = Vt(), n = qr();
+function bn() {
+  const e = Zt(), o = jt(), r = Yt(), n = pn();
   return {
     cssFilters: e,
     svgFilters: o,
@@ -6585,20 +7084,20 @@ function en() {
     // Always available, just less ethereal without blend modes
   };
 }
-const Se = 20;
-function tn(e, o) {
+const Me = 20;
+function yn(e, o) {
   const r = o.x - e.x, n = o.y - e.y;
   return Math.sqrt(r * r + n * n);
 }
-function pe(e) {
+function fe(e) {
   return {
     x: e.left + e.width / 2,
     y: e.top + e.height / 2
   };
 }
-function on(e, o, r) {
-  const n = Qr(e.ref.current);
-  if (!Jr(n))
+function xn(e, o, r) {
+  const n = gn(e.ref.current);
+  if (!fn(n))
     return {
       ...e,
       bounds: n,
@@ -6606,59 +7105,59 @@ function on(e, o, r) {
       isInProximity: !1,
       isHovered: !1
     };
-  const s = pe(n), i = tn(o, s), a = i <= r, l = o.x >= n.left && o.x <= n.right && o.y >= n.top && o.y <= n.bottom;
+  const s = fe(n), i = yn(o, s), l = i <= r, a = o.x >= n.left && o.x <= n.right && o.y >= n.top && o.y <= n.bottom;
   return {
     ...e,
     bounds: n,
     distance: i,
-    isInProximity: a,
-    isHovered: l
+    isInProximity: l,
+    isHovered: a
   };
 }
-function rn(e, o, r, n) {
+function vn(e, o, r, n) {
   const s = /* @__PURE__ */ new Map();
   let i;
-  if (n && e.size > Se) {
-    const a = Math.max(
+  if (n && e.size > Me) {
+    const l = Math.max(
       r,
-      ...Array.from(e.values()).map((l) => l.options.proximityRadius ?? r)
+      ...Array.from(e.values()).map((a) => a.options.proximityRadius ?? r)
     );
     i = n.getNearbyElements(
       o.x,
       o.y,
-      a
+      l
     );
   } else
     i = new Set(e.keys());
-  return e.forEach((a, l) => {
-    if (!a.ref.current) {
-      s.set(l, a);
+  return e.forEach((l, a) => {
+    if (!l.ref.current) {
+      s.set(a, l);
       return;
     }
-    if (n && e.size > Se && !i.has(l)) {
-      s.set(l, {
-        ...a,
+    if (n && e.size > Me && !i.has(a)) {
+      s.set(a, {
+        ...l,
         distance: 1 / 0,
         isInProximity: !1,
         isHovered: !1
       });
       return;
     }
-    const c = a.options.proximityRadius ?? r, d = on(
-      a,
+    const c = l.options.proximityRadius ?? r, d = xn(
+      l,
       o,
       c
     );
-    s.set(l, d);
+    s.set(a, d);
   }), s;
 }
-function nn(e, o) {
+function wn(e, o) {
   o.forEach((r, n) => {
     const s = e.get(n);
     s && (!s.isInProximity && r.isInProximity && r.options.onProximityEnter?.(), s.isInProximity && !r.isInProximity && r.options.onProximityExit?.(), !s.isHovered && r.isHovered && r.options.onHover?.());
   });
 }
-class sn {
+class kn {
   cellSize;
   cells;
   /**
@@ -6686,10 +7185,10 @@ class sn {
    * @returns Set of element IDs in nearby cells
    */
   getNearbyElements(o, r, n) {
-    const s = /* @__PURE__ */ new Set(), i = Math.ceil(n / this.cellSize), a = Math.floor(o / this.cellSize), l = Math.floor(r / this.cellSize);
+    const s = /* @__PURE__ */ new Set(), i = Math.ceil(n / this.cellSize), l = Math.floor(o / this.cellSize), a = Math.floor(r / this.cellSize);
     for (let c = -i; c <= i; c++)
       for (let d = -i; d <= i; d++) {
-        const u = a + c, b = l + d, p = `${u},${b}`, f = this.cells.get(p);
+        const u = l + c, h = a + d, m = `${u},${h}`, f = this.cells.get(m);
         f && f.forEach((y) => s.add(y));
       }
     return s;
@@ -6700,7 +7199,7 @@ class sn {
    * @param element Registered element with bounds
    */
   addElement(o, r) {
-    const n = pe(r.bounds), s = this.getCellKey(n.x, n.y);
+    const n = fe(r.bounds), s = this.getCellKey(n.x, n.y);
     this.cells.has(s) || this.cells.set(s, /* @__PURE__ */ new Set()), this.cells.get(s).add(o);
   }
   /**
@@ -6710,7 +7209,7 @@ class sn {
    */
   removeElement(o, r) {
     if (r) {
-      const n = pe(r.bounds), s = this.getCellKey(n.x, n.y), i = this.cells.get(s);
+      const n = fe(r.bounds), s = this.getCellKey(n.x, n.y), i = this.cells.get(s);
       i && (i.delete(o), i.size === 0 && this.cells.delete(s));
     } else
       this.cells.forEach((n, s) => {
@@ -6725,10 +7224,10 @@ class sn {
    * @param newElement New element state
    */
   updateElement(o, r, n) {
-    const s = pe(r.bounds), i = pe(n.bounds), a = this.getCellKey(s.x, s.y), l = this.getCellKey(i.x, i.y);
-    if (a !== l) {
-      const c = this.cells.get(a);
-      c && (c.delete(o), c.size === 0 && this.cells.delete(a)), this.cells.has(l) || this.cells.set(l, /* @__PURE__ */ new Set()), this.cells.get(l).add(o);
+    const s = fe(r.bounds), i = fe(n.bounds), l = this.getCellKey(s.x, s.y), a = this.getCellKey(i.x, i.y);
+    if (l !== a) {
+      const c = this.cells.get(l);
+      c && (c.delete(o), c.size === 0 && this.cells.delete(l)), this.cells.has(a) || this.cells.set(a, /* @__PURE__ */ new Set()), this.cells.get(a).add(o);
     }
   }
   /**
@@ -6756,8 +7255,8 @@ class sn {
     });
   }
 }
-function an(e) {
-  const o = Array.from(e.values()).filter((a) => a.isHovered);
+function Cn(e) {
+  const o = Array.from(e.values()).filter((l) => l.isHovered);
   if (o.length === 0)
     return { sizeMultiplier: 1, opacityMultiplier: 1 };
   const r = {
@@ -6766,9 +7265,9 @@ function an(e) {
     link: 3,
     card: 1,
     custom: 2
-  }, s = o.reduce((a, l) => {
-    const c = l.options.type || "custom", d = a.options.type || "custom", u = r[c] || 0, b = r[d] || 0;
-    return u > b ? l : a;
+  }, s = o.reduce((l, a) => {
+    const c = a.options.type || "custom", d = l.options.type || "custom", u = r[c] || 0, h = r[d] || 0;
+    return u > h ? a : l;
   }).options.type || "custom";
   return {
     button: { sizeMultiplier: 1.3, opacityMultiplier: 1.5 },
@@ -6783,8 +7282,8 @@ function an(e) {
     // Default
   }[s] || { sizeMultiplier: 1, opacityMultiplier: 1 };
 }
-function ln({ cursorState: e, config: o }) {
-  const { currentTheme: r, position: n, velocity: s, isMoving: i, activeElements: a } = e, { intensity: l } = o, c = me(() => Vt(), []), { sizeMultiplier: d, opacityMultiplier: u } = an(a), b = r.glowSize * l * d, p = r.glowOpacity * l * u * (c ? 1 : 0.5), f = !i, m = Math.sqrt(s.x * s.x + s.y * s.y) > 10, g = m ? 1.2 : 1, w = m ? p * 1.3 : p;
+function Nn({ cursorState: e, config: o }) {
+  const { currentTheme: r, position: n, velocity: s, isMoving: i, activeElements: l } = e, { intensity: a } = o, c = ce(() => Yt(), []), { sizeMultiplier: d, opacityMultiplier: u } = Cn(l), h = r.glowSize * a * d, m = r.glowOpacity * a * u * (c ? 1 : 0.5), f = !i, g = Math.sqrt(s.x * s.x + s.y * s.y) > 10, x = g ? 1.2 : 1, w = g ? m * 1.3 : m;
   return /* @__PURE__ */ t(
     v.div,
     {
@@ -6792,8 +7291,8 @@ function ln({ cursorState: e, config: o }) {
       "aria-hidden": "true",
       style: {
         position: "absolute",
-        width: b,
-        height: b,
+        width: h,
+        height: h,
         borderRadius: "50%",
         backgroundColor: r.colors.primary,
         filter: "blur(60px)",
@@ -6804,15 +7303,15 @@ function ln({ cursorState: e, config: o }) {
       },
       animate: {
         // Position the glow centered on cursor
-        x: n.x - b / 2,
-        y: n.y - b / 2,
+        x: n.x - h / 2,
+        y: n.y - h / 2,
         // Apply current theme color
         backgroundColor: r.colors.primary,
         // Scale effect: pulse when stationary, trail when high velocity
-        scale: f ? [1, 1.1, 1] : m ? g : 1,
+        scale: f ? [1, 1.1, 1] : g ? x : 1,
         // Normal size when moving normally
         // Opacity effect: pulse when stationary, intensify for trail
-        opacity: f ? [p, p * 1.5, p] : m ? w : p
+        opacity: f ? [m, m * 1.5, m] : g ? w : m
         // Normal opacity
       },
       transition: {
@@ -6836,7 +7335,7 @@ function ln({ cursorState: e, config: o }) {
     }
   );
 }
-function cn(e, o) {
+function Mn(e, o) {
   const r = e.options.type || "custom", s = {
     button: 1.5,
     // Intensified for buttons
@@ -6851,20 +7350,20 @@ function cn(e, o) {
   }[r] || 1, i = e.options.intensity ?? 1;
   return o * s * i;
 }
-function dn({ cursorState: e, config: o }) {
-  const { activeElements: r, position: n, currentTheme: s } = e, { intensity: i } = o, a = me(() => Yt(), []), l = me(() => jt(), []), c = a || l, [d, u] = R(n);
+function Sn({ cursorState: e, config: o }) {
+  const { activeElements: r, position: n, currentTheme: s } = e, { intensity: i } = o, l = ce(() => jt(), []), a = ce(() => Zt(), []), c = l || a, [d, u] = G(n);
   A(() => {
     const f = setTimeout(() => {
       u(n);
     }, 50);
     return () => clearTimeout(f);
   }, [n]);
-  const b = s.distortionIntensity * i, p = Array.from(r.values()).filter(
+  const h = s.distortionIntensity * i, m = Array.from(r.values()).filter(
     (f) => f.isHovered && f.options.distortion !== !1
   );
-  return c ? /* @__PURE__ */ h(H, { children: [
-    a && /* @__PURE__ */ t("svg", { className: "absolute w-0 h-0", "aria-hidden": "true", children: /* @__PURE__ */ h("defs", { children: [
-      /* @__PURE__ */ h("filter", { id: "cursor-distortion", children: [
+  return c ? /* @__PURE__ */ p(W, { children: [
+    l && /* @__PURE__ */ t("svg", { className: "absolute w-0 h-0", "aria-hidden": "true", children: /* @__PURE__ */ p("defs", { children: [
+      /* @__PURE__ */ p("filter", { id: "cursor-distortion", children: [
         /* @__PURE__ */ t(
           "feTurbulence",
           {
@@ -6886,7 +7385,7 @@ function dn({ cursorState: e, config: o }) {
         ),
         /* @__PURE__ */ t("feGaussianBlur", { stdDeviation: "2" })
       ] }),
-      /* @__PURE__ */ h("filter", { id: "cursor-wave", children: [
+      /* @__PURE__ */ p("filter", { id: "cursor-wave", children: [
         /* @__PURE__ */ t(
           "feTurbulence",
           {
@@ -6907,7 +7406,7 @@ function dn({ cursorState: e, config: o }) {
           }
         )
       ] }),
-      /* @__PURE__ */ h("filter", { id: "cursor-goo", children: [
+      /* @__PURE__ */ p("filter", { id: "cursor-goo", children: [
         /* @__PURE__ */ t("feGaussianBlur", { in: "SourceGraphic", stdDeviation: "10", result: "blur" }),
         /* @__PURE__ */ t(
           "feColorMatrix",
@@ -6921,11 +7420,11 @@ function dn({ cursorState: e, config: o }) {
         /* @__PURE__ */ t("feComposite", { in: "SourceGraphic", in2: "goo", operator: "atop" })
       ] })
     ] }) }),
-    /* @__PURE__ */ t(L, { children: p.map((f) => {
-      const y = cn(
+    /* @__PURE__ */ t(D, { children: m.map((f) => {
+      const y = Mn(
         f,
-        b
-      ), m = d.x - f.bounds.left, g = d.y - f.bounds.top, w = f.options.type === "card" ? "cursor-wave" : "cursor-distortion", x = a ? `url(#${w})` : l ? "blur(2px)" : "none";
+        h
+      ), g = d.x - f.bounds.left, x = d.y - f.bounds.top, w = f.options.type === "card" ? "cursor-wave" : "cursor-distortion", k = l ? `url(#${w})` : a ? "blur(2px)" : "none";
       return /* @__PURE__ */ t(
         v.div,
         {
@@ -6937,11 +7436,11 @@ function dn({ cursorState: e, config: o }) {
             top: f.bounds.top,
             width: f.bounds.width,
             height: f.bounds.height,
-            filter: x,
+            filter: k,
             pointerEvents: "none",
             willChange: "opacity",
             // Add gradient overlay for visual effect
-            background: `radial-gradient(circle at ${m}px ${g}px, ${s.colors.primary}20, transparent 60%)`
+            background: `radial-gradient(circle at ${g}px ${x}px, ${s.colors.primary}20, transparent 60%)`
           },
           initial: { opacity: 0 },
           animate: { opacity: y },
@@ -6959,15 +7458,15 @@ function dn({ cursorState: e, config: o }) {
     }) })
   ] }) : null;
 }
-function un(e, o) {
+function In(e, o) {
   if (!o.bounds || o.bounds.width === 0 || o.bounds.height === 0)
     return !1;
-  const r = o.bounds.left + o.bounds.width / 2, n = o.bounds.top + o.bounds.height / 2, s = r - e.origin.x, i = n - e.origin.y, a = Math.sqrt(s * s + i * i), l = Math.sqrt(
+  const r = o.bounds.left + o.bounds.width / 2, n = o.bounds.top + o.bounds.height / 2, s = r - e.origin.x, i = n - e.origin.y, l = Math.sqrt(s * s + i * i), a = Math.sqrt(
     (o.bounds.width / 2) ** 2 + (o.bounds.height / 2) ** 2
-  ), c = Math.max(0, a - l), d = a + l;
+  ), c = Math.max(0, l - a), d = l + a;
   return e.radius >= c && e.radius <= d;
 }
-class pn {
+class En {
   collisions = /* @__PURE__ */ new Map();
   // waveId -> Set of elementIds
   /**
@@ -6996,10 +7495,10 @@ class pn {
     this.collisions.clear();
   }
 }
-const mn = ({ cursorState: e, config: o }) => {
-  const [r, n] = R([]), [s, i] = R(/* @__PURE__ */ new Map());
-  F(0);
-  const a = F(null), l = F(new pn());
+const Tn = ({ cursorState: e, config: o }) => {
+  const [r, n] = G([]), [s, i] = G(/* @__PURE__ */ new Map());
+  L(0);
+  const l = L(null), a = L(new En());
   return A(() => {
     const c = (d) => {
       const u = {
@@ -7011,46 +7510,46 @@ const mn = ({ cursorState: e, config: o }) => {
         timestamp: Date.now(),
         color: e.currentTheme.colors.primary
       };
-      n((b) => [...b, u].slice(-o.maxWaves));
+      n((h) => [...h, u].slice(-o.maxWaves));
     };
     return window.addEventListener("click", c), () => window.removeEventListener("click", c);
   }, [e.currentTheme.colors.primary, o.maxWaves]), A(() => {
     const c = () => {
       const d = Date.now();
       n((u) => {
-        const b = u.map((f) => {
-          const y = f.radius + 5, m = f.opacity * 0.98;
+        const h = u.map((f) => {
+          const y = f.radius + 5, g = f.opacity * 0.98;
           return {
             ...f,
             radius: y,
-            opacity: m
+            opacity: g
           };
         }).filter((f) => {
           const y = f.radius < f.maxRadius && f.opacity > 0.01;
-          return y || l.current.cleanupWave(f.id), y;
-        }), p = /* @__PURE__ */ new Map();
-        for (const f of b)
-          for (const [y, m] of e.activeElements)
-            if (un(f, m) && !l.current.hasCollided(f.id, y)) {
-              l.current.recordCollision(f.id, y);
-              const g = p.get(y), w = f.opacity;
-              g ? p.set(y, {
+          return y || a.current.cleanupWave(f.id), y;
+        }), m = /* @__PURE__ */ new Map();
+        for (const f of h)
+          for (const [y, g] of e.activeElements)
+            if (In(f, g) && !a.current.hasCollided(f.id, y)) {
+              a.current.recordCollision(f.id, y);
+              const x = m.get(y), w = f.opacity;
+              x ? m.set(y, {
                 elementId: y,
-                intensity: Math.min(1, g.intensity + w),
+                intensity: Math.min(1, x.intensity + w),
                 timestamp: d
-              }) : p.set(y, {
+              }) : m.set(y, {
                 elementId: y,
                 intensity: w,
                 timestamp: d
               });
             }
-        return i(p), b;
-      }), a.current = requestAnimationFrame(c);
+        return i(m), h;
+      }), l.current = requestAnimationFrame(c);
     };
-    return a.current = requestAnimationFrame(c), () => {
-      a.current !== null && cancelAnimationFrame(a.current);
+    return l.current = requestAnimationFrame(c), () => {
+      l.current !== null && cancelAnimationFrame(l.current);
     };
-  }, [e.activeElements]), /* @__PURE__ */ h(H, { children: [
+  }, [e.activeElements]), /* @__PURE__ */ p(W, { children: [
     r.map((c) => /* @__PURE__ */ t(
       "div",
       {
@@ -7107,7 +7606,7 @@ const mn = ({ cursorState: e, config: o }) => {
     })
   ] });
 };
-function hn(e, o, r, n) {
+function $n(e, o, r, n) {
   const s = Math.random() * Math.PI * 2, i = 2 + Math.random() * 3;
   return {
     id: `particle-${Date.now()}-${Math.random()}`,
@@ -7123,110 +7622,110 @@ function hn(e, o, r, n) {
     color: r
   };
 }
-function fn({ cursorState: e, config: o }) {
-  const { activeElements: r, position: n, velocity: s, currentTheme: i } = e, [a, l] = R([]), c = F(0), d = F(), b = Array.from(r.values()).filter(
-    (p) => p.isHovered && p.options.type === "link"
+function zn({ cursorState: e, config: o }) {
+  const { activeElements: r, position: n, velocity: s, currentTheme: i } = e, [l, a] = G([]), c = L(0), d = L(), h = Array.from(r.values()).filter(
+    (m) => m.isHovered && m.options.type === "link"
   ).length > 0;
   return A(() => {
-    if (!b) return;
-    const p = Date.now();
-    if (p - c.current > 50) {
-      const y = hn(
+    if (!h) return;
+    const m = Date.now();
+    if (m - c.current > 50) {
+      const y = $n(
         n.x,
         n.y,
         i.colors.primary,
         s
       );
-      l((m) => [...m, y]), c.current = p;
+      a((g) => [...g, y]), c.current = m;
     }
-  }, [b, n, s, i]), A(() => {
-    const p = () => {
-      l((f) => f.map((y) => {
-        const m = y.x + y.vx, g = y.y + y.vy, w = y.life - 1 / 60 / y.maxLife, x = y.vy + 0.1;
+  }, [h, n, s, i]), A(() => {
+    const m = () => {
+      a((f) => f.map((y) => {
+        const g = y.x + y.vx, x = y.y + y.vy, w = y.life - 1 / 60 / y.maxLife, k = y.vy + 0.1;
         return {
           ...y,
-          x: m,
-          y: g,
-          vy: x,
+          x: g,
+          y: x,
+          vy: k,
           life: w
         };
-      }).filter((y) => y.life > 0)), d.current = requestAnimationFrame(p);
+      }).filter((y) => y.life > 0)), d.current = requestAnimationFrame(m);
     };
-    return d.current = requestAnimationFrame(p), () => {
+    return d.current = requestAnimationFrame(m), () => {
       d.current && cancelAnimationFrame(d.current);
     };
   }, []), A(() => {
-    a.length > 100 && l((p) => p.slice(-100));
-  }, [a.length]), /* @__PURE__ */ t("div", { className: "particle-system", "aria-hidden": "true", style: { pointerEvents: "none" }, children: /* @__PURE__ */ t(L, { children: a.map((p) => /* @__PURE__ */ t(
+    l.length > 100 && a((m) => m.slice(-100));
+  }, [l.length]), /* @__PURE__ */ t("div", { className: "particle-system", "aria-hidden": "true", style: { pointerEvents: "none" }, children: /* @__PURE__ */ t(D, { children: l.map((m) => /* @__PURE__ */ t(
     v.div,
     {
       className: "particle",
       "aria-hidden": "true",
       style: {
         position: "absolute",
-        left: p.x,
-        top: p.y,
-        width: p.size,
-        height: p.size,
+        left: m.x,
+        top: m.y,
+        width: m.size,
+        height: m.size,
         borderRadius: "50%",
-        backgroundColor: p.color,
+        backgroundColor: m.color,
         pointerEvents: "none",
         willChange: "opacity"
       },
       initial: { opacity: 1 },
-      animate: { opacity: p.life },
+      animate: { opacity: m.life },
       exit: { opacity: 0 },
       transition: { duration: 0.1 }
     },
-    p.id
+    m.id
   )) }) });
 }
-const gn = 50;
-function bn(e, o, r, n, s = "attract", i = 0.5) {
+const Rn = 50;
+function Gn(e, o, r, n, s = "attract", i = 0.5) {
   if (s === "none" || r > n)
     return { x: 0, y: 0 };
-  const a = Math.max(0, Math.min(1, i));
-  if (a === 0)
+  const l = Math.max(0, Math.min(1, i));
+  if (l === 0)
     return { x: 0, y: 0 };
-  const l = o.x - e.x, c = o.y - e.y;
+  const a = o.x - e.x, c = o.y - e.y;
   if (r === 0)
     return { x: 0, y: 0 };
-  const d = l / r, u = c / r, f = (n - r) / n * a * gn, y = s === "repel" ? -1 : 1;
+  const d = a / r, u = c / r, f = (n - r) / n * l * Rn, y = s === "repel" ? -1 : 1;
   return {
     x: d * f * y,
     y: u * f * y
   };
 }
-function yn(e, o, r) {
+function An(e, o, r) {
   const n = {
     x: e.bounds.left + e.bounds.width / 2,
     y: e.bounds.top + e.bounds.height / 2
-  }, s = e.options.proximityRadius ?? r, i = e.options.attraction ?? "none", a = e.options.attractionStrength ?? 0.5;
-  return bn(
+  }, s = e.options.proximityRadius ?? r, i = e.options.attraction ?? "none", l = e.options.attractionStrength ?? 0.5;
+  return Gn(
     n,
     o,
     e.distance,
     s,
     i,
-    a
+    l
   );
 }
-function xn(e, o, r) {
+function Bn(e, o, r) {
   const n = /* @__PURE__ */ new Map();
   return e.forEach((s, i) => {
     if (!s.options.attraction || s.options.attraction === "none") {
       n.set(i, { x: 0, y: 0 });
       return;
     }
-    const a = yn(
+    const l = An(
       s,
       o,
       r
     );
-    n.set(i, a);
+    n.set(i, l);
   }), n;
 }
-function vn(e) {
+function Fn(e) {
   return {
     button: 1.5,
     // Intensified for buttons
@@ -7240,25 +7739,25 @@ function vn(e) {
     // Default
   }[e || "custom"] || 1;
 }
-function wn({ cursorState: e, config: o }) {
+function On({ cursorState: e, config: o }) {
   const { activeElements: r, position: n } = e;
-  return A(() => o.effects.attraction ? (xn(
+  return A(() => o.effects.attraction ? (Bn(
     r,
     n,
     o.proximityRadius
-  ).forEach((i, a) => {
-    const l = r.get(a);
-    if (!l || !l.ref.current)
+  ).forEach((i, l) => {
+    const a = r.get(l);
+    if (!a || !a.ref.current)
       return;
     if (!isFinite(i.x) || !isFinite(i.y)) {
-      console.warn("[CursorEffect] Invalid displacement values for element:", a);
+      console.warn("[CursorEffect] Invalid displacement values for element:", l);
       return;
     }
-    const c = vn(l.options.type), d = i.x * c, u = i.y * c;
+    const c = Fn(a.options.type), d = i.x * c, u = i.y * c;
     try {
-      l.ref.current.style.transform = `translate(${d}px, ${u}px)`, l.ref.current.style.transition = "transform 0.2s ease-out", l.options.type === "draggable" && l.isInProximity ? l.ref.current.style.cursor = "grab" : l.options.type === "draggable" && l.isHovered ? l.ref.current.style.cursor = "grabbing" : l.options.type === "draggable" && (l.ref.current.style.cursor = "");
-    } catch (b) {
-      console.warn("[CursorEffect] Error applying transform to element:", a, b);
+      a.ref.current.style.transform = `translate(${d}px, ${u}px)`, a.ref.current.style.transition = "transform 0.2s ease-out", a.options.type === "draggable" && a.isInProximity ? a.ref.current.style.cursor = "grab" : a.options.type === "draggable" && a.isHovered ? a.ref.current.style.cursor = "grabbing" : a.options.type === "draggable" && (a.ref.current.style.cursor = "");
+    } catch (h) {
+      console.warn("[CursorEffect] Error applying transform to element:", l, h);
     }
   }), () => {
     r.forEach((i) => {
@@ -7269,7 +7768,7 @@ function wn({ cursorState: e, config: o }) {
         }
     });
   }) : void 0, [r, n, o.effects.attraction, o.proximityRadius]), typeof document > "u" ? null : to.createPortal(
-    /* @__PURE__ */ h(
+    /* @__PURE__ */ p(
       "div",
       {
         className: "cursor-effects-layer",
@@ -7284,134 +7783,134 @@ function wn({ cursorState: e, config: o }) {
         },
         "aria-hidden": "true",
         children: [
-          o.effects.glow && /* @__PURE__ */ t(ln, { cursorState: e, config: o }),
-          o.effects.distortion && /* @__PURE__ */ t(dn, { cursorState: e, config: o }),
-          o.effects.waves && /* @__PURE__ */ t(mn, { cursorState: e, config: o }),
-          o.effects.particles && /* @__PURE__ */ t(fn, { cursorState: e, config: o })
+          o.effects.glow && /* @__PURE__ */ t(Nn, { cursorState: e, config: o }),
+          o.effects.distortion && /* @__PURE__ */ t(Sn, { cursorState: e, config: o }),
+          o.effects.waves && /* @__PURE__ */ t(Tn, { cursorState: e, config: o }),
+          o.effects.particles && /* @__PURE__ */ t(zn, { cursorState: e, config: o })
         ]
       }
     ),
     document.body
   );
 }
-const Xt = We(null);
-function kn() {
-  const e = Ie(Xt);
+const Vt = Le(null);
+function Ln() {
+  const e = Se(Vt);
   if (!e)
     throw new Error("useCursorContext must be used within CursorEffectProvider");
   return e;
 }
-function qt() {
+function Xt() {
   if (typeof window > "u")
     return { hasTouch: !1, hasMouse: !0 };
   const e = "ontouchstart" in window || navigator.maxTouchPoints > 0, o = window.matchMedia("(pointer: fine)").matches;
   return { hasTouch: e, hasMouse: o };
 }
-function mt(e) {
-  const { hasTouch: o, hasMouse: r } = qt();
-  return !(Ur() || e.disableOnMobile && o || o && !r);
+function dt(e) {
+  const { hasTouch: o, hasMouse: r } = Xt();
+  return !(hn() || e.disableOnMobile && o || o && !r);
 }
-function Dn({ config: e = {}, children: o }) {
-  const r = F(en()), n = {
-    ...ue,
+function es({ config: e = {}, children: o }) {
+  const r = L(bn()), n = {
+    ...me,
     ...e,
     // Validate and clamp intensity to 0-1 range for error handling
-    intensity: Le(e.intensity, ue.intensity),
+    intensity: Ge(e.intensity, me.intensity),
     // Validate proximity radius
-    proximityRadius: pt(e.proximityRadius, ue.proximityRadius),
+    proximityRadius: ct(e.proximityRadius, me.proximityRadius),
     effects: {
-      ...ue.effects,
+      ...me.effects,
       ...e.effects,
       // Disable distortion if browser doesn't support filters
-      distortion: (e.effects?.distortion ?? ue.effects.distortion) && r.current.canUseDistortion
+      distortion: (e.effects?.distortion ?? me.effects.distortion) && r.current.canUseDistortion
     }
-  }, [s, i] = R(
-    () => mt(n)
-  ), a = Zt(n.theme), [l, c] = R({
+  }, [s, i] = G(
+    () => dt(n)
+  ), l = Wt(n.theme), [a, c] = G({
     position: { x: 0, y: 0 },
     velocity: { x: 0, y: 0, magnitude: 0 },
     isMoving: !1,
     isClicking: !1,
-    currentTheme: a,
+    currentTheme: l,
     activeElements: /* @__PURE__ */ new Map()
-  }), d = F(!1), u = F(new sn()), b = X((m) => {
-    c((g) => {
-      const w = jr(
-        m.position,
+  }), d = L(!1), u = L(new kn()), h = Q((g) => {
+    c((x) => {
+      const w = ln(
+        g.position,
         n
-      ), x = rn(
-        g.activeElements,
-        m.position,
+      ), k = vn(
+        x.activeElements,
+        g.position,
         n.proximityRadius,
-        g.activeElements.size > Se ? u.current : void 0
+        x.activeElements.size > Me ? u.current : void 0
       );
-      return nn(g.activeElements, x), {
-        ...g,
-        position: m.position,
-        velocity: m.velocity,
-        isMoving: m.isMoving,
-        isClicking: m.isClicking,
+      return wn(x.activeElements, k), {
+        ...x,
+        position: g.position,
+        velocity: g.velocity,
+        isMoving: g.isMoving,
+        isClicking: g.isClicking,
         currentTheme: w,
-        activeElements: x
+        activeElements: k
       };
     });
-  }, [n]), p = X(
-    (m, g, w) => {
-      if (!g.current) {
-        console.warn("[CursorEffect] Attempted to register element with null ref:", m);
+  }, [n]), m = Q(
+    (g, x, w) => {
+      if (!x.current) {
+        console.warn("[CursorEffect] Attempted to register element with null ref:", g);
         return;
       }
-      if (!_e(g.current)) {
-        console.warn("[CursorEffect] Attempted to register detached element:", m);
+      if (!Oe(x.current)) {
+        console.warn("[CursorEffect] Attempted to register detached element:", g);
         return;
       }
-      c((x) => {
-        const T = new Map(x.activeElements), I = g.current?.getBoundingClientRect() || new DOMRect(), $ = {
+      c((k) => {
+        const $ = new Map(k.activeElements), M = x.current?.getBoundingClientRect() || new DOMRect(), F = {
           ...w,
-          intensity: w.intensity !== void 0 ? Le(w.intensity, 1) : void 0,
-          proximityRadius: w.proximityRadius !== void 0 ? pt(w.proximityRadius, n.proximityRadius) : void 0,
-          attractionStrength: w.attractionStrength !== void 0 ? Le(w.attractionStrength, 0.5) : void 0
-        }, N = {
-          id: m,
-          ref: g,
-          options: $,
-          bounds: I,
+          intensity: w.intensity !== void 0 ? Ge(w.intensity, 1) : void 0,
+          proximityRadius: w.proximityRadius !== void 0 ? ct(w.proximityRadius, n.proximityRadius) : void 0,
+          attractionStrength: w.attractionStrength !== void 0 ? Ge(w.attractionStrength, 0.5) : void 0
+        }, E = {
+          id: g,
+          ref: x,
+          options: F,
+          bounds: M,
           distance: 1 / 0,
           isInProximity: !1,
           isHovered: !1
         };
-        return T.set(m, N), I.width > 0 && I.height > 0 && u.current.addElement(m, N), {
-          ...x,
-          activeElements: T
+        return $.set(g, E), M.width > 0 && M.height > 0 && u.current.addElement(g, E), {
+          ...k,
+          activeElements: $
         };
       });
     },
     [n.proximityRadius]
-  ), f = X((m) => {
-    c((g) => {
-      const w = g.activeElements.get(m), x = new Map(g.activeElements);
-      return x.delete(m), w && u.current.removeElement(m, w), {
-        ...g,
-        activeElements: x
+  ), f = Q((g) => {
+    c((x) => {
+      const w = x.activeElements.get(g), k = new Map(x.activeElements);
+      return k.delete(g), w && u.current.removeElement(g, w), {
+        ...x,
+        activeElements: k
       };
     });
   }, []);
   A(() => {
-    const m = window.matchMedia("(prefers-reduced-motion: reduce)"), g = (w) => {
-      w.matches ? i(!1) : i(mt(n));
+    const g = window.matchMedia("(prefers-reduced-motion: reduce)"), x = (w) => {
+      w.matches ? i(!1) : i(dt(n));
     };
-    if (m.addEventListener)
-      return m.addEventListener("change", g), () => {
-        m.removeEventListener("change", g);
+    if (g.addEventListener)
+      return g.addEventListener("change", x), () => {
+        g.removeEventListener("change", x);
       };
-    if (m.addListener)
-      return m.addListener(g), () => {
-        m.removeListener(g);
+    if (g.addListener)
+      return g.addListener(x), () => {
+        g.removeListener(x);
       };
   }, [n]), A(() => {
     if (!s) return;
-    const { hasTouch: m, hasMouse: g } = qt();
-    if (m && g && !d.current) {
+    const { hasTouch: g, hasMouse: x } = Xt();
+    if (g && x && !d.current) {
       const w = () => {
         d.current = !0, i(!0);
       };
@@ -7420,42 +7919,42 @@ function Dn({ config: e = {}, children: o }) {
       };
     }
   }, [s]), A(() => {
-    if (!s || l.activeElements.size <= Se)
+    if (!s || a.activeElements.size <= Me)
       return;
-    const m = setInterval(() => {
-      u.current.rebuild(l.activeElements);
+    const g = setInterval(() => {
+      u.current.rebuild(a.activeElements);
     }, 1e3);
     return () => {
-      clearInterval(m);
+      clearInterval(g);
     };
-  }, [s, l.activeElements]), A(() => {
+  }, [s, a.activeElements]), A(() => {
     if (!s) return;
-    const m = setInterval(() => {
-      const g = [];
-      l.activeElements.forEach((w, x) => {
-        (!w.ref.current || !_e(w.ref.current)) && g.push(x);
-      }), g.length > 0 && g.forEach((w) => {
+    const g = setInterval(() => {
+      const x = [];
+      a.activeElements.forEach((w, k) => {
+        (!w.ref.current || !Oe(w.ref.current)) && x.push(k);
+      }), x.length > 0 && x.forEach((w) => {
         f(w);
       });
     }, 2e3);
     return () => {
-      clearInterval(m);
+      clearInterval(g);
     };
-  }, [s, l.activeElements, f]);
+  }, [s, a.activeElements, f]);
   const y = {
-    state: l,
-    registerElement: p,
+    state: a,
+    registerElement: m,
     unregisterElement: f,
     config: n
   };
-  return s ? /* @__PURE__ */ h(Xt.Provider, { value: y, children: [
-    /* @__PURE__ */ t(Zr, { onStateChange: b }),
-    /* @__PURE__ */ t(wn, { cursorState: l, config: n }),
+  return s ? /* @__PURE__ */ p(Vt.Provider, { value: y, children: [
+    /* @__PURE__ */ t(an, { onStateChange: h }),
+    /* @__PURE__ */ t(On, { cursorState: a, config: n }),
     o
-  ] }) : /* @__PURE__ */ t(H, { children: o });
+  ] }) : /* @__PURE__ */ t(W, { children: o });
 }
-function _n(e = {}) {
-  const { registerElement: o, unregisterElement: r } = kn(), n = F(null), s = F(`cursor-element-${Math.random().toString(36).substr(2, 9)}`);
+function ts(e = {}) {
+  const { registerElement: o, unregisterElement: r } = Ln(), n = L(null), s = L(`cursor-element-${Math.random().toString(36).substr(2, 9)}`);
   return A(() => {
     const i = s.current;
     return n.current && o(i, n, e), () => {
@@ -7463,348 +7962,299 @@ function _n(e = {}) {
     };
   }, [o, r, e]), n;
 }
-const ht = 65, Cn = ({ index: e, total: o }) => {
-  const r = Math.random() > 0.7, s = `${r ? 4 + Math.random() * 11 : 0.5 + Math.random() * 2}vw`, i = e / o * 100, a = (Math.random() - 0.5) * (r ? 10 : 18), l = `${Math.max(-15, Math.min(115, i + a))}%`, c = (r ? 2.8 : 2.2) + Math.random() * 1.6, d = Math.random() * 1;
-  return /* @__PURE__ */ t(
-    v.div,
-    {
-      className: "absolute top-0",
-      style: {
-        width: s,
-        left: l,
-        height: "170vh",
-        backgroundColor: "#8B0000",
-        transformOrigin: "top",
-        opacity: 0.88,
-        borderRadius: r ? "50%" : "45% 55% 45% 55%"
-      },
-      initial: { y: "-170vh" },
-      animate: { y: "110vh" },
-      transition: {
-        duration: c,
-        ease: [0.45, 0.05, 0.55, 0.95],
-        // Smoother, more organic easing
-        delay: d
-      }
-    }
-  );
-}, Hn = ({
-  isNavigating: e,
-  onComplete: o,
-  className: r
-}) => (A(() => {
-  if (e) {
-    document.body.style.overflow = "hidden";
-    const n = setTimeout(() => {
-      o?.(), document.body.style.overflow = "";
-    }, 3500);
-    return () => clearTimeout(n);
+const Dn = {
+  blood: {
+    name: "Coagulated Blood",
+    primary: "#7f1d1d",
+    // red-900
+    secondary: "#450a0a",
+    // red-950
+    highlight: "#ffcccc",
+    // Pinkish white
+    shine: "#cc0000"
+    // Deep red shine
+  },
+  goo: {
+    name: "Radioactive Slime",
+    primary: "#4d7c0f",
+    // lime-700
+    secondary: "#365314",
+    // lime-950
+    highlight: "#ecfccb",
+    // lime-100
+    shine: "#84cc16"
+    // lime-500
+  },
+  ectoplasm: {
+    name: "Spectral Residue",
+    primary: "#581c87",
+    // purple-900
+    secondary: "#3b0764",
+    // purple-950
+    highlight: "#e9d5ff",
+    // purple-200
+    shine: "#a855f7"
+    // purple-500
   }
-}, [e, o]), /* @__PURE__ */ t(L, { children: e && /* @__PURE__ */ h(
+}, ut = 65, Pn = ({ config: e, color: o }) => /* @__PURE__ */ t(
   v.div,
   {
-    className: S(
-      "fixed inset-0 z-[100] pointer-events-none flex flex-col justify-center items-center",
-      r
-    ),
-    initial: { opacity: 1 },
-    exit: { opacity: 0 },
-    transition: { duration: 0.5 },
-    "data-testid": "blood-smear-overlay",
-    children: [
-      /* @__PURE__ */ t("svg", { className: "absolute w-0 h-0", children: /* @__PURE__ */ t("defs", { children: /* @__PURE__ */ h("filter", { id: "blood-goo", colorInterpolationFilters: "sRGB", x: "-50%", y: "-50%", width: "200%", height: "200%", children: [
-        /* @__PURE__ */ t(
-          "feTurbulence",
-          {
-            type: "fractalNoise",
-            baseFrequency: "0.01 0.03",
-            numOctaves: "3",
-            seed: "1",
-            result: "noise"
-          }
-        ),
-        /* @__PURE__ */ t(
-          "feDisplacementMap",
-          {
-            in: "SourceGraphic",
-            in2: "noise",
-            scale: "8",
-            xChannelSelector: "R",
-            yChannelSelector: "G",
-            result: "organic"
-          }
-        ),
-        /* @__PURE__ */ t("feGaussianBlur", { in: "organic", stdDeviation: "22", result: "blur" }),
-        /* @__PURE__ */ t(
-          "feColorMatrix",
-          {
-            in: "blur",
-            mode: "matrix",
-            values: "1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9",
-            result: "goo"
-          }
-        ),
-        /* @__PURE__ */ t("feGaussianBlur", { in: "goo", stdDeviation: "3", result: "smoothGoo" }),
-        /* @__PURE__ */ t("feGaussianBlur", { in: "smoothGoo", stdDeviation: "1", result: "ultraSmooth" }),
-        /* @__PURE__ */ t(
-          "feColorMatrix",
-          {
-            in: "ultraSmooth",
-            type: "matrix",
-            values: `0.85 0 0 0 0\r
-                          0 0.08 0 0 0\r
-                          0 0 0.08 0 0\r
-                          0 0 0 1 0`,
-            result: "bloodColor"
-          }
-        ),
-        /* @__PURE__ */ t("feGaussianBlur", { in: "bloodColor", stdDeviation: "4", result: "highlightBlur" }),
-        /* @__PURE__ */ t(
-          "feSpecularLighting",
-          {
-            in: "highlightBlur",
-            surfaceScale: "6",
-            specularConstant: "1.0",
-            specularExponent: "20",
-            lightingColor: "#ffffff",
-            result: "whiteHighlight",
-            children: /* @__PURE__ */ t("fePointLight", { x: "200", y: "80", z: "250" })
-          }
-        ),
-        /* @__PURE__ */ t("feComposite", { in: "whiteHighlight", in2: "bloodColor", operator: "in", result: "highlightInBlood" }),
-        /* @__PURE__ */ t(
-          "feComposite",
-          {
-            in: "bloodColor",
-            in2: "highlightInBlood",
-            operator: "arithmetic",
-            k1: "0",
-            k2: "1",
-            k3: "0.3",
-            k4: "0",
-            result: "withHighlight"
-          }
-        ),
-        /* @__PURE__ */ t(
-          "feSpecularLighting",
-          {
-            in: "highlightBlur",
-            surfaceScale: "3",
-            specularConstant: "0.5",
-            specularExponent: "12",
-            lightingColor: "#cc0000",
-            result: "redShine",
-            children: /* @__PURE__ */ t("fePointLight", { x: "100", y: "150", z: "180" })
-          }
-        ),
-        /* @__PURE__ */ t("feComposite", { in: "redShine", in2: "withHighlight", operator: "in", result: "shineInBlood" }),
-        /* @__PURE__ */ t(
-          "feComposite",
-          {
-            in: "withHighlight",
-            in2: "shineInBlood",
-            operator: "arithmetic",
-            k1: "0",
-            k2: "1",
-            k3: "0.12",
-            k4: "0",
-            result: "final"
-          }
-        ),
-        /* @__PURE__ */ t("feGaussianBlur", { in: "final", stdDeviation: "0.5", result: "finalSmooth" })
-      ] }) }) }),
-      /* @__PURE__ */ h(
-        "div",
-        {
-          className: "absolute inset-0 w-full h-full",
-          style: { filter: "url(#blood-goo)" },
-          children: [
-            Array.from({ length: ht }).map((n, s) => /* @__PURE__ */ t(Cn, { index: s, total: ht }, s)),
-            /* @__PURE__ */ t(
-              v.div,
-              {
-                className: "absolute top-0 left-0 right-0 h-[200vh]",
-                style: {
-                  backgroundColor: "#8B0000"
-                },
-                initial: { y: "-200%" },
-                animate: { y: "100%" },
-                transition: {
-                  duration: 3.4,
-                  ease: [0.45, 0.05, 0.55, 0.95],
-                  // Matching smooth easing
-                  delay: 0.25
-                }
-              }
-            )
-          ]
-        }
-      ),
-      /* @__PURE__ */ t(
-        v.div,
-        {
-          className: "absolute inset-0 bg-gradient-to-b from-black/12 via-transparent to-black/8",
-          initial: { opacity: 0 },
-          animate: { opacity: [0, 0.4, 0] },
-          transition: { duration: 3, times: [0, 0.5, 1] }
-        }
-      )
-    ]
-  }
-) })), Wn = ({
-  isActive: e,
-  onComplete: o,
-  duration: r = 1.2
-}) => /* @__PURE__ */ t(L, { onExitComplete: o, children: e && /* @__PURE__ */ h(v.div, { className: "fixed inset-0 z-50 pointer-events-none overflow-hidden", children: [
-  Array.from({ length: 8 }).map((n, s) => /* @__PURE__ */ t(
-    v.div,
-    {
-      className: "absolute bottom-0 w-full",
-      style: {
-        height: "100%",
-        background: "linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%)",
-        transformOrigin: "bottom"
-      },
-      initial: { scaleY: 0, opacity: 0 },
-      animate: { scaleY: 1, opacity: 1 },
-      exit: { scaleY: 0, opacity: 0 },
-      transition: {
-        duration: r * 0.6,
-        delay: s * 0.1,
-        ease: "easeOut"
-      }
+    className: "absolute top-0",
+    style: {
+      width: e.width,
+      left: e.left,
+      height: "170vh",
+      backgroundColor: o,
+      transformOrigin: "top",
+      borderRadius: e.borderRadius
     },
-    s
-  )),
-  /* @__PURE__ */ t(
-    v.div,
-    {
-      className: "absolute inset-0 bg-black",
-      initial: { opacity: 0 },
-      animate: { opacity: 1 },
-      exit: { opacity: 0 },
-      transition: { duration: r * 0.4, delay: r * 0.6 }
+    initial: { y: "-170vh" },
+    animate: { y: "100vh" },
+    transition: {
+      duration: e.duration,
+      ease: [0.45, 0.05, 0.55, 0.95],
+      delay: e.delay
     }
-  )
-] }) }), Zn = ({
-  className: e,
-  onComplete: o
+  }
+), _n = ({
+  isNavigating: e,
+  variant: o = "blood",
+  onComplete: r,
+  className: n
 }) => {
-  const [r, n] = R(!1), [s, i] = R(!1), [a, l] = R({ x: 0, y: 0 }), [c, d] = R({
-    width: typeof window < "u" ? window.innerWidth : 1920,
-    height: typeof window < "u" ? window.innerHeight : 1080
-  }), u = [
-    { id: 0, size: 150, x: 10, y: 20, op: 0.8 },
-    { id: 1, size: 200, x: 25, y: 60, op: 0.9 },
-    { id: 2, size: 120, x: 40, y: 15, op: 0.7 },
-    { id: 3, size: 180, x: 55, y: 70, op: 0.85 },
-    { id: 4, size: 250, x: 70, y: 30, op: 1 },
-    { id: 5, size: 140, x: 15, y: 80, op: 0.75 },
-    { id: 6, size: 220, x: 85, y: 50, op: 0.95 },
-    { id: 7, size: 160, x: 45, y: 85, op: 0.8 },
-    { id: 8, size: 190, x: 90, y: 15, op: 0.9 },
-    { id: 9, size: 130, x: 60, y: 45, op: 0.6 }
-  ];
-  A(() => {
-    if (!s) return;
-    const f = (y) => {
-      l({ x: y.clientX, y: y.clientY });
+  const i = `viscous-goo-${ht().replace(/:/g, "")}`, l = Dn[o], a = ce(() => Array.from({ length: ut }).map((c, d) => {
+    const u = Math.random() > 0.7, h = u ? 4 + Math.random() * 11 : 0.5 + Math.random() * 2, m = d / ut * 100, f = (Math.random() - 0.5) * (u ? 10 : 18);
+    return {
+      id: d,
+      width: `${h}vw`,
+      left: `${Math.max(-15, Math.min(115, m + f))}%`,
+      duration: (u ? 2.8 : 2.2) + Math.random() * 1.6,
+      delay: Math.random() * 0.4,
+      isGlob: u,
+      borderRadius: u ? "50%" : "45% 55% 45% 55%"
     };
-    return window.addEventListener("mousemove", f), () => {
-      window.removeEventListener("mousemove", f);
-    };
-  }, [s]), A(() => {
-    if (!s) return;
-    const f = () => {
-      d({ width: window.innerWidth, height: window.innerHeight });
-    };
-    return window.addEventListener("resize", f), () => {
-      window.removeEventListener("resize", f);
-    };
-  }, [s]), A(() => {
-    if (s) {
-      n(!0);
-      const f = setTimeout(() => {
-        n(!1);
-      }, 1500);
+  }), []);
+  return A(() => {
+    if (e) {
+      document.body.style.overflow = "hidden";
+      const c = setTimeout(() => {
+        r?.(), document.body.style.overflow = "";
+      }, 3800);
       return () => {
-        clearTimeout(f);
+        clearTimeout(c), document.body.style.overflow = "";
       };
     }
-  }, [s]);
-  const b = X(() => {
-    i(!0);
-  }, []), p = X(() => {
-    i(!1), o?.();
-  }, [o]);
-  return /* @__PURE__ */ h(H, { children: [
-    /* @__PURE__ */ t("style", { dangerouslySetInnerHTML: {
-      __html: `
-          @keyframes flap {
-            0% { transform: scaleY(1) scaleX(1); }
-            100% { transform: scaleY(0.4) scaleX(0.8); }
-          }
-        `
-    } }),
-    /* @__PURE__ */ t(
-      "div",
-      {
-        className: e,
-        onMouseEnter: b,
-        onMouseLeave: p,
-        children: /* @__PURE__ */ t(L, { children: s && /* @__PURE__ */ h(
-          v.div,
+  }, [e, r]), /* @__PURE__ */ t(D, { children: e && /* @__PURE__ */ p(
+    v.div,
+    {
+      className: b(
+        "fixed inset-0 z-[100] pointer-events-none flex flex-col justify-center items-center",
+        n
+      ),
+      initial: { opacity: 1 },
+      exit: { opacity: 0 },
+      transition: { duration: 0.5 },
+      "aria-hidden": "true",
+      children: [
+        /* @__PURE__ */ t("svg", { className: "absolute w-0 h-0", children: /* @__PURE__ */ t("defs", { children: /* @__PURE__ */ p("filter", { id: i, colorInterpolationFilters: "sRGB", children: [
+          /* @__PURE__ */ t(
+            "feTurbulence",
+            {
+              type: "fractalNoise",
+              baseFrequency: "0.01 0.03",
+              numOctaves: "3",
+              seed: "1",
+              result: "noise"
+            }
+          ),
+          /* @__PURE__ */ t(
+            "feDisplacementMap",
+            {
+              in: "SourceGraphic",
+              in2: "noise",
+              scale: "12",
+              xChannelSelector: "R",
+              yChannelSelector: "G",
+              result: "textured"
+            }
+          ),
+          /* @__PURE__ */ t("feGaussianBlur", { in: "textured", stdDeviation: "12", result: "blur" }),
+          /* @__PURE__ */ t(
+            "feColorMatrix",
+            {
+              in: "blur",
+              mode: "matrix",
+              values: "1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9",
+              result: "goo"
+            }
+          ),
+          /* @__PURE__ */ t("feGaussianBlur", { in: "goo", stdDeviation: "4", result: "gooBlur" }),
+          /* @__PURE__ */ t(
+            "feSpecularLighting",
+            {
+              in: "gooBlur",
+              surfaceScale: "8",
+              specularConstant: "1.8",
+              specularExponent: "16",
+              lightingColor: l.highlight,
+              result: "specular",
+              children: /* @__PURE__ */ t("fePointLight", { x: "-500", y: "-1000", z: "600" })
+            }
+          ),
+          /* @__PURE__ */ t(
+            "feSpecularLighting",
+            {
+              in: "gooBlur",
+              surfaceScale: "4",
+              specularConstant: "0.8",
+              specularExponent: "10",
+              lightingColor: l.shine,
+              result: "shine",
+              children: /* @__PURE__ */ t("fePointLight", { x: "500", y: "1000", z: "400" })
+            }
+          ),
+          /* @__PURE__ */ t("feComposite", { in: "specular", in2: "goo", operator: "in", result: "specularInGoo" }),
+          /* @__PURE__ */ t("feComposite", { in: "shine", in2: "goo", operator: "in", result: "shineInGoo" }),
+          /* @__PURE__ */ t("feComposite", { in: "specularInGoo", in2: "goo", operator: "over", result: "withHighlight" }),
+          /* @__PURE__ */ t("feComposite", { in: "shineInGoo", in2: "withHighlight", operator: "over", result: "final" }),
+          /* @__PURE__ */ t("feGaussianBlur", { in: "final", stdDeviation: "0.5" })
+        ] }) }) }),
+        /* @__PURE__ */ p(
+          "div",
           {
-            className: "fixed inset-0 pointer-events-none",
-            initial: { opacity: 0 },
-            animate: { opacity: 1 },
-            exit: { opacity: 0 },
-            transition: { duration: 0.3 },
+            className: "absolute inset-0 w-full h-full",
+            style: { filter: `url(#${i})` },
             children: [
+              a.map((c) => /* @__PURE__ */ t(Pn, { config: c, color: l.primary }, c.id)),
               /* @__PURE__ */ t(
                 v.div,
                 {
-                  className: "fixed inset-0 bg-red-950/30 backdrop-blur-[2px] pointer-events-none",
-                  style: { zIndex: 9990 },
-                  initial: { opacity: 0 },
-                  animate: { opacity: 1 },
-                  exit: { opacity: 0 },
-                  transition: { duration: 0.3 }
+                  className: "absolute top-0 left-0 right-0 h-[200vh]",
+                  style: { backgroundColor: l.primary },
+                  initial: { y: "-200%" },
+                  animate: { y: "100%" },
+                  transition: {
+                    duration: 3.5,
+                    ease: [0.45, 0.05, 0.55, 0.95],
+                    delay: 0.1
+                  }
                 }
-              ),
-              r && /* @__PURE__ */ t(At, {}),
-              u.map((f) => /* @__PURE__ */ t(
-                $t,
-                {
-                  id: f.id,
-                  size: f.size,
-                  homeX: f.x,
-                  homeY: f.y,
-                  opacity: f.op,
-                  isHovered: s,
-                  mousePos: a,
-                  windowSize: c
-                },
-                f.id
-              ))
+              )
             ]
           }
-        ) })
+        ),
+        /* @__PURE__ */ t(
+          v.div,
+          {
+            className: "absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/30",
+            initial: { opacity: 0 },
+            animate: { opacity: 1 },
+            transition: { duration: 1 }
+          }
+        )
+      ]
+    }
+  ) });
+}, os = ({
+  variant: e = "blood",
+  className: o,
+  buttonText: r = "Trigger Blood Smear"
+}) => {
+  const [n, s] = G(!1);
+  return /* @__PURE__ */ p(W, { children: [
+    /* @__PURE__ */ t(
+      _n,
+      {
+        isNavigating: n,
+        variant: e,
+        onComplete: () => s(!1)
+      }
+    ),
+    /* @__PURE__ */ t(
+      "button",
+      {
+        onClick: () => {
+          n || s(!0);
+        },
+        disabled: n,
+        className: b(
+          "px-6 py-3 rounded-lg font-semibold transition-all",
+          "bg-red-900 text-white hover:bg-red-800",
+          "disabled:opacity-50 disabled:cursor-not-allowed",
+          o
+        ),
+        children: r
       }
     )
   ] });
-}, ft = 40, Mn = ["bg-[#A855F7]"], Nn = ({ index: e, total: o }) => {
-  const r = Math.random() > 0.7, s = `${r ? 10 + Math.random() * 15 : 2 + Math.random() * 6}vw`, i = e / o * 100, a = (Math.random() - 0.5) * (r ? 5 : 10), l = `${Math.max(-20, Math.min(120, i + a))}%`, c = Mn[0], d = (r ? 3 : 2) + Math.random() * 1.5, u = Math.random() * 0.5;
+}, qt = ({
+  isActive: e,
+  onComplete: o,
+  duration: r = 1.2
+}) => {
+  const n = r * 0.4, s = r * 0.2, i = r * 0.4;
+  return /* @__PURE__ */ t(D, { onExitComplete: o, children: e && /* @__PURE__ */ p(
+    v.div,
+    {
+      className: "fixed inset-0 z-50 pointer-events-none overflow-hidden",
+      "aria-hidden": "true",
+      initial: { opacity: 1 },
+      animate: { opacity: 1 },
+      exit: { opacity: 0 },
+      transition: {
+        duration: i,
+        ease: "easeInOut"
+      },
+      children: [
+        Array.from({ length: 8 }).map((l, a) => /* @__PURE__ */ t(
+          v.div,
+          {
+            className: "absolute bottom-0 w-full",
+            style: {
+              height: "100%",
+              background: "linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%)",
+              transformOrigin: "bottom"
+            },
+            initial: { scaleY: 0, opacity: 0 },
+            animate: { scaleY: 1, opacity: 1 },
+            transition: {
+              duration: n,
+              delay: a * 0.05,
+              ease: "easeOut"
+            }
+          },
+          a
+        )),
+        /* @__PURE__ */ t(
+          v.div,
+          {
+            className: "absolute inset-0 bg-black",
+            initial: { opacity: 0 },
+            animate: { opacity: 1 },
+            transition: {
+              duration: s,
+              delay: n,
+              ease: "easeInOut"
+            }
+          }
+        )
+      ]
+    }
+  ) });
+};
+qt.displayName = "ShadowCrawl";
+const rs = qt, pt = 40, Hn = ["bg-[#A855F7]"], Wn = ({ index: e, total: o }) => {
+  const r = Math.random() > 0.7, s = `${r ? 10 + Math.random() * 15 : 2 + Math.random() * 6}vw`, i = e / o * 100, l = (Math.random() - 0.5) * (r ? 5 : 10), a = `${Math.max(-20, Math.min(120, i + l))}%`, c = Hn[0], d = (r ? 3 : 2) + Math.random() * 1.5, u = Math.random() * 0.5;
   return /* @__PURE__ */ t(
     v.div,
     {
-      className: S(
+      className: b(
         "absolute top-0 rounded-full opacity-100",
         c
       ),
       style: {
         width: s,
-        left: l,
+        left: a,
         height: "150vh",
         transformOrigin: "top",
         zIndex: r ? 10 : 20
@@ -7818,124 +8268,128 @@ const ht = 65, Cn = ({ index: e, total: o }) => {
       }
     }
   );
-}, jn = ({ isActive: e, onComplete: o }) => (A(() => {
-  if (e) {
-    document.body.style.overflow = "hidden";
-    const r = setTimeout(() => {
-      o?.(), document.body.style.overflow = "";
-    }, 4500);
-    return () => clearTimeout(r);
-  }
-}, [e, o]), /* @__PURE__ */ t(L, { children: e && /* @__PURE__ */ h(
-  v.div,
-  {
-    className: "fixed inset-0 z-[100] pointer-events-none flex flex-col justify-center items-center",
-    initial: { opacity: 1 },
-    exit: { opacity: 0 },
-    transition: { duration: 0.5 },
-    "data-testid": "spectral-river-overlay",
-    children: [
-      /* @__PURE__ */ t("svg", { className: "absolute w-0 h-0", children: /* @__PURE__ */ t("defs", { children: /* @__PURE__ */ h("filter", { id: "spectral-goo", colorInterpolationFilters: "sRGB", children: [
-        /* @__PURE__ */ t("feGaussianBlur", { in: "SourceGraphic", stdDeviation: "10", result: "blur" }),
-        /* @__PURE__ */ t(
-          "feColorMatrix",
+}, Ut = ({ isActive: e, onComplete: o }) => {
+  const r = O.useId();
+  return A(() => {
+    if (e) {
+      document.body.style.overflow = "hidden";
+      const n = setTimeout(() => {
+        o?.(), document.body.style.overflow = "";
+      }, 4500);
+      return () => clearTimeout(n);
+    }
+  }, [e, o]), /* @__PURE__ */ t(D, { children: e && /* @__PURE__ */ p(
+    v.div,
+    {
+      className: "fixed inset-0 z-[100] pointer-events-none flex flex-col justify-center items-center",
+      initial: { opacity: 1 },
+      exit: { opacity: 0 },
+      transition: { duration: 0.5 },
+      "data-testid": "spectral-river-overlay",
+      "aria-hidden": "true",
+      children: [
+        /* @__PURE__ */ t("svg", { className: "absolute w-0 h-0", "aria-hidden": "true", children: /* @__PURE__ */ t("defs", { children: /* @__PURE__ */ p("filter", { id: `spectral-goo-${r}`, colorInterpolationFilters: "sRGB", children: [
+          /* @__PURE__ */ t("feGaussianBlur", { in: "SourceGraphic", stdDeviation: "10", result: "blur" }),
+          /* @__PURE__ */ t(
+            "feColorMatrix",
+            {
+              in: "blur",
+              mode: "matrix",
+              values: "1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7",
+              result: "goo"
+            }
+          ),
+          /* @__PURE__ */ t("feGaussianBlur", { in: "goo", stdDeviation: "5", result: "gooBlur" }),
+          /* @__PURE__ */ t(
+            "feSpecularLighting",
+            {
+              in: "gooBlur",
+              surfaceScale: "8",
+              specularConstant: "1.2",
+              specularExponent: "25",
+              lightingColor: "#ffffff",
+              result: "specular",
+              children: /* @__PURE__ */ t("feDistantLight", { azimuth: "225", elevation: "60" })
+            }
+          ),
+          /* @__PURE__ */ t("feComposite", { in: "specular", in2: "goo", operator: "in", result: "specularInGoo" }),
+          /* @__PURE__ */ t("feComposite", { in: "specularInGoo", in2: "goo", operator: "over" })
+        ] }) }) }),
+        /* @__PURE__ */ p(
+          "div",
           {
-            in: "blur",
-            mode: "matrix",
-            values: "1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7",
-            result: "goo"
+            className: "absolute inset-0 w-full h-full",
+            style: { filter: `url(#spectral-goo-${r})` },
+            children: [
+              Array.from({ length: pt }).map((n, s) => /* @__PURE__ */ t(Wn, { index: s, total: pt }, s)),
+              /* @__PURE__ */ t(
+                v.div,
+                {
+                  className: "absolute top-0 left-0 right-0 h-[200vh] bg-[#A855F7]",
+                  initial: { y: "-200%" },
+                  animate: { y: "100%" },
+                  transition: { duration: 3.5, ease: "easeInOut", delay: 0.2 }
+                }
+              )
+            ]
           }
         ),
-        /* @__PURE__ */ t("feGaussianBlur", { in: "goo", stdDeviation: "5", result: "gooBlur" }),
         /* @__PURE__ */ t(
-          "feSpecularLighting",
+          v.div,
           {
-            in: "gooBlur",
-            surfaceScale: "8",
-            specularConstant: "1.2",
-            specularExponent: "25",
-            lightingColor: "#ffffff",
-            result: "specular",
-            children: /* @__PURE__ */ t("feDistantLight", { azimuth: "225", elevation: "60" })
+            className: "absolute inset-0 bg-black/20 backdrop-blur-[2px]",
+            initial: { opacity: 0 },
+            animate: { opacity: [0, 1, 0] },
+            transition: { duration: 3, times: [0, 0.5, 1] }
           }
-        ),
-        /* @__PURE__ */ t("feComposite", { in: "specular", in2: "goo", operator: "in", result: "specularInGoo" }),
-        /* @__PURE__ */ t("feComposite", { in: "specularInGoo", in2: "goo", operator: "over" })
-      ] }) }) }),
-      /* @__PURE__ */ h(
-        "div",
-        {
-          className: "absolute inset-0 w-full h-full",
-          style: { filter: "url(#spectral-goo)" },
-          children: [
-            Array.from({ length: ft }).map((r, n) => /* @__PURE__ */ t(Nn, { index: n, total: ft }, n)),
-            /* @__PURE__ */ t(
-              v.div,
-              {
-                className: "absolute top-0 left-0 right-0 h-[200vh] bg-[#A855F7]",
-                initial: { y: "-200%" },
-                animate: { y: "100%" },
-                transition: { duration: 3.5, ease: "easeInOut", delay: 0.2 }
-              }
-            )
-          ]
-        }
-      ),
-      /* @__PURE__ */ t(
-        v.div,
-        {
-          className: "absolute inset-0 bg-black/20 backdrop-blur-[2px]",
-          initial: { opacity: 0 },
-          animate: { opacity: [0, 1, 0] },
-          transition: { duration: 3, times: [0, 0.5, 1] }
-        }
-      )
-    ]
-  }
-) }));
+        )
+      ]
+    }
+  ) });
+};
+Ut.displayName = "SpectralRiver";
+const ns = Ut;
 export {
-  $t as AnimatedBat,
-  Zn as BatBurst,
-  Ve as BatIcon,
-  Hn as BloodSmear,
-  fr as CoffinCard,
-  Dn as CursorEffectProvider,
-  Zr as CursorTracker,
-  ue as DEFAULT_CURSOR_CONFIG,
-  dn as DistortionField,
-  wn as EffectRenderer,
-  On as GhostCursor,
-  An as GhostToastProvider,
-  ln as GlowAura,
-  jo as GooeyButton,
-  Yo as GooeyCard,
-  Rr as GooeyProgressBar,
-  Lt as GooeySidebar,
-  Nr as GooeySidebarDemo,
-  Rn as GraveModal,
-  ie as HauntedCard,
-  vr as HauntedVignette,
-  Gn as HauntedVignetteDemo,
-  At as JumpscareBat,
-  mr as MoonlightSwitch,
-  Hr as PRESET_THEMES,
-  fn as ParticleSystem,
-  Wn as ShadowCrawl,
-  V as SkeletonBlock,
-  jn as SpectralRiver,
-  Bn as SpectralTabs,
-  gr as SpiritInput,
-  Sr as SpookyGhostIcon,
-  Ln as SpookyScrollbar,
-  Fn as SpookySkeleton,
-  Gt as SpookyTooltip,
-  pr as ThemeProvider,
-  mn as WaveGenerator,
-  zr as WhisperBox,
-  Pn as WispTrail,
-  kn as useCursorContext,
-  _n as useCursorEffect,
-  $n as useGhostToast,
-  Tn as useTheme,
-  oe as useThemeOptional
+  Sr as BatIcon,
+  os as BloodSmear,
+  Nr as CoffinCard,
+  es as CursorEffectProvider,
+  an as CursorTracker,
+  me as DEFAULT_CURSOR_CONFIG,
+  Sn as DistortionField,
+  On as EffectRenderer,
+  Jn as GhostCursor,
+  Lr as GhostToastProvider,
+  Nn as GlowAura,
+  Vo as GooeyButton,
+  Jo as GooeyCard,
+  xr as GooeyDrawer,
+  Zr as GooeyProgressBar,
+  Gt as GooeySidebar,
+  Br as GooeySidebarDemo,
+  Ir as GraveModal,
+  ae as HauntedCard,
+  zt as HauntedVignette,
+  qn as HauntedVignetteDemo,
+  kr as MoonlightSwitch,
+  nn as PRESET_THEMES,
+  zn as ParticleSystem,
+  rs as ShadowCrawl,
+  q as SkeletonBlock,
+  ns as SpectralRiver,
+  Pr as SpectralTabs,
+  Mr as SpiritInput,
+  Fr as SpookyGhostIcon,
+  Qr as SpookyScrollbar,
+  Kn as SpookySkeleton,
+  Ze as SpookyTooltip,
+  Uo as ThemeProvider,
+  Tn as WaveGenerator,
+  Hr as WhisperBox,
+  Qn as WispTrail,
+  Ln as useCursorContext,
+  ts as useCursorEffect,
+  Un as useGhostToast,
+  Xn as useTheme,
+  X as useThemeOptional
 };

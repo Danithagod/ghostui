@@ -2,6 +2,17 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useThemeOptional, type Theme } from './ThemeProvider';
+
+// Theme color configuration for WispTrail
+const themeColors = {
+    spectral: {
+        defaultColor: '#FF6F00', // Orange accent for spectral theme
+    },
+    blood: {
+        defaultColor: '#ef4444', // Red accent for blood theme
+    },
+} as const;
 
 export interface WispTrailProps {
     color?: string;
@@ -16,11 +27,19 @@ interface Particle {
     vy: number;
 }
 
-export const WispTrail: React.FC<WispTrailProps> = ({
-    color = '#90FFB5',
+const WispTrailComponent: React.FC<WispTrailProps> = ({
+    color,
     particleCount = 3,
 }) => {
     const [particles, setParticles] = useState<Particle[]>([]);
+    
+    // Connect to ThemeProvider context if available
+    const themeContext = useThemeOptional();
+    const theme: Theme = themeContext?.theme ?? 'spectral';
+    const colors = themeColors[theme];
+    
+    // Use provided color or fall back to theme default
+    const particleColor = color ?? colors.defaultColor;
 
     useEffect(() => {
         let idCounter = 0;
@@ -64,8 +83,8 @@ export const WispTrail: React.FC<WispTrailProps> = ({
                             top: particle.y,
                             width: 4 + Math.random() * 4,
                             height: 4 + Math.random() * 4,
-                            backgroundColor: color,
-                            boxShadow: `0 0 10px ${color}`,
+                            backgroundColor: particleColor,
+                            boxShadow: `0 0 10px ${particleColor}`,
                         }}
                         initial={{ opacity: 0.8, scale: 1 }}
                         animate={{
@@ -85,3 +104,7 @@ export const WispTrail: React.FC<WispTrailProps> = ({
         </div>
     );
 };
+
+WispTrailComponent.displayName = 'WispTrail';
+
+export const WispTrail = WispTrailComponent;

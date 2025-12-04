@@ -4,6 +4,49 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Ghost, Sparkles } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { useThemeOptional, type Theme } from './ThemeProvider';
+
+// Theme color configuration for WhisperBox
+const themeColors = {
+    spectral: {
+        ectoplasmBorder: 'bg-purple-900/30',
+        whisperGlow: 'bg-purple-500/10',
+        runeText: 'text-purple-300/20',
+        labelFocused: 'text-purple-400',
+        labelDefault: 'text-purple-200/50',
+        border: 'border-purple-500/20',
+        borderFocused: 'border-purple-500/50',
+        cornerBorder: 'border-purple-500/40',
+        iconActive: 'text-purple-400',
+        iconFocused: 'text-purple-700',
+        iconDefault: 'text-purple-900/40',
+        textColor: 'text-purple-100',
+        placeholder: 'placeholder:text-purple-900/50',
+        selection: 'selection:bg-purple-500/30',
+        glowRgba: 'rgba(168, 85, 247,',
+        textShadowRgba: 'rgba(168, 85, 247, 0.4)',
+        caretColor: '#d8b4fe',
+    },
+    blood: {
+        ectoplasmBorder: 'bg-red-900/30',
+        whisperGlow: 'bg-red-500/10',
+        runeText: 'text-red-300/20',
+        labelFocused: 'text-red-400',
+        labelDefault: 'text-red-200/50',
+        border: 'border-red-500/20',
+        borderFocused: 'border-red-500/50',
+        cornerBorder: 'border-red-500/40',
+        iconActive: 'text-red-400',
+        iconFocused: 'text-red-700',
+        iconDefault: 'text-red-900/40',
+        textColor: 'text-red-100',
+        placeholder: 'placeholder:text-red-900/50',
+        selection: 'selection:bg-red-500/30',
+        glowRgba: 'rgba(239, 68, 68,',
+        textShadowRgba: 'rgba(239, 68, 68, 0.4)',
+        caretColor: '#fca5a5',
+    },
+} as const;
 
 // --- Constants ---
 const RUNES: string[] = [
@@ -19,16 +62,21 @@ export interface WhisperBoxProps extends React.TextareaHTMLAttributes<HTMLTextAr
 }
 
 export const WhisperBox = React.forwardRef<HTMLTextAreaElement, WhisperBoxProps>(
-  ({ className, label = "Invoke the Spirits", value, defaultValue, onChange, onFocus, onBlur, ...props }, ref) => {
+  ({ className, value, defaultValue, onChange, onFocus, onBlur, ...props }, ref) => {
+    const filterId = React.useId();
     // Internal state for uncontrolled mode
     const [internalText, setInternalText] = useState<string>((defaultValue as string) || "");
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const [energy, setEnergy] = useState<number>(0); // 0-100
     const lastTypeTime = useRef<number>(Date.now());
 
+    // Connect to ThemeProvider context if available
+    const themeContext = useThemeOptional();
+    const theme: Theme = themeContext?.theme ?? 'spectral';
+    const colors = themeColors[theme];
+
     // Determine if controlled or uncontrolled
     const isControlled = value !== undefined;
-    const text = isControlled ? (value as string) : internalText;
 
     // Calculate visual effects from energy
     const glowOpacity = Math.min(energy / 100, 0.8);
@@ -69,11 +117,11 @@ export const WhisperBox = React.forwardRef<HTMLTextAreaElement, WhisperBoxProps>
     };
 
     return (
-      <div className="relative w-full max-w-xl">
+      <div className="relative w-full">
         {/* SVG Filter Definition */}
-        <svg className="absolute w-0 h-0 pointer-events-none">
+        <svg className="absolute w-0 h-0 pointer-events-none" aria-hidden="true">
           <defs>
-            <filter id="ectoplasm-distortion">
+            <filter id={`ectoplasm-distortion-${filterId}`}>
               <feTurbulence 
                 type="fractalNoise" 
                 baseFrequency="0.01 0.04" 
@@ -98,16 +146,16 @@ export const WhisperBox = React.forwardRef<HTMLTextAreaElement, WhisperBoxProps>
 
         {/* Ectoplasm Border */}
         <div
-          className="absolute -inset-1 bg-purple-900/30 rounded transition-opacity duration-300 pointer-events-none"
+          className={cn("absolute -inset-1 rounded transition-opacity duration-300 pointer-events-none", colors.ectoplasmBorder)}
           style={{
-            filter: "url(#ectoplasm-distortion)",
+            filter: `url(#ectoplasm-distortion-${filterId})`,
             opacity: isFocused ? 0.6 + (glowOpacity / 2) : 0
           }}
         />
 
         {/* Whisper Glow */}
         <div
-          className="absolute inset-0 bg-purple-500/10 blur-xl rounded pointer-events-none transition-opacity duration-100"
+          className={cn("absolute inset-0 blur-xl rounded pointer-events-none transition-opacity duration-100", colors.whisperGlow)}
           style={{
             opacity: glowOpacity
           }}
@@ -126,7 +174,7 @@ export const WhisperBox = React.forwardRef<HTMLTextAreaElement, WhisperBoxProps>
                 return (
                   <motion.div
                     key={`rune-${i}`}
-                    className="absolute text-4xl text-purple-300/20 font-rune pointer-events-none"
+                    className={cn("absolute text-4xl font-rune pointer-events-none", colors.runeText)}
                     style={{
                       left: `${randomX}%`,
                       top: `${randomY}%`,
@@ -150,37 +198,32 @@ export const WhisperBox = React.forwardRef<HTMLTextAreaElement, WhisperBoxProps>
           )}
         </AnimatePresence>
 
-        {/* Label */}
-        <label
-          className={cn(
-            "absolute left-4 top-4 font-rune uppercase tracking-widest transition-all duration-300 pointer-events-none z-10",
-            isFocused || text
-              ? "text-[10px] -translate-y-7 text-purple-400"
-              : "text-xs text-purple-200/50"
-          )}
-        >
-          {label}
-        </label>
-
         {/* Textarea */}
         <textarea
           ref={ref}
           className={cn(
-            "w-full min-h-[160px] resize-y relative z-10",
+            "w-full min-h-[240px] resize-y relative z-10",
             "bg-[#0a0510]/80 backdrop-blur-sm",
-            "border border-purple-500/20",
-            "text-purple-100 text-lg leading-relaxed font-serif",
-            "px-4 pt-8 pb-4",
+            "border",
+            colors.border,
+            colors.textColor,
+            "text-lg leading-relaxed font-serif",
+            "px-6 py-6",
             "outline-none",
-            "placeholder:text-purple-900/50",
-            "selection:bg-purple-500/30 selection:text-white",
-            "ghost-text",
-            isFocused && "border-purple-500/50",
+            colors.placeholder,
+            colors.selection,
+            "selection:text-white",
+            `ghost-text-${theme}`,
+            isFocused && colors.borderFocused,
             className
           )}
-          style={isFocused ? {
-            boxShadow: `0 0 ${20 + energy}px rgba(168, 85, 247, ${0.1 + (energy / 500)})`
-          } : undefined}
+          style={{
+            ...(isFocused && {
+              boxShadow: `0 0 ${20 + energy}px ${colors.glowRgba} ${0.1 + (energy / 500)})`
+            }),
+            textShadow: `0 0 8px ${colors.textShadowRgba}, 2px 2px 0px rgba(0,0,0,0.5)`,
+            caretColor: colors.caretColor,
+          }}
           {...(isControlled ? { value } : { defaultValue })}
           onChange={handleChange}
           onFocus={handleFocus}
@@ -189,31 +232,14 @@ export const WhisperBox = React.forwardRef<HTMLTextAreaElement, WhisperBoxProps>
         />
 
         {/* Corner Accents */}
-        <div className="absolute top-0 left-0 w-1 h-1 border-t border-l border-purple-500/40 pointer-events-none z-20" />
-        <div className="absolute top-0 right-0 w-1 h-1 border-t border-r border-purple-500/40 pointer-events-none z-20" />
-        <div className="absolute bottom-0 left-0 w-1 h-1 border-b border-l border-purple-500/40 pointer-events-none z-20" />
-        <div className="absolute bottom-0 right-0 w-1 h-1 border-b border-r border-purple-500/40 pointer-events-none z-20" />
-
-        {/* Status Indicator */}
-        <div className="absolute bottom-4 right-4 z-20 transition-colors duration-500">
-          {energy > 50 ? (
-            <Sparkles className={cn("w-5 h-5 text-purple-400 animate-spin")} />
-          ) : (
-            <Ghost className={cn(
-              "w-5 h-5 transition-colors duration-500",
-              isFocused ? "text-purple-700" : "text-purple-900/40"
-            )} />
-          )}
-        </div>
+        <div className={cn("absolute top-0 left-0 w-1 h-1 border-t border-l pointer-events-none z-20", colors.cornerBorder)} />
+        <div className={cn("absolute top-0 right-0 w-1 h-1 border-t border-r pointer-events-none z-20", colors.cornerBorder)} />
+        <div className={cn("absolute bottom-0 left-0 w-1 h-1 border-b border-l pointer-events-none z-20", colors.cornerBorder)} />
+        <div className={cn("absolute bottom-0 right-0 w-1 h-1 border-b border-r pointer-events-none z-20", colors.cornerBorder)} />
 
         {/* Embedded Styles */}
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Creepster&family=Cinzel:wght@400;700&family=Inter:wght@400;600&display=swap');
-          
-          .ghost-text {
-            text-shadow: 0 0 8px rgba(168, 85, 247, 0.4), 2px 2px 0px rgba(0,0,0,0.5);
-            caret-color: #d8b4fe;
-          }
           
           .font-rune {
             font-family: 'Cinzel', serif;

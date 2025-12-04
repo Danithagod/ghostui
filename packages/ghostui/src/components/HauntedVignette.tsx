@@ -172,7 +172,7 @@ export interface HauntedCardProps {
 }
 
 // --- HAUNTED CARD COMPONENT (Wrapper for any content) ---
-export const HauntedCard: React.FC<HauntedCardProps> = ({
+const HauntedCardComponent: React.FC<HauntedCardProps> = ({
     children,
     className,
     peekDelay = 250,
@@ -339,6 +339,9 @@ export const HauntedCard: React.FC<HauntedCardProps> = ({
     );
 };
 
+HauntedCardComponent.displayName = 'HauntedCard';
+
+export const HauntedCard = HauntedCardComponent;
 
 // --- HAUNTED VIGNETTE PROPS ---
 export interface HauntedVignetteProps {
@@ -419,6 +422,8 @@ export const HauntedVignette: React.FC<HauntedVignetteProps> = ({
         />
     );
 };
+
+HauntedVignette.displayName = 'HauntedVignette';
 
 // --- HAUNTED VIGNETTE DEMO PROPS ---
 export interface HauntedVignetteDemoProps {

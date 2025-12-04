@@ -1,6 +1,7 @@
 // Export components and their prop types
 export { GooeyButton, type GooeyButtonProps } from './GooeyButton';
 export { GooeyCard, type GooeyCardProps } from './GooeyCard';
+export { GooeyDrawer, type GooeyDrawerProps } from './GooeyDrawer';
 export { MoonlightSwitch, type MoonlightSwitchProps } from './MoonlightSwitch';
 export { 
     ThemeProvider, 
@@ -13,8 +14,6 @@ export {
 export { CoffinCard, type CoffinCardProps } from './CoffinCard';
 export { SpiritInput, type SpiritInputProps } from './SpiritInput';
 export { BatIcon, type BatIconProps } from './BatIcon';
-export { JumpscareBat } from './JumpscareBat';
-export { AnimatedBat, type AnimatedBatProps } from './AnimatedBat';
 export * from './GraveModal';
 export * from './SpookyTooltip';
 export { 
@@ -63,5 +62,4 @@ export type { ParticleSystemProps } from './CursorEffect/ParticleSystem';
 // Page Transitions
 export * from './BloodSmear';
 export * from './ShadowCrawl';
-export * from './BatBurst';
 export { SpectralRiver, type SpectralRiverProps } from './SpectralRiver';

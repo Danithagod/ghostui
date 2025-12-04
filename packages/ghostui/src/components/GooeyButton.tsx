@@ -2,13 +2,7 @@
 
 import React from 'react';
 import { motion, Variants, AnimatePresence } from 'framer-motion';
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
-
-// --- Utility: cn ---
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+import { cn } from '../lib/utils';
 
 // --- Theme Types & Config ---
 interface ThemeConfig {
@@ -26,16 +20,16 @@ const themes: Record<'slime' | 'blood' | 'ectoplasm', ThemeConfig> = {
     drip: 'bg-[#32CD32]',
   },
   blood: {
-    bg: 'bg-[#DC143C]',
-    glow: 'shadow-[0_0_20px_rgba(220,20,60,0.7)]',
-    text: 'text-red-100',
-    drip: 'bg-[#DC143C]',
+    bg: 'bg-[#dc2626]',
+    glow: 'shadow-[0_0_25px_rgba(220,38,38,0.9)]',
+    text: 'text-red-50',
+    drip: 'bg-[#dc2626]',
   },
   ectoplasm: {
-    bg: 'bg-[#9400D3]',
-    glow: 'shadow-[0_0_25px_rgba(148,0,211,0.7)]',
+    bg: 'bg-[#A855F7]',
+    glow: 'shadow-[0_0_30px_rgba(168,85,247,0.8)]',
     text: 'text-purple-100',
-    drip: 'bg-[#9400D3]',
+    drip: 'bg-[#A855F7]',
   },
 };
 

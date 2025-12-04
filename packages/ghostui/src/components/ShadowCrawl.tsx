@@ -9,15 +9,33 @@ export interface ShadowCrawlProps {
     duration?: number;
 }
 
-export const ShadowCrawl: React.FC<ShadowCrawlProps> = ({
+const ShadowCrawlComponent: React.FC<ShadowCrawlProps> = ({
     isActive,
     onComplete,
     duration = 1.2,
 }) => {
+    // Animation phases:
+    // Phase 1 (0-40%): Tendrils crawl up from bottom
+    // Phase 2 (40-60%): Full darkness covers screen
+    // Phase 3 (60-100%): Everything fades out
+    const crawlDuration = duration * 0.4;
+    const coverDuration = duration * 0.2;
+    const fadeOutDuration = duration * 0.4;
+
     return (
         <AnimatePresence onExitComplete={onComplete}>
             {isActive && (
-                <motion.div className="fixed inset-0 z-50 pointer-events-none overflow-hidden">
+                <motion.div 
+                    className="fixed inset-0 z-50 pointer-events-none overflow-hidden" 
+                    aria-hidden="true"
+                    initial={{ opacity: 1 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ 
+                        duration: fadeOutDuration,
+                        ease: 'easeInOut'
+                    }}
+                >
                     {/* Shadow tendrils */}
                     {Array.from({ length: 8 }).map((_, i) => (
                         <motion.div
@@ -30,10 +48,9 @@ export const ShadowCrawl: React.FC<ShadowCrawlProps> = ({
                             }}
                             initial={{ scaleY: 0, opacity: 0 }}
                             animate={{ scaleY: 1, opacity: 1 }}
-                            exit={{ scaleY: 0, opacity: 0 }}
                             transition={{
-                                duration: duration * 0.6,
-                                delay: i * 0.1,
+                                duration: crawlDuration,
+                                delay: i * 0.05,
                                 ease: 'easeOut',
                             }}
                         />
@@ -44,11 +61,18 @@ export const ShadowCrawl: React.FC<ShadowCrawlProps> = ({
                         className="absolute inset-0 bg-black"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: duration * 0.4, delay: duration * 0.6 }}
+                        transition={{ 
+                            duration: coverDuration, 
+                            delay: crawlDuration,
+                            ease: 'easeInOut'
+                        }}
                     />
                 </motion.div>
             )}
         </AnimatePresence>
     );
 };
+
+ShadowCrawlComponent.displayName = 'ShadowCrawl';
+
+export const ShadowCrawl = ShadowCrawlComponent;
