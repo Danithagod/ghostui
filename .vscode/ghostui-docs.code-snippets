@@ -1,0 +1,220 @@
+{
+  "GhostUI Component Page Template": {
+    "prefix": "ghostui-page",
+    "description": "Complete component documentation page template",
+    "body": [
+      "import { ComponentPlayground } from '@/components/ComponentPlayground';",
+      "import { PropsTable } from '@/components/PropsTable';",
+      "",
+      "const propsData = [",
+      "  {",
+      "    name: '${1:propName}',",
+      "    type: '${2:string}',",
+      "    required: ${3:false},",
+      "    default: ${4:undefined},",
+      "    description: '${5:Description of the prop}',",
+      "  },",
+      "];",
+      "",
+      "export default function ${6:Component}Page() {",
+      "  return (",
+      "    <div className=\"space-y-12\">",
+      "      {/* Header Section */}",
+      "      <div className=\"space-y-4\">",
+      "        <h1 className=\"text-3xl md:text-4xl lg:text-5xl font-display text-ghost-orange tracking-wide\">",
+      "          ${7:Component Name}",
+      "        </h1>",
+      "        <p className=\"lead text-ghost-white/90\">",
+      "          ${8:Brief description of the component's purpose and key features.}",
+      "        </p>",
+      "      </div>",
+      "",
+      "      {/* Basic Usage */}",
+      "      <ComponentPlayground",
+      "        preview={",
+      "          <div className=\"bg-[#05020a] rounded-lg border border-ghost-orange/30 p-8\">",
+      "            {/* Component demo */}",
+      "            $0",
+      "          </div>",
+      "        }",
+      "        code={\\`import { ${6:Component} } from 'ghostui-react';",
+      "",
+      "export default function Example() {",
+      "  return (",
+      "    <${6:Component} />",
+      "  );",
+      "}\\`}",
+      "        api={<PropsTable props={propsData} />}",
+      "      />",
+      "",
+      "      {/* Additional Examples */}",
+      "      <section className=\"space-y-6 mt-12\">",
+      "        <h2 className=\"text-2xl md:text-3xl font-display text-ghost-orange tracking-wide\">",
+      "          Examples",
+      "        </h2>",
+      "        {/* More examples here */}",
+      "      </section>",
+      "    </div>",
+      "  );",
+      "}"
+    ]
+  },
+  "GhostUI H1 Header": {
+    "prefix": "ghostui-h1",
+    "description": "Standard H1 header with correct styling",
+    "body": [
+      "<h1 className=\"text-3xl md:text-4xl lg:text-5xl font-display text-ghost-orange tracking-wide\">",
+      "  ${1:Component Name}",
+      "</h1>"
+    ]
+  },
+  "GhostUI H2 Header": {
+    "prefix": "ghostui-h2",
+    "description": "Standard H2 header with correct styling",
+    "body": [
+      "<h2 className=\"text-2xl md:text-3xl font-display text-ghost-orange tracking-wide\">",
+      "  ${1:Section Title}",
+      "</h2>"
+    ]
+  },
+  "GhostUI H3 Header": {
+    "prefix": "ghostui-h3",
+    "description": "Standard H3 header with correct styling",
+    "body": [
+      "<h3 className=\"text-xl md:text-2xl font-semibold text-ghost-white\">",
+      "  ${1:Subsection Title}",
+      "</h3>"
+    ]
+  },
+  "GhostUI Lead Paragraph": {
+    "prefix": "ghostui-lead",
+    "description": "Lead paragraph with correct styling",
+    "body": [
+      "<p className=\"lead text-ghost-white/90\">",
+      "  ${1:Lead paragraph text}",
+      "</p>"
+    ]
+  },
+  "GhostUI Section": {
+    "prefix": "ghostui-section",
+    "description": "Standard section with header and content",
+    "body": [
+      "<section className=\"space-y-6 mt-12\">",
+      "  <h2 className=\"text-2xl md:text-3xl font-display text-ghost-orange tracking-wide\">",
+      "    ${1:Section Title}",
+      "  </h2>",
+      "  ${0}",
+      "</section>"
+    ]
+  },
+  "GhostUI ComponentPlayground": {
+    "prefix": "ghostui-playground",
+    "description": "ComponentPlayground with preview, code, and API",
+    "body": [
+      "<ComponentPlayground",
+      "  preview={",
+      "    <div className=\"bg-[#05020a] rounded-lg border border-ghost-orange/30 p-8\">",
+      "      ${1:/* Component demo */}",
+      "    </div>",
+      "  }",
+      "  code={\\`${2:// Code example}\\`}",
+      "  api={<PropsTable props={${3:propsData}} />}",
+      "/>"
+    ]
+  },
+  "GhostUI Preview Container": {
+    "prefix": "ghostui-preview",
+    "description": "Standard preview container with correct styling",
+    "body": [
+      "<div className=\"bg-[#05020a] rounded-lg border border-ghost-orange/30 p-8\">",
+      "  ${0}",
+      "</div>"
+    ]
+  },
+  "GhostUI Props Data": {
+    "prefix": "ghostui-props",
+    "description": "Props data array for PropsTable",
+    "body": [
+      "const propsData = [",
+      "  {",
+      "    name: '${1:propName}',",
+      "    type: '${2:string}',",
+      "    required: ${3:false},",
+      "    default: ${4:undefined},",
+      "    description: '${5:Description of the prop}',",
+      "  },",
+      "  ${0}",
+      "];"
+    ]
+  },
+  "GhostUI Inline Code": {
+    "prefix": "ghostui-code",
+    "description": "Inline code with correct styling",
+    "body": [
+      "<code className=\"px-1.5 py-0.5 rounded bg-ghost-dark/50 text-ghost-green font-mono text-xs\">",
+      "  ${1:code}",
+      "</code>"
+    ]
+  },
+  "GhostUI Info Box": {
+    "prefix": "ghostui-info",
+    "description": "Info box for highlighting important information",
+    "body": [
+      "<div className=\"bg-ghost-orange/10 border border-ghost-orange/30 rounded-lg p-6\">",
+      "  <h4 className=\"text-lg font-semibold text-ghost-white mb-2\">",
+      "    ${1:Info Title}",
+      "  </h4>",
+      "  <p className=\"text-ghost-white/80 text-sm leading-relaxed\">",
+      "    ${2:Information content}",
+      "  </p>",
+      "</div>"
+    ]
+  },
+  "GhostUI Feature Box": {
+    "prefix": "ghostui-feature",
+    "description": "Feature box for listing key features",
+    "body": [
+      "<div className=\"p-4 rounded-lg bg-ghost-orange/5 border border-ghost-orange/10\">",
+      "  <h4 className=\"text-ghost-orange font-semibold mb-2\">",
+      "    ${1:Feature Title}",
+      "  </h4>",
+      "  <p className=\"text-ghost-white/70 text-sm leading-relaxed\">",
+      "    ${2:Feature description}",
+      "  </p>",
+      "</div>"
+    ]
+  },
+  "GhostUI Accessibility Section": {
+    "prefix": "ghostui-a11y",
+    "description": "Accessibility section with keyboard navigation and ARIA info",
+    "body": [
+      "<section className=\"space-y-6 mt-12\">",
+      "  <h2 className=\"text-2xl md:text-3xl font-display text-ghost-orange tracking-wide\">",
+      "    Accessibility",
+      "  </h2>",
+      "  ",
+      "  <div className=\"space-y-4\">",
+      "    <div className=\"p-4 rounded-lg bg-ghost-orange/5 border border-ghost-orange/10\">",
+      "      <h4 className=\"text-ghost-orange font-semibold mb-2\">",
+      "        Keyboard Navigation",
+      "      </h4>",
+      "      <ul className=\"space-y-2 text-ghost-white/70 text-sm\">",
+      "        <li><kbd>Tab</kbd> - ${1:Focus the component}</li>",
+      "        <li><kbd>Enter</kbd> - ${2:Activate}</li>",
+      "        <li><kbd>Escape</kbd> - ${3:Close/dismiss}</li>",
+      "      </ul>",
+      "    </div>",
+      "    ",
+      "    <div className=\"p-4 rounded-lg bg-ghost-orange/5 border border-ghost-orange/10\">",
+      "      <h4 className=\"text-ghost-orange font-semibold mb-2\">",
+      "        ARIA Attributes",
+      "      </h4>",
+      "      <p className=\"text-ghost-white/70 text-sm\">",
+      "        ${4:Description of ARIA attributes and screen reader support}",
+      "      </p>",
+      "    </div>",
+      "  </div>",
+      "</section>"
+    ]
+  }
+}

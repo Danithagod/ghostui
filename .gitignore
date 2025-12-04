@@ -1,1 +1,7 @@
 node_modules
+
+# Temporary commit helper scripts
+COMMIT_COMMANDS.ps1
+COMMIT_COMMANDS.sh
+MANUAL_COMMIT_STEPS.md
+GIT_COMMIT_PLAN.md

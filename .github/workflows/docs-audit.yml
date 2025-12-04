@@ -1,0 +1,112 @@
+name: Documentation Audit
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'apps/docs/app/docs/components/**/*.tsx'
+      - 'apps/docs/scripts/audit/**'
+      - 'apps/docs/COMPONENT_DOCUMENTATION_STYLE_GUIDE.md'
+  pull_request:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'apps/docs/app/docs/components/**/*.tsx'
+      - 'apps/docs/scripts/audit/**'
+      - 'apps/docs/COMPONENT_DOCUMENTATION_STYLE_GUIDE.md'
+  workflow_dispatch:
+
+jobs:
+  audit:
+    name: Audit Component Documentation
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Install docs dependencies
+        run: npm ci
+        working-directory: apps/docs
+      
+      - name: Run documentation audit
+        id: audit
+        run: npm run audit:ci
+        working-directory: apps/docs
+        continue-on-error: true
+      
+      - name: Generate audit report
+        if: always()
+        run: npm run audit:report
+        working-directory: apps/docs
+      
+      - name: Upload audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-report-${{ github.sha }}
+          path: |
+            apps/docs/audit-reports/*.json
+            apps/docs/audit-reports/*.md
+          retention-days: 30
+      
+      - name: Check compliance threshold
+        if: always()
+        run: npm run audit:check
+        working-directory: apps/docs
+      
+      - name: Comment PR with audit results
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            
+            // Read the latest markdown report
+            const reportsDir = path.join(process.cwd(), 'apps/docs/audit-reports');
+            const files = fs.readdirSync(reportsDir).filter(f => f.endsWith('.md'));
+            
+            if (files.length === 0) {
+              console.log('No markdown report found');
+              return;
+            }
+            
+            const latest = files.sort().reverse()[0];
+            const reportPath = path.join(reportsDir, latest);
+            let report = fs.readFileSync(reportPath, 'utf8');
+            
+            // Truncate report if too long (GitHub comment limit is 65536 characters)
+            if (report.length > 60000) {
+              report = report.substring(0, 60000) + '\n\n... (report truncated, see artifacts for full report)';
+            }
+            
+            const comment = `## 📋 Documentation Audit Report
+            
+            ${report}
+            
+            <details>
+            <summary>View full report</summary>
+            
+            Download the complete audit report from the workflow artifacts.
+            
+            </details>`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });

@@ -273,14 +273,14 @@ const SpookySkeletonComponent: React.FC<SpookySkeletonProps> = ({ variant, child
     : (
       // Default fallback layout when no children provided
       <>
-        <div className="flex items-start gap-4 mb-4">
+        <div className="flex items-start gap-4 mb-6">
           <SkeletonBlock variant={variant} theme={theme} className="w-12 h-12 rounded-full flex-shrink-0" />
-          <div className="flex-1 space-y-2">
+          <div className="flex-1 space-y-3">
             <SkeletonBlock variant={variant} theme={theme} className="h-4 w-3/4" />
             <SkeletonBlock variant={variant} theme={theme} className="h-3 w-1/2" />
           </div>
         </div>
-        <div className="space-y-3">
+        <div className="space-y-4">
           <SkeletonBlock variant={variant} theme={theme} className="h-3 w-full" />
           <SkeletonBlock variant={variant} theme={theme} className="h-3 w-5/6" />
           <SkeletonBlock variant={variant} theme={theme} className="h-3 w-4/5" />
@@ -355,11 +355,35 @@ const SpookySkeletonComponent: React.FC<SpookySkeletonProps> = ({ variant, child
           100% { transform: translateX(-10%); opacity: 0.3; }
         }
 
+        .${scopeId}.skeleton-flow-container {
+          animation: skeleton-flow-wave 6s ease-in-out infinite;
+        }
+
+        @keyframes skeleton-flow-wave {
+          0%, 100% { 
+            transform: translateY(0px);
+            box-shadow: 0 0 20px ${colors.accent}15, 0 4px 20px rgba(0,0,0,0.3), inset 0 0 30px ${colors.accent}08;
+          }
+          25% { 
+            transform: translateY(-2px);
+            box-shadow: 0 0 24px ${colors.accent}20, 0 6px 24px rgba(0,0,0,0.35), inset 0 0 35px ${colors.accent}12;
+          }
+          50% { 
+            transform: translateY(0px);
+            box-shadow: 0 0 20px ${colors.accent}15, 0 4px 20px rgba(0,0,0,0.3), inset 0 0 30px ${colors.accent}08;
+          }
+          75% { 
+            transform: translateY(2px);
+            box-shadow: 0 0 16px ${colors.accent}12, 0 2px 16px rgba(0,0,0,0.25), inset 0 0 25px ${colors.accent}06;
+          }
+        }
+
         @media (prefers-reduced-motion: reduce) {
           .${scopeId} .skeleton-sweep,
           .${scopeId} .skeleton-flicker,
           .${scopeId} .skeleton-fog-overlay,
-          .${scopeId} .skeleton-scan::after {
+          .${scopeId} .skeleton-scan::after,
+          .${scopeId}.skeleton-flow-container {
             animation: none;
           }
         }
@@ -368,7 +392,7 @@ const SpookySkeletonComponent: React.FC<SpookySkeletonProps> = ({ variant, child
       <div
         className={cn(
           scopeId,
-          'relative p-6 rounded-2xl border shadow-lg',
+          'relative p-6 rounded-2xl border shadow-lg skeleton-flow-container',
           className
         )}
         style={{
