@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Component Name Highlighting Test</title>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 20px;
+            background: #1a0b2e;
+            color: #e9d5ff;
+        }
+        .component-name {
+            color: #FF6F00;
+            font-weight: 500;
+        }
+        .test-case {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #FF6F00;
+            border-radius: 8px;
+        }
+        .test-case h3 {
+            color: #FBBF24;
+            margin-top: 0;
+        }
+        .result {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        .pass {
+            color: #10b981;
+        }
+        .fail {
+            color: #ef4444;
+        }
+    </style>
+</head>
+<body>
+    <h1>Component Name Highlighting Test</h1>
+    
+    <div class="test-case">
+        <h3>Test 1: Basic PascalCase Detection</h3>
+        <div>Input: "GooeyButton SpookyTooltip ThemeProvider"</div>
+        <div class="result" id="test1"></div>
+    </div>
+
+    <div class="test-case">
+        <h3>Test 2: Exclude Single Words</h3>
+        <div>Input: "Button Component I A"</div>
+        <div class="result" id="test2"></div>
+    </div>
+
+    <div class="test-case">
+        <h3>Test 3: Exclude String Literals</h3>
+        <div>Input: 'const name = "GooeyButton"; return &lt;GooeyButton /&gt;'</div>
+        <div class="result" id="test3"></div>
+    </div>
+
+    <div class="test-case">
+        <h3>Test 4: Whitespace Preservation</h3>
+        <div>Input: "  GooeyButton  \n  SpookyTooltip  "</div>
+        <div class="result" id="test4"></div>
+    </div>
+
+    <script type="module">
+        // Regex pattern for detecting PascalCase component names
+        const COMPONENT_NAME_PATTERN = /\b[A-Z][a-z]+(?:[A-Z][a-z]*)+\b/g;
+
+        function highlightComponentNames(html) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            
+            const walker = document.createTreeWalker(
+                doc.body,
+                NodeFilter.SHOW_TEXT,
+                {
+                    acceptNode: (node) => {
+                        const parent = node.parentElement;
+                        if (parent?.classList.contains('token') && 
+                            parent?.classList.contains('string')) {
+                            return NodeFilter.FILTER_REJECT;
+                        }
+                        return NodeFilter.FILTER_ACCEPT;
+                    }
+                }
+            );
+            
+            const textNodes = [];
+            let currentNode;
+            while (currentNode = walker.nextNode()) {
+                textNodes.push(currentNode);
+            }
+            
+            textNodes.forEach(node => {
+                const text = node.textContent || '';
+                const matches = text.match(COMPONENT_NAME_PATTERN);
+                
+                if (matches && matches.length > 0) {
+                    const fragment = document.createDocumentFragment();
+                    let lastIndex = 0;
+                    
+                    text.replace(COMPONENT_NAME_PATTERN, (match, index) => {
+                        if (index > lastIndex) {
+                            fragment.appendChild(
+                                document.createTextNode(text.slice(lastIndex, index))
+                            );
+                        }
+                        
+                        const span = document.createElement('span');
+                        span.className = 'component-name';
+                        span.textContent = match;
+                        fragment.appendChild(span);
+                        
+                        lastIndex = index + match.length;
+                        return match;
+                    });
+                    
+                    if (lastIndex < text.length) {
+                        fragment.appendChild(
+                            document.createTextNode(text.slice(lastIndex))
+                        );
+                    }
+                    
+                    node.parentNode?.replaceChild(fragment, node);
+                }
+            });
+            
+            return doc.body.innerHTML;
+        }
+
+        // Test 1: Basic PascalCase Detection
+        const test1Input = "GooeyButton SpookyTooltip ThemeProvider";
+        const test1Result = highlightComponentNames(test1Input);
+        const test1Pass = test1Result.includes('<span class="component-name">GooeyButton</span>') &&
+                          test1Result.includes('<span class="component-name">SpookyTooltip</span>') &&
+                          test1Result.includes('<span class="component-name">ThemeProvider</span>');
+        document.getElementById('test1').innerHTML = `
+            <div class="${test1Pass ? 'pass' : 'fail'}">${test1Pass ? '✓ PASS' : '✗ FAIL'}</div>
+            <div>Output: ${test1Result}</div>
+        `;
+
+        // Test 2: Exclude Single Words
+        const test2Input = "Button Component I A";
+        const test2Result = highlightComponentNames(test2Input);
+        const test2Pass = !test2Result.includes('<span class="component-name">Button</span>') &&
+                          !test2Result.includes('<span class="component-name">Component</span>') &&
+                          !test2Result.includes('<span class="component-name">I</span>') &&
+                          !test2Result.includes('<span class="component-name">A</span>');
+        document.getElementById('test2').innerHTML = `
+            <div class="${test2Pass ? 'pass' : 'fail'}">${test2Pass ? '✓ PASS' : '✗ FAIL'}</div>
+            <div>Output: ${test2Result}</div>
+        `;
+
+        // Test 3: Exclude String Literals
+        const test3Input = 'const name = <span class="token string">"GooeyButton"</span>; return <GooeyButton />';
+        const test3Result = highlightComponentNames(test3Input);
+        const stringSpan = test3Result.match(/<span class="token string">"GooeyButton"<\/span>/);
+        const componentSpan = test3Result.match(/<span class="component-name">GooeyButton<\/span>/);
+        const test3Pass = stringSpan && componentSpan && stringSpan[0].indexOf('component-name') === -1;
+        document.getElementById('test3').innerHTML = `
+            <div class="${test3Pass ? 'pass' : 'fail'}">${test3Pass ? '✓ PASS' : '✗ FAIL'}</div>
+            <div>Output: ${test3Result}</div>
+        `;
+
+        // Test 4: Whitespace Preservation
+        const test4Input = "  GooeyButton  \n  SpookyTooltip  ";
+        const test4Result = highlightComponentNames(test4Input);
+        const test4Text = new DOMParser().parseFromString(test4Result, 'text/html').body.textContent;
+        const test4Pass = test4Text === test4Input;
+        document.getElementById('test4').innerHTML = `
+            <div class="${test4Pass ? 'pass' : 'fail'}">${test4Pass ? '✓ PASS' : '✗ FAIL'}</div>
+            <div>Original: "${test4Input}"</div>
+            <div>Extracted: "${test4Text}"</div>
+            <div>Match: ${test4Pass}</div>
+        `;
+    </script>
+</body>
+</html>

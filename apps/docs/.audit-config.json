@@ -1,0 +1,33 @@
+{
+  "complianceThreshold": 80,
+  "failOnThreshold": true,
+  "reportFormats": ["json", "markdown"],
+  "outputDirectory": "audit-reports",
+  "rules": {
+    "typography": {
+      "enabled": true,
+      "severity": "error"
+    },
+    "spacing": {
+      "enabled": true,
+      "severity": "error"
+    },
+    "structure": {
+      "enabled": true,
+      "severity": "warning"
+    },
+    "api": {
+      "enabled": true,
+      "severity": "warning"
+    },
+    "preview": {
+      "enabled": true,
+      "severity": "error"
+    }
+  },
+  "excludePatterns": [
+    "**/node_modules/**",
+    "**/.next/**",
+    "**/dist/**"
+  ]
+}

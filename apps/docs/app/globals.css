@@ -1,0 +1,258 @@
+@import url('https://fonts.googleapis.com/css2?family=Creepster&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Creepster', system-ui;
+  --font-creep: 'Creepster', cursive;
+
+  --color-ghost-purple: #A855F7;
+  --color-ghost-green: #90FFB5;
+  --color-ghost-blood: #FF4D4D;
+  --color-ghost-white: #E6E6E6;
+  --color-ghost-dark: var(--ghost-bg);
+  --color-ghost-gray: var(--ghost-border);
+  --color-ghost-black: #030005;
+  --color-ghost-orange: #FF6F00;
+  --color-ghost-yellow: #FBBF24;
+}
+
+/* Theme-aware CSS variables */
+/* Default: Spectral (orange) theme */
+:root {
+  --ghost-bg: #1a0b2e;
+  --ghost-bg-secondary: #2e1065;
+  --ghost-text: #e9d5ff;
+  --ghost-text-secondary: #c4b5fd;
+  --ghost-border: #FF8C00;
+  --ghost-accent: #FF8C00;
+  --ghost-accent-rgb: 255, 140, 0;
+  /* Gradient overlay variables */
+  --ghost-gradient-start: transparent;
+  --ghost-gradient-mid: rgba(0, 0, 0, 0.3);
+  --ghost-gradient-end: rgba(0, 0, 0, 0.5);
+}
+
+/* Blood Moon (red) theme */
+[data-theme="blood"] {
+  --ghost-bg: #1f0a0a;
+  --ghost-bg-secondary: #450a0a;
+  --ghost-text: #fecaca;
+  --ghost-text-secondary: #fca5a5;
+  --ghost-border: #991b1b;
+  --ghost-accent: #ef4444;
+  --ghost-accent-rgb: 239, 68, 68;
+  /* Gradient overlay variables - red-tinted */
+  --ghost-gradient-mid: rgba(15, 0, 0, 0.35);
+  --ghost-gradient-end: rgba(15, 0, 0, 0.55);
+}
+
+@layer base {
+
+  html,
+  body {
+    @apply max-w-[100vw] overflow-x-hidden;
+  }
+
+  body {
+    background-color: var(--ghost-bg);
+    color: var(--ghost-text);
+    @apply font-sans antialiased leading-relaxed transition-colors duration-300;
+  }
+
+
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display tracking-wide text-ghost-orange;
+  }
+
+  h1 {
+    @apply text-5xl mb-6;
+    text-shadow: 0 0 25px rgba(255, 111, 0, 0.8),
+                 0 0 50px rgba(251, 191, 36, 0.5),
+                 0 0 75px rgba(255, 111, 0, 0.3);
+  }
+
+  h2 {
+    @apply text-3xl mb-4 mt-12;
+    text-shadow: 0 0 20px rgba(255, 111, 0, 0.7),
+                 0 0 40px rgba(251, 191, 36, 0.4),
+                 0 0 60px rgba(255, 111, 0, 0.2);
+  }
+
+  h3 {
+    @apply text-2xl mb-3 mt-8;
+    text-shadow: 0 0 15px rgba(255, 111, 0, 0.6),
+                 0 0 30px rgba(251, 191, 36, 0.3),
+                 0 0 45px rgba(255, 111, 0, 0.15);
+  }
+
+  /* Gooey Title - override all base styles */
+  h1.gooey-title-text {
+    font-family: 'Creepster', cursive !important;
+    font-size: 6rem !important;
+    line-height: 0.85 !important;
+    letter-spacing: 0.1em !important;
+    margin-bottom: 0 !important;
+    color: transparent !important;
+    background: linear-gradient(to bottom, #FBBF24, #FF6F00) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    filter: drop-shadow(0 5px 15px rgba(249, 115, 22, 0.5)) !important;
+  }
+  
+  @media (min-width: 768px) {
+    h1.gooey-title-text {
+      font-size: 12rem !important;
+    }
+  }
+
+  h2 {
+    @apply text-3xl mb-4 mt-12 text-ghost-orange;
+  }
+
+  h3 {
+    @apply text-2xl mb-3 mt-8 text-ghost-orange;
+  }
+
+  p {
+    @apply mb-4 text-ghost-white/80 text-base leading-relaxed;
+  }
+
+  p.lead {
+    @apply text-lg text-ghost-white/90 font-light mb-6;
+  }
+
+  /* List Styling */
+  ul, ol {
+    @apply mb-6 text-ghost-white/80 text-base leading-relaxed;
+  }
+
+  ul {
+    @apply list-none pl-0 space-y-3;
+  }
+
+  li {
+    @apply mb-0 pl-6 relative;
+  }
+
+  li::before {
+    content: "•";
+    @apply absolute left-0 text-ghost-orange font-bold text-lg;
+  }
+
+  li strong {
+    @apply text-ghost-orange font-semibold;
+  }
+
+  /* Nested lists */
+  li ul {
+    @apply mt-3 mb-0;
+  }
+
+  li ul li::before {
+    content: "◦";
+    @apply text-ghost-orange/70;
+  }
+
+  code {
+    @apply font-mono text-sm px-1.5 py-0.5 rounded text-ghost-orange border border-ghost-orange/20;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+
+  /* Prism.js Custom GhostUI Theme */
+  .token.comment,
+  .token.prolog,
+  .token.doctype,
+  .token.cdata {
+    color: rgba(230, 230, 230, 0.5);
+    font-style: italic;
+  }
+
+  .token.punctuation {
+    color: #e9d5ff;
+  }
+
+  .token.property,
+  .token.tag {
+    color: #FBBF24;
+  }
+
+  .token.boolean,
+  .token.number,
+  .token.constant,
+  .token.symbol {
+    color: #a855f7;
+  }
+
+  .token.deleted {
+    color: #ef4444;
+  }
+
+  .token.selector,
+  .token.attr-name,
+  .token.string,
+  .token.char,
+  .token.builtin,
+  .token.inserted {
+    color: #10b981;
+  }
+
+  .token.operator,
+  .token.entity,
+  .token.url,
+  .token.variable {
+    color: #e9d5ff;
+  }
+
+  .token.atrule,
+  .token.attr-value,
+  .token.keyword {
+    color: #a855f7;
+  }
+
+  .token.function {
+    color: #FBBF24;
+  }
+
+  .token.class-name {
+    color: var(--ghost-accent);
+  }
+
+  .token.regex {
+    color: #10b981;
+  }
+
+  .token.important {
+    color: #ef4444;
+    font-weight: bold;
+  }
+
+  /* Component name highlighting - PascalCase React components */
+  .component-name {
+    color: var(--ghost-accent);
+    font-weight: 500;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-ghost-dark;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-ghost-gray/50 rounded-full border-2 border-ghost-dark;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-ghost-orange/50;
+}
