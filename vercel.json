@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "npm install @rollup/rollup-linux-x64-gnu @tailwindcss/oxide-linux-x64-gnu lightningcss-linux-x64-gnu --no-save && npm run build:docs",
-  "installCommand": "npm install --include=dev",
+  "buildCommand": "npm run build:docs",
+  "installCommand": "npm install --include=dev && npm install @rollup/rollup-linux-x64-gnu @tailwindcss/oxide-linux-x64-gnu lightningcss-linux-x64-gnu --save-dev",
   "outputDirectory": "apps/docs/.next"
 }
