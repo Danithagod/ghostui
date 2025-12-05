@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm install @rollup/rollup-linux-x64-gnu --no-save && (cd packages/ghostui && npm run build) && (cd apps/docs && npm run build)",
+  "buildCommand": "echo '=== PWD ===' && pwd && echo '=== LS ===' && ls -la && echo '=== LS packages ===' && ls -la packages/ && echo '=== END DEBUG ==='",
   "devCommand": "npm run dev --workspace=docs",
   "installCommand": "npm install",
   "framework": null,
