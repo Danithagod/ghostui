@@ -40,6 +40,9 @@ docs/
 *.log
 .DS_Store
 
+# Keep build script
+!build-vercel.sh
+
 # Git
 .git/
 .gitignore

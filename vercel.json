@@ -1,5 +1,5 @@
 {
-  "buildCommand": "bash build-vercel.sh",
+  "buildCommand": "npm install @rollup/rollup-linux-x64-gnu --no-save && (cd packages/ghostui && npm run build) && (cd apps/docs && npm run build)",
   "devCommand": "npm run dev --workspace=docs",
   "installCommand": "npm install",
   "framework": null,
