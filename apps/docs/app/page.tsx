@@ -399,7 +399,7 @@ const Hero = ({ onGetStarted, onBrowseComponents, onSeeExamples }: HeroProps) =>
         </p>
 
         <p className="text-base text-ghost-white/60 md:text-lg max-w-2xl text-center">
-          31 production-ready components with supernatural animations, TypeScript support, and SSR compatibility.
+          24 production-ready components with supernatural animations, TypeScript support, and SSR compatibility.
         </p>
 
         {/* Buttons */}
@@ -419,7 +419,7 @@ const Hero = ({ onGetStarted, onBrowseComponents, onSeeExamples }: HeroProps) =>
         <div className="flex flex-wrap justify-center gap-8 text-ghost-white/70 text-sm pt-4">
           <div className="flex items-center gap-2">
             <Skull className="h-4 w-4 text-ghost-purple" />
-            <span>31 Components</span>
+            <span>24 Components</span>
           </div>
           <div className="flex items-center gap-2">
             <Flame className="h-4 w-4 text-ghost-blood" />
@@ -522,7 +522,7 @@ export default function HomePage() {
               Ready to Haunt Your App?
             </h2>
             <p className="mb-12 text-xl text-ghost-white/70 max-w-2xl mx-auto">
-              Explore 31 production-ready components and start building supernatural user experiences today
+              Explore 24 production-ready components and start building supernatural user experiences today
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <GooeyButton variant="slime" className="px-8 py-4 text-lg" onClick={handleGetStarted}>
