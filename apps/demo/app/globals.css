@@ -1,0 +1,60 @@
+@import "tailwindcss";
+@import "ghostui-react/styles.css";
+
+/* Ensure dark background from theme */
+body {
+  @apply bg-[var(--ghost-bg)] text-[var(--ghost-text)];
+  min-height: 100vh;
+}
+
+html {
+  @apply bg-[var(--ghost-bg)];
+}
+
+/* Custom Scrollbar Styling */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ghost-accent) transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 12px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+  margin: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--ghost-accent);
+  border-radius: 10px;
+  border: 3px solid var(--ghost-bg-secondary);
+  transition: background 0.2s ease;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--ghost-accent);
+  opacity: 0.8;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:active {
+  background: var(--ghost-accent);
+}
+
+/* Hide horizontal scrollbar globally */
+body {
+  overflow-x: hidden;
+}
+
+/* Hide horizontal scrollbar on all scrollable elements */
+*::-webkit-scrollbar:horizontal {
+  display: none;
+  height: 0;
+}
+
+* {
+  scrollbar-width: thin;
+  overflow-x: hidden;
+}

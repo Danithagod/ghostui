@@ -2,16 +2,9 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 import { GooeyButton, CoffinCard } from 'ghostui-react';
 import { Zap, Moon, Skull, Flame, Eye } from 'lucide-react';
-
-// Utility function
-function cn(...inputs: (string | undefined | null | false)[]) {
-  return inputs.filter(Boolean).join(' ');
-}
-
-
+import { usePageTransition } from '@/components/PageTransition';
 
 // Global Styles - exactly matching the original
 const GlobalStyles = () => (
@@ -378,7 +371,13 @@ const GooeyTitle = () => {
 };
 
 // Hero Section with title, description, and buttons all vertically centered
-const Hero = () => {
+interface HeroProps {
+  onGetStarted: () => void;
+  onBrowseComponents: () => void;
+  onSeeExamples: () => void;
+}
+
+const Hero = ({ onGetStarted, onBrowseComponents, onSeeExamples }: HeroProps) => {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 py-20 overflow-hidden">
       {/* Background Layers */}
@@ -405,21 +404,15 @@ const Hero = () => {
 
         {/* Buttons */}
         <div className="flex flex-wrap justify-center gap-4 pt-4">
-          <Link href="/docs/getting-started">
-            <GooeyButton variant="slime" className="px-8 py-4 text-lg">
-              Get Started
-            </GooeyButton>
-          </Link>
-          <Link href="/docs/components/gooey-button">
-            <GooeyButton variant="ectoplasm" className="px-8 py-4 text-lg">
-              View Components
-            </GooeyButton>
-          </Link>
-          <Link href="/docs/examples">
-            <GooeyButton variant="blood" className="px-8 py-4 text-lg">
-              See Examples
-            </GooeyButton>
-          </Link>
+          <GooeyButton variant="slime" className="px-8 py-4 text-lg" onClick={onGetStarted}>
+            Get Started
+          </GooeyButton>
+          <GooeyButton variant="ectoplasm" className="px-8 py-4 text-lg" onClick={onBrowseComponents}>
+            Browse Components
+          </GooeyButton>
+          <GooeyButton variant="blood" className="px-8 py-4 text-lg" onClick={onSeeExamples}>
+            See Examples
+          </GooeyButton>
         </div>
 
         {/* Quick Stats */}
@@ -447,12 +440,22 @@ const Hero = () => {
 
 // Main Page Component
 export default function HomePage() {
+  const { triggerTransition } = usePageTransition();
+
+  const handleGetStarted = () => triggerTransition('slime', '/docs/getting-started');
+  const handleBrowseComponents = () => triggerTransition('ectoplasm', '/docs/components/gooey-button');
+  const handleSeeExamples = () => triggerTransition('blood', '/docs/examples');
+
   return (
     <>
       <GlobalStyles />
       <div className="noise-bg" />
       <main className="bg-[#030005] min-h-screen selection:bg-orange-500/30 selection:text-white relative z-10">
-        <Hero />
+        <Hero 
+          onGetStarted={handleGetStarted}
+          onBrowseComponents={handleBrowseComponents} 
+          onSeeExamples={handleSeeExamples}
+        />
 
         {/* Features Section */}
         <section className="relative px-8 py-32">
@@ -522,16 +525,12 @@ export default function HomePage() {
               Explore 31 production-ready components and start building supernatural user experiences today
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Link href="/docs/getting-started">
-                <GooeyButton variant="blood" className="px-8 py-4 text-lg">
-                  Get Started Now
-                </GooeyButton>
-              </Link>
-              <Link href="/docs/components/gooey-button">
-                <GooeyButton variant="ectoplasm" className="px-8 py-4 text-lg">
-                  Browse Components
-                </GooeyButton>
-              </Link>
+              <GooeyButton variant="slime" className="px-8 py-4 text-lg" onClick={handleGetStarted}>
+                Get Started Now
+              </GooeyButton>
+              <GooeyButton variant="ectoplasm" className="px-8 py-4 text-lg" onClick={handleBrowseComponents}>
+                Browse Components
+              </GooeyButton>
             </div>
           </div>
         </section>

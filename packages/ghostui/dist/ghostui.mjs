@@ -3765,26 +3765,24 @@ const vr = {
             v.div,
             {
               id: a,
-              initial: { opacity: 0, y: 10, scale: 0.9 },
+              initial: { opacity: 0, scale: 0.9 },
               animate: {
                 opacity: 1,
-                y: -5,
                 scale: 1,
                 // Ghostly float animation
                 rotate: [0, -2, 2, 0],
                 x: [0, -2, 2, 0]
               },
-              exit: { opacity: 0, y: 10, scale: 0.9 },
+              exit: { opacity: 0, scale: 0.9 },
               transition: {
-                type: "spring",
-                damping: 20,
-                stiffness: 300,
+                opacity: { duration: 0.2 },
+                scale: { duration: 0.2 },
                 // Loop the float
                 rotate: { repeat: 1 / 0, duration: 2, ease: "easeInOut" },
                 x: { repeat: 1 / 0, duration: 3, ease: "easeInOut" }
               },
               className: b(
-                "absolute z-50 px-3 py-2 text-sm text-ghost-white bg-ghost-dark rounded-md shadow-lg whitespace-nowrap border",
+                "absolute z-50 px-3 py-2 text-sm text-ghost-white bg-ghost-dark rounded-md shadow-lg border max-w-xs",
                 u.border,
                 m[r],
                 n
@@ -6161,14 +6159,14 @@ const q = ({ variant: e, className: o, theme: r }) => {
   const s = X()?.theme ?? "spectral", i = Dt[s], l = O.useMemo(() => Yr(), []), a = o ? ke(o, e, s) : (
     // Default fallback layout when no children provided
     /* @__PURE__ */ p(W, { children: [
-      /* @__PURE__ */ p("div", { className: "flex items-start gap-4 mb-4", children: [
+      /* @__PURE__ */ p("div", { className: "flex items-start gap-4 mb-6", children: [
         /* @__PURE__ */ t(q, { variant: e, theme: s, className: "w-12 h-12 rounded-full flex-shrink-0" }),
-        /* @__PURE__ */ p("div", { className: "flex-1 space-y-2", children: [
+        /* @__PURE__ */ p("div", { className: "flex-1 space-y-3", children: [
           /* @__PURE__ */ t(q, { variant: e, theme: s, className: "h-4 w-3/4" }),
           /* @__PURE__ */ t(q, { variant: e, theme: s, className: "h-3 w-1/2" })
         ] })
       ] }),
-      /* @__PURE__ */ p("div", { className: "space-y-3", children: [
+      /* @__PURE__ */ p("div", { className: "space-y-4", children: [
         /* @__PURE__ */ t(q, { variant: e, theme: s, className: "h-3 w-full" }),
         /* @__PURE__ */ t(q, { variant: e, theme: s, className: "h-3 w-5/6" }),
         /* @__PURE__ */ t(q, { variant: e, theme: s, className: "h-3 w-4/5" })
@@ -6241,11 +6239,35 @@ const q = ({ variant: e, className: o, theme: r }) => {
           100% { transform: translateX(-10%); opacity: 0.3; }
         }
 
+        .${l}.skeleton-flow-container {
+          animation: skeleton-flow-wave 6s ease-in-out infinite;
+        }
+
+        @keyframes skeleton-flow-wave {
+          0%, 100% { 
+            transform: translateY(0px);
+            box-shadow: 0 0 20px ${i.accent}15, 0 4px 20px rgba(0,0,0,0.3), inset 0 0 30px ${i.accent}08;
+          }
+          25% { 
+            transform: translateY(-2px);
+            box-shadow: 0 0 24px ${i.accent}20, 0 6px 24px rgba(0,0,0,0.35), inset 0 0 35px ${i.accent}12;
+          }
+          50% { 
+            transform: translateY(0px);
+            box-shadow: 0 0 20px ${i.accent}15, 0 4px 20px rgba(0,0,0,0.3), inset 0 0 30px ${i.accent}08;
+          }
+          75% { 
+            transform: translateY(2px);
+            box-shadow: 0 0 16px ${i.accent}12, 0 2px 16px rgba(0,0,0,0.25), inset 0 0 25px ${i.accent}06;
+          }
+        }
+
         @media (prefers-reduced-motion: reduce) {
           .${l} .skeleton-sweep,
           .${l} .skeleton-flicker,
           .${l} .skeleton-fog-overlay,
-          .${l} .skeleton-scan::after {
+          .${l} .skeleton-scan::after,
+          .${l}.skeleton-flow-container {
             animation: none;
           }
         }
@@ -6255,7 +6277,7 @@ const q = ({ variant: e, className: o, theme: r }) => {
       {
         className: b(
           l,
-          "relative p-6 rounded-2xl border shadow-lg",
+          "relative p-6 rounded-2xl border shadow-lg skeleton-flow-container",
           r
         ),
         style: {

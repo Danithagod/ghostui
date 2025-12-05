@@ -95,26 +95,24 @@ export const SpookyTooltip = React.forwardRef<HTMLDivElement, SpookyTooltipProps
                 {isVisible && (
                     <motion.div
                         id={tooltipId}
-                        initial={{ opacity: 0, y: 10, scale: 0.9 }}
+                        initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ 
                             opacity: 1, 
-                            y: -5, 
                             scale: 1,
                             // Ghostly float animation
                             rotate: [0, -2, 2, 0],
                             x: [0, -2, 2, 0]
                         }}
-                        exit={{ opacity: 0, y: 10, scale: 0.9 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
                         transition={{
-                            type: "spring",
-                            damping: 20,
-                            stiffness: 300,
+                            opacity: { duration: 0.2 },
+                            scale: { duration: 0.2 },
                             // Loop the float
                             rotate: { repeat: Infinity, duration: 2, ease: "easeInOut" },
                             x: { repeat: Infinity, duration: 3, ease: "easeInOut" }
                         }}
                         className={cn(
-                            "absolute z-50 px-3 py-2 text-sm text-ghost-white bg-ghost-dark rounded-md shadow-lg whitespace-nowrap border",
+                            "absolute z-50 px-3 py-2 text-sm text-ghost-white bg-ghost-dark rounded-md shadow-lg border max-w-xs",
                             colors.border,
                             positionStyles[position],
                             className
