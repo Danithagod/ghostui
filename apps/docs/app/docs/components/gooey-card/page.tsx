@@ -52,7 +52,7 @@ export default function GooeyCardPage() {
  <span className="px-3 py-1 bg-white/10 rounded-full text-sm text-white/90">Achievement Unlocked</span>
  </div>
  </div>
- </GooeyCard>} code={basicUsageCode} api={<PropsTable props={props} />} className="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide" />
+ </GooeyCard>} code={basicUsageCode} api={<PropsTable props={props} />} previewClassName="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide" />
 
  <h2 className="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide">How It Works</h2>
 
@@ -110,7 +110,7 @@ export default function GooeyCardPage() {
  This card uses the default purple liquid color.
  </p>
  </div>
- </GooeyCard>} code={basicUsageCode} className="text-xl md:text-2xl font-semibold text-ghost-white" />
+ </GooeyCard>} code={basicUsageCode} previewClassName="text-xl md:text-2xl font-semibold text-ghost-white" />
 
  <h2 className="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide">Manual Theme Override</h2>
 

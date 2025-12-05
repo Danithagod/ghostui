@@ -114,7 +114,7 @@ export default function GraveModalPage() {
  </tbody>
  </table>
  </div>
- </div>} className="text-xl md:text-2xl font-semibold text-ghost-white" />
+ </div>} previewClassName="text-xl md:text-2xl font-semibold text-ghost-white" />
 
  <section className="space-y-6 mt-12">
  <h2 className="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide">Custom Content</h2>
@@ -196,7 +196,7 @@ export default function GraveModalPage() {
    </GraveModal>
    </>
   );
- }`} className="py-12 or p-8 or p-6 border-ghost-orange/30 rounded-lg" />
+ }`} previewClassName="py-12 or p-8 or p-6 border-ghost-orange/30 rounded-lg" />
  </section>
  </div>;
 }

@@ -93,7 +93,7 @@ export default function BloodSmearPage() {
  </p>
  </div>
  </div>
- </div>} className="md:text-2xl text-xl font-semibold text-ghost-white p-8 border-ghost-orange/30" />
+ </div>} previewClassName="md:text-2xl text-xl font-semibold text-ghost-white p-8 border-ghost-orange/30" />
 
  {/* Additional Examples Section */}
  <div className="space-y-6 mt-12">
@@ -147,7 +147,7 @@ export default function BloodSmearPage() {
  </p>
  </div>
  </div>
- </div>} className="md:text-2xl p-8 border-ghost-orange/30 text-xl font-semibold text-ghost-white" />
+ </div>} previewClassName="md:text-2xl p-8 border-ghost-orange/30 text-xl font-semibold text-ghost-white" />
  </div>
 
  {/* Usage Notes Section */}

@@ -77,7 +77,7 @@ const getAnimationVariants = (placement: DrawerPlacement) => {
       scale: 1.0,
       opacity: 1,
       transition: {
-        type: 'spring',
+        type: 'spring' as const,
         damping: 25,
         stiffness: 180,
         mass: 0.8,
@@ -90,7 +90,7 @@ const getAnimationVariants = (placement: DrawerPlacement) => {
       opacity: 0,
       transition: {
         duration: 0.3,
-        ease: 'anticipate',
+        ease: 'anticipate' as const,
       },
     },
   };

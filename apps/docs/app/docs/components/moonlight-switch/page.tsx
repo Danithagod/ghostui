@@ -116,7 +116,7 @@ export default function MoonlightSwitchDemo() {
    />
    </div>
   );
- }`} api={<PropsTable props={props} />} className="text-3xl md:text-4xl lg:text-5xl font-display text-ghost-orange tracking-wide" />
+ }`} api={<PropsTable props={props} />} />
 
  <div className="prose prose-invert max-w-none px-8">
  <h2 className="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide">Basic Usage</h2>
@@ -167,7 +167,7 @@ export default function MoonlightSwitchDemo() {
  function MyComponent() {
   const { theme, setTheme, toggleTheme } = useTheme();
   return <p>Current theme: {theme}</p>;
- }`} className="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide" />
+ }`} previewClassName="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide" />
 
  <h3 className="text-xl md:text-2xl font-semibold text-ghost-white">Controlled vs Uncontrolled</h3>
 

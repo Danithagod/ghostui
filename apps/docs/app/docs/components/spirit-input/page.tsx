@@ -189,7 +189,7 @@ export default function SpiritInputPage() {
    ghostIcon
    />
   );
- }`} className="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide" />
+ }`} previewClassName="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide" />
 
  <h3 className="text-xl md:text-2xl font-semibold text-ghost-white">Ghost Icon with Error</h3>
 
@@ -254,7 +254,7 @@ export default function SpiritInputPage() {
    />
    </>
   );
- }`} className="text-xl md:text-2xl font-semibold text-ghost-white" />
+ }`} previewClassName="text-xl md:text-2xl font-semibold text-ghost-white" />
 
  <p className="text-ghost-white/80 text-sm mt-4">
  <strong>Preserved Behaviors:</strong> All custom styling preserves the core component
@@ -303,7 +303,7 @@ export default function SpiritInputPage() {
    />
    </>
   );
- }`} className="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide" />
+ }`} previewClassName="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide" />
 
  <p className="text-ghost-white/80 text-sm mt-4">
  <strong>Best Practices:</strong> When customizing the SpiritInput, avoid overriding
@@ -413,7 +413,7 @@ export default function SpiritInputPage() {
    </button>
    </form>
   );
- }`} className="text-xl md:text-2xl font-semibold text-ghost-white" />
+ }`} previewClassName="text-xl md:text-2xl font-semibold text-ghost-white" />
 
  <p className="text-ghost-white/80 text-sm mt-4">
  <strong>Form Validation:</strong> The example above demonstrates real-time validation

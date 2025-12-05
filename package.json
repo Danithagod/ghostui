@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:package": "npm run build --workspace=packages/ghostui",
+    "build:demo": "npm run build:package && npm run build --workspace=apps/demo",
+    "build:docs": "npm run build:package && npm run build --workspace=apps/docs",
+    "build:all": "npm run build:package && npm run build --workspace=apps/demo && npm run build --workspace=apps/docs",
+    "vercel-build": "npm run build:docs"
   },
   "keywords": [],
   "author": "",

@@ -132,7 +132,7 @@ export default function GooeyProgressBarPage() {
  <div className="w-full max-w-md">
  <GooeyProgressBar value={80} variant="candle" />
  </div>
- </div>} code={`<GooeyProgressBar value={80} variant="candle" />`} className="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide" />
+ </div>} code={`<GooeyProgressBar value={80} variant="candle" />`} previewClassName="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide" />
  </div>
 
  {/* Soul Variant */}
@@ -237,7 +237,7 @@ export default function GooeyProgressBarPage() {
    </GooeyButton>
    </div>
   );
- }`} className="md:text-3xl text-ghost-orange tracking-wide text-xl md:text-2xl font-semibold text-ghost-white" />
+ }`} previewClassName="md:text-3xl text-ghost-orange tracking-wide text-xl md:text-2xl font-semibold text-ghost-white" />
  </div>
 
  {/* Custom className */}
@@ -339,7 +339,7 @@ export default function GooeyProgressBarPage() {
    </div>
    </div>
   );
- }`} className="text-xl md:text-2xl font-semibold text-ghost-white border-ghost-orange/30" />
+ }`} previewClassName="text-xl md:text-2xl font-semibold text-ghost-white border-ghost-orange/30" />
  </div>
  </div>
 

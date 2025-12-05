@@ -277,7 +277,7 @@ export default function WhisperBoxPage() {
    ({ ...prev, subject: e.target.value.length })
   )}
   rows={2}
-  className="w-full min-h-[100px]"
+  previewClassName="w-full min-h-[100px]"
   />
   <div className="text-xs text-right">
   {charCounts.subject} / 150
@@ -297,7 +297,7 @@ export default function WhisperBoxPage() {
   ({ ...prev, message: e.target.value.length })
  )}
  rows={8}
- className="w-full min-h-[240px]"
+ previewClassName="w-full min-h-[240px]"
  />
  <div className="text-xs text-right">
  {charCounts.message} / 1000

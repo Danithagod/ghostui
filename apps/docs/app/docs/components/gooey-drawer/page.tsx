@@ -339,7 +339,7 @@ function BasicUsageDemo({
  </div>
  </div>
  </GooeyDrawer>
- </>} code={code} api={<PropsTable props={props} className="py-12 or p-8 or p-6 border-ghost-orange/30" />} className="md:text-2xl text-ghost-white p-8 border-ghost-orange/30 text-xl font-semibold" />;
+ </>} code={code} api={<PropsTable props={props} className="py-12 or p-8 or p-6 border-ghost-orange/30" />} previewClassName="md:text-2xl text-ghost-white p-8 border-ghost-orange/30 text-xl font-semibold" />;
 }
 
 // Interactive demo component for placement options
@@ -435,7 +435,7 @@ function PlacementDemo() {
  </div>
  </div>
  </GooeyDrawer>
- </>} code={placementCode} className="text-xl md:text-2xl font-semibold text-ghost-white p-8 border-ghost-orange/30" />;
+ </>} code={placementCode} previewClassName="text-xl md:text-2xl font-semibold text-ghost-white p-8 border-ghost-orange/30" />;
 }
 
 // Interactive demo component for custom content examples
@@ -720,7 +720,7 @@ function CustomContentDemo() {
  </button>
  </form>
  </GooeyDrawer>
- </>} code={formCode} className="text-xl md:text-2xl font-semibold text-ghost-white" />
+ </>} code={formCode} previewClassName="text-xl md:text-2xl font-semibold text-ghost-white" />
  </div>
 
  {/* Notifications Example */}
@@ -778,7 +778,7 @@ function CustomContentDemo() {
  </div>)}
  </div>
  </GooeyDrawer>
- </>} code={notificationsCode} className="text-xl md:text-2xl font-semibold text-ghost-white p-8 border-ghost-orange/30" />
+ </>} code={notificationsCode} previewClassName="text-xl md:text-2xl font-semibold text-ghost-white p-8 border-ghost-orange/30" />
  </div>
 
  {/* Scrollable Content Example */}
@@ -811,7 +811,7 @@ function CustomContentDemo() {
  </div>)}
  </div>
  </GooeyDrawer>
- </>} code={scrollableCode} className="text-xl md:text-2xl font-semibold text-ghost-white p-8 border-ghost-orange/30" />
+ </>} code={scrollableCode} previewClassName="text-xl md:text-2xl font-semibold text-ghost-white p-8 border-ghost-orange/30" />
  </div>
  </div>;
 }
@@ -1151,7 +1151,7 @@ Logout
 </button>
 </div>
 </GooeyDrawer>
-</>} code={navigationDrawerCode} className="text-xl md:text-2xl text-ghost-white p-8 border-ghost-orange/30 rounded-lg" />
+</>} code={navigationDrawerCode} previewClassName="text-xl md:text-2xl text-ghost-white p-8 border-ghost-orange/30 rounded-lg" />
 </div>
 
 {/* Notification Panel Example */}
@@ -1245,7 +1245,7 @@ Mark as read
 </div>
 </div>
 </GooeyDrawer>
-</>} code={notificationPanelCode} className="md:text-2xl text-ghost-white space-y-12 rounded-lg text-xl font-semibold" />
+</>} code={notificationPanelCode} previewClassName="md:text-2xl text-ghost-white space-y-12 rounded-lg text-xl font-semibold" />
 </div>
 
 </div>;

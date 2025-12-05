@@ -80,7 +80,7 @@ export default function GooeySidebarPage() {
  // The demo includes:
  // - Theme-aware sidebar with goo effects
  // - Content area that updates based on selection
- // - Smooth transitions between sections`} className="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide" />
+ // - Smooth transitions between sections`} previewClassName="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide" />
 
  <h2 className="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide">Theme Support</h2>
 
@@ -109,7 +109,7 @@ export default function GooeySidebarPage() {
  Each menu item needs an <code>id</code>, <code>label</code>, and optionally an <code>icon</code>:
  </p>
 
- <ComponentPlayground preview={<CustomMenuExample className="text-xl md:text-2xl font-semibold text-ghost-white" />} code={`import { GooeySidebar } from 'ghostui-react';
+ <ComponentPlayground preview={<CustomMenuExample />} previewClassName="text-xl md:text-2xl font-semibold text-ghost-white" code={`import { GooeySidebar } from 'ghostui-react';
  import { Home, Users, FileText, Settings, Bell, Calendar } from 'lucide-react';
 
  const menuItems = [
@@ -173,7 +173,7 @@ export default function GooeySidebarPage() {
    </div>
    </div>
   );
- }`} className="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide" />
+ }`} previewClassName="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide" />
 
  <h2 className="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide">Menu Items Without Icons</h2>
 
@@ -215,7 +215,7 @@ export default function GooeySidebarPage() {
 
  export default function NoIconsExample() {
   return <GooeySidebar menuItems={items} />;
- }`} className="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide" />
+ }`} previewClassName="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide" />
 
  <h2 className="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide">Teardrop Animation System</h2>
 

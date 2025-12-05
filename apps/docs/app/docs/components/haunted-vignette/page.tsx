@@ -186,7 +186,7 @@ export default function HauntedVignettePage() {
    </HauntedCard>
    </div>
   );
- }`} api={<PropsTable props={cardPropsData} className="text-xl md:text-2xl font-semibold text-ghost-white" />} className="md:text-2xl font-semibold rounded-lg text-xl text-ghost-white" />
+ }`} api={<PropsTable props={cardPropsData} className="text-xl md:text-2xl font-semibold text-ghost-white" />} previewClassName="md:text-2xl font-semibold rounded-lg text-xl text-ghost-white" />
 
 
  {/* Flashlight Overlay */}
@@ -224,7 +224,7 @@ export default function HauntedVignettePage() {
    </div>
    </div>
   );
- }`} api={<PropsTable props={vignettePropsData} />} className="text-xl md:text-2xl font-semibold text-ghost-white" />
+ }`} api={<PropsTable props={vignettePropsData} />} previewClassName="text-xl md:text-2xl font-semibold text-ghost-white" />
  </section>
 
  {/* Custom Timing */}
@@ -286,7 +286,7 @@ export default function HauntedVignettePage() {
    </HauntedCard>
    </div>
   );
- }`} className="text-xl md:text-2xl font-semibold text-ghost-white border-ghost-orange/30 rounded-lg" />
+ }`} previewClassName="text-xl md:text-2xl font-semibold text-ghost-white border-ghost-orange/30 rounded-lg" />
 
  <div className="p-8 border-ghost-orange/30">
  <p className="text-ghost-white/80 text-sm">
@@ -350,7 +350,7 @@ export default function HauntedVignettePage() {
    </HauntedCard>
    </div>
   );
- }`} className="text-xl md:text-2xl font-semibold text-ghost-white p-8 border-ghost-orange/30" />
+ }`} previewClassName="text-xl md:text-2xl font-semibold text-ghost-white p-8 border-ghost-orange/30" />
  </section>
 
 
@@ -417,7 +417,7 @@ export default function HauntedVignettePage() {
    </HauntedCard>
    </div>
   );
- }`} className="py-12 or p-8 or border-ghost-orange/30 rounded-lg text-xl md:text-2xl font-semibold text-ghost-white" />
+ }`} previewClassName="py-12 or p-8 or border-ghost-orange/30 rounded-lg text-xl md:text-2xl font-semibold text-ghost-white" />
  </section>
 
  {/* Accessibility */}

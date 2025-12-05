@@ -71,7 +71,7 @@ export default function CoffinCardPage() {
  <span className="text-purple-400 text-2xl">👻</span>
  </div>
  <p>Card content here</p>
- </CoffinCard>`} api={<PropsTable props={props} />} className="py-12 or p-8 or p-6 border-ghost-orange/30 rounded-lg" />
+ </CoffinCard>`} api={<PropsTable props={props} />} previewClassName="py-12 or p-8 or p-6 border-ghost-orange/30 rounded-lg" />
 
  <h2 className="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide">Usage</h2>
 
@@ -121,7 +121,7 @@ export default function CoffinCardPage() {
  // Disable glow
  <CoffinCard showGlow={false}>
  <p>No glow effect</p>
- </CoffinCard>`} className="text-2xl md:text-3xl text-ghost-orange tracking-wide font-display" />
+ </CoffinCard>`} previewClassName="text-2xl md:text-3xl text-ghost-orange tracking-wide font-display" />
 
  <h2 className="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide">Theme-Reactive Colors</h2>
 

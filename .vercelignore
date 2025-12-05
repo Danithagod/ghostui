@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+
+# Build artifacts
+dist/
+.next/
+out/
+build/
+*.tsbuildinfo
+
+# Test files
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+**/__tests__/
+**/test/
+coverage/
+.nyc_output/
+
+# Development configs
+vitest.config.ts
+vitest.setup.ts
+jest.config.js
+jest.setup.js
+.eslintrc*
+eslint.config.*
+
+# Documentation and markdown (except root README)
+*.md
+!README.md
+docs/
+.kiro/
+
+# Development files
+.env.local
+.env.development
+.vscode/
+.idea/
+*.log
+.DS_Store
+
+# Git
+.git/
+.gitignore
+.gitattributes
+.githooks/
+.github/

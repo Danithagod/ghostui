@@ -72,7 +72,7 @@ export default function SpectralRiverPage() {
    </tbody>
    </table>
    </div>
-   </div>} className="text-xl md:text-2xl font-semibold text-ghost-white" />
+   </div>} previewClassName="text-xl md:text-2xl font-semibold text-ghost-white" />
 
    <section className="space-y-6 mt-12">
    <h2 className="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide">Page Transitions</h2>

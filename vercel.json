@@ -1,0 +1,14 @@
+{
+  "buildCommand": "npm run vercel-build",
+  "devCommand": "npm run dev --workspace=apps/docs",
+  "installCommand": "npm install",
+  "framework": null,
+  "outputDirectory": "apps/docs/.next",
+  "nodeVersion": "20.x",
+  "github": {
+    "enabled": true,
+    "autoAlias": true,
+    "silent": false,
+    "autoJobCancelation": true
+  }
+}

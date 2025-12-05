@@ -2,20 +2,21 @@
   "name": "ghostui-react",
   "version": "3.0.0",
   "description": "Spectral React Component Library",
-  "main": "./dist/ghostui.umd.js",
-  "module": "./dist/ghostui.es.js",
+  "main": "./dist/ghostui.js",
+  "module": "./dist/ghostui.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/ghostui.mjs",
-      "require": "./dist/ghostui.umd.js"
+      "require": "./dist/ghostui.js"
     },
     "./styles.css": "./dist/ghostui-react.css",
     "./tailwind-preset": "./tailwind-preset.js"
   },
   "files": [
-    "dist"
+    "dist",
+    "tailwind-preset.js"
   ],
   "scripts": {
     "dev": "vite",

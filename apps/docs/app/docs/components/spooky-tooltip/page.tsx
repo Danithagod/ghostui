@@ -85,7 +85,7 @@ export default function SpookyTooltipPage() {
 
  <SpookyTooltip content="Right position" position="right">
  <GooeyButton>Right</GooeyButton>
- </SpookyTooltip>`} className="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide" />
+ </SpookyTooltip>`} previewClassName="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide" />
 
  <h2 className="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide">Simple String Content</h2>
 
@@ -113,7 +113,7 @@ export default function SpookyTooltipPage() {
 
  <SpookyTooltip content="Cancel and return">
  <GooeyButton variant="ectoplasm">Cancel</GooeyButton>
- </SpookyTooltip>`} className="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide" />
+ </SpookyTooltip>`} previewClassName="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide" />
 
  <h2 className="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide">Complex Content</h2>
 
@@ -164,7 +164,7 @@ export default function SpookyTooltipPage() {
  position="bottom"
  >
  <GooeyButton variant="blood">Delete All</GooeyButton>
- </SpookyTooltip>`} className="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide" />
+ </SpookyTooltip>`} previewClassName="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide" />
 
  <h2 className="text-2xl md:text-3xl font-display text-ghost-orange tracking-wide">Custom Styling</h2>
 

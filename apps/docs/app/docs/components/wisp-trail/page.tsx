@@ -128,7 +128,7 @@ export default function WispTrailPage() {
  <WispTrail color="#90FFB5" particleCount={3} />
 
  // Dense trail
- <WispTrail color="#90FFB5" particleCount={6} />`} className="space-y-12" />
+ <WispTrail color="#90FFB5" particleCount={6} />`} previewClassName="space-y-12" />
  </section>
 
  {/* Usage Examples Section */}
