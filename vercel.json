@@ -1,6 +1,6 @@
 {
-  "buildCommand": "echo '=== PWD ===' && pwd && echo '=== LS ===' && ls -la && echo '=== LS packages ===' && ls -la packages/ && echo '=== END DEBUG ==='",
-  "devCommand": "npm run dev --workspace=docs",
+  "buildCommand": "npm install @rollup/rollup-linux-x64-gnu --no-save && npm run build:docs",
+  "devCommand": "npm run dev --workspace=apps/docs",
   "installCommand": "npm install",
   "framework": null,
   "outputDirectory": "apps/docs/.next",
