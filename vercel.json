@@ -1,12 +1,11 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm install @rollup/rollup-linux-x64-gnu @tailwindcss/oxide-linux-x64-gnu lightningcss-linux-x64-gnu --no-save && npm run build:docs",
-  "devCommand": "npm run dev --workspace=apps/docs",
   "installCommand": "npm install",
   "outputDirectory": "apps/docs/.next",
-  "github": {
-    "enabled": true,
-    "autoAlias": true,
-    "silent": false,
-    "autoJobCancelation": true
+  "functions": {
+    "apps/docs/**/*.js": {
+      "runtime": "nodejs20.x"
+    }
   }
 }
