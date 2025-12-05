@@ -24,10 +24,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
       
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm ci --force
+          npm rebuild
       
       - name: Run package tests
         run: npm test --workspace=packages/ghostui
@@ -52,10 +53,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
       
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm ci --force
+          npm rebuild
       
       - name: Build package
         run: npm run build --workspace=packages/ghostui
@@ -83,10 +85,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
       
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm ci --force
+          npm rebuild
       
       - name: Build package
         run: npm run build --workspace=packages/ghostui
@@ -114,10 +117,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
       
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm ci --force
+          npm rebuild
       
       - name: Build package
         run: npm run build:package
@@ -164,10 +168,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
       
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm ci --force
+          npm rebuild
       
       - name: Lint package
         run: npm run lint --workspace=packages/ghostui
