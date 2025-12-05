@@ -1,47 +1,5 @@
-# Dependencies
+# Dependencies - these are reinstalled during build
 node_modules/
-
-# Build artifacts
-dist/
-.next/
-out/
-build/
-*.tsbuildinfo
-
-# Test files
-**/*.test.ts
-**/*.test.tsx
-**/*.spec.ts
-**/*.spec.tsx
-**/__tests__/
-**/test/
-coverage/
-.nyc_output/
-
-# Development configs
-vitest.config.ts
-vitest.setup.ts
-jest.config.js
-jest.setup.js
-.eslintrc*
-eslint.config.*
-
-# Documentation and markdown (except root README)
-*.md
-!README.md
-docs/
-.kiro/
-
-# Development files
-.env.local
-.env.development
-.vscode/
-.idea/
-*.log
-.DS_Store
-
-# Keep build script
-!build-vercel.sh
 
 # Git
 .git/
@@ -49,3 +7,24 @@ docs/
 .gitattributes
 .githooks/
 .github/
+
+# IDE and editor files
+.vscode/
+.idea/
+.DS_Store
+
+# Kiro
+.kiro/
+
+# Test files
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+**/__tests__/
+coverage/
+
+# Local environment files
+.env.local
+.env.development
+*.log
