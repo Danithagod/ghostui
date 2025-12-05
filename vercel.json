@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm install @rollup/rollup-linux-x64-gnu --no-save && npm run build --workspace=ghostui-react && npm run build --workspace=docs",
+  "buildCommand": "npm install @rollup/rollup-linux-x64-gnu --no-save && npm run build --workspace=ghostui-react && cd apps/docs && npm run build",
   "devCommand": "npm run dev --workspace=docs",
   "installCommand": "npm install",
   "framework": null,
