@@ -1,6 +1,6 @@
 {
-  "buildCommand": "npm run build --workspace=packages/ghostui && npm run build --workspace=apps/docs",
-  "devCommand": "npm run dev --workspace=apps/docs",
+  "buildCommand": "npm run build --workspace=ghostui-react && npm run build --workspace=docs",
+  "devCommand": "npm run dev --workspace=docs",
   "installCommand": "npm install",
   "framework": null,
   "outputDirectory": "apps/docs/.next",
